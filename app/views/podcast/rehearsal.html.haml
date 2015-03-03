@@ -1,0 +1,23 @@
+%table{:border => "0", :width => "500"}
+  - priv_date = nil
+  - @list.each do |item|
+    - if item[:update] < Date::today - 30
+      - next
+    - if priv_date.nil? || priv_date != item[:update].strftime('%m/%d')
+      - priv_date = item[:update].strftime('%m/%d')
+      %tr
+        %td= priv_date
+    %tr
+      %td
+        %table{:border => "0", :width => "500"}
+          %tr
+            %td{:width => "20"}  
+            %td{:width => "480"}
+              = item[:title]
+          %tr
+            %td{:width => "20"}  
+            %td{:width => "480"}
+              %audio{:controls => "", :preload => "", :src => "http://priv.hal.mu/sharedfiles/" + item[:file]}
+                audio タグ未対応です。
+                %a{:href => "http://priv.hal.mu/sharedfiles/" + item[:file]}> ここ
+                をクリックすると聞けます。

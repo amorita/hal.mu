@@ -1,0 +1,21 @@
+%p#notice= notice
+
+%p
+  %b Practice pln:
+  = @nontan.practice_pln_id
+%p
+  %b Part:
+  = @nontan.part_id
+%p
+  %b User name:
+  = @nontan.user_name
+%p
+  %b Subs name:
+  = @nontan.subs_name
+%p
+  %b Reason:
+  = @nontan.reason
+
+= link_to 'Edit', edit_nontan_path(@nontan)
+\|
+= link_to 'Back', nontans_path

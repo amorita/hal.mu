@@ -1,0 +1,20 @@
+.container
+  %h1 練習会場一覧
+
+  %table.table
+    %tr
+      %th #
+      %th 名称
+      %th 住所
+      %th
+    - @practice_places.each do |place|
+      %tr
+        %td= place.id.to_s
+        %td= place.place_name
+        %td
+          = place.address
+        %td
+          = button_to '編集', edit_practice_place_path(place), :class => "btn btn-info", :method => 'get'
+          = button_to '抹消', place, method: :delete, data: { confirm: 'もう使わないと思ってもまた使うことって意外とあるんですよね…。' }, :class => "btn btn-danger"
+        
+  = button_to '会場の新規登録', new_practice_place_path, :class => "btn btn-default", :method => 'get'

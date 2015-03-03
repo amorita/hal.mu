@@ -1,0 +1,36 @@
+- days = ["日","月","火","水","木","金","土"]
+- date = Date.today()
+
+- @practice_plns.each do |pln|
+  - if date != pln.pln_date 
+    - date = pln.pln_date
+    .row
+      .col-md-12.bg-info
+        %h4
+          = pln.pln_date.strftime("%m").to_i.to_s + "月"
+          = pln.pln_date.strftime("%d").to_i.to_s + "日"
+          - day = pln.pln_date.strftime("%w").to_i
+          - if day == 0
+            %font{:color => "red"}
+              = days[day] + "曜日"
+          - elsif day == 6
+            %font{:color => "blue"}
+              = days[day] + "曜日"
+          - else
+            = days[day] + "曜日"
+  .bs-callout.bs-callout-info
+    .col-sm-6.col-xs-12
+      %h4
+        = (pln.begining / 100).to_s + ":00 ~ " + (pln.ending / 100).to_s + ":00 "
+        = pln.practice_mode.name
+      %p
+        = pln.practice_place.place_name + " " + pln.room
+      
+    .col-sm-6.col-xs-12
+      %p  
+        = simple_format pln.description 
+    .clearfix
+  - if pln.mode == 20
+    .bs-callout.bs-callout-warning.col-md-12
+      %h4
+        ここより次期

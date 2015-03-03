@@ -1,0 +1,4 @@
+<% @tweets.each do |tweet| %>
+	<%= tweet.text.tr(/(?<hash>#[^\s]+)/, '<a href="\k<hash>">\k<hash><\/a>')   %>
+	<#%= raw text %><br />
+<% end %>

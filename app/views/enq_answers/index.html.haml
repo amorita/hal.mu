@@ -1,0 +1,31 @@
+.container
+  %h1 アンケート情報一覧
+
+  %table.table.table-striped
+    %tr
+      %th #
+      %th 回次
+      %th 性別
+      %th 年代
+      %th 所要時間
+      %th 居住地域
+      %th 情報ソース
+      %th
+      %th
+
+    - @enq_answers.each_with_index do |enq_answer, idx|
+      %tr
+        %td= (idx + 1).to_s
+        %td= "第" + enq_answer.concert_no.to_s + "回"
+        %td= enq_answer.enq_gender.nil? ? "入力なし" : enq_answer.enq_gender.title
+        %td= enq_answer.enq_age.nil? ? "入力なし" : enq_answer.enq_age.title
+        %td= enq_answer.enq_time_req.nil? ? "入力なし" : enq_answer.enq_time_req.title
+        %td= enq_answer.enq_district.nil? ? "入力なし" : enq_answer.enq_district.title
+        %td= enq_answer.enq_source.nil? ? "入力なし" : enq_answer.enq_source.title
+        %td= link_to '表示', enq_answer
+        %td= link_to '削除', enq_answer, :method => :delete, :data => { :confirm => 'いいんですかー？消しちゃっていいんですかー？？' }
+
+    %br
+  .form-group
+    = button_to '新規登録', new_enq_answer_path, :method => 'get', :class => "btn btn-info"
+    = button_to 'CSV出力', enq_answers_path + '.csv', :method => 'get', :class => "btn"

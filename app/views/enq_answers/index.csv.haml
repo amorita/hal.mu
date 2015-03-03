@@ -1,0 +1,3 @@
+concert_no,gender,age,time_req,district,source,memo
+- @enq_answers.each_with_index do |enq_answer, idx|
+  = raw enq_answer.concert_no.to_s + ',"' + (enq_answer.enq_gender.nil? ? "入力なし" : enq_answer.enq_gender.title) + '","' + (enq_answer.enq_age.nil? ? "入力なし" : enq_answer.enq_age.title) + '","' + (enq_answer.enq_time_req.nil? ? "入力なし" : enq_answer.enq_time_req.title) + '","' + (enq_answer.enq_district.nil? ? "入力なし" : enq_answer.enq_district.title) + '","' + (enq_answer.enq_source.nil? ? "入力なし" : enq_answer.enq_source.title) + '","' + (enq_answer.memo.nil? ? "" : enq_answer.memo) + '"'

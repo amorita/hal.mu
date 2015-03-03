@@ -1,0 +1,98 @@
+- parts = Part.all.order :id
+
+.bs-callout.bs-callout-default
+  %h4
+    こんばんは。
+  %p
+    Orchestra HALから明日の練習のお知らせです。
+    %br
+    練習の内容と、欠席・遅刻・早退の方は以下のとおりです。
+    %span.text-danger
+      このメール送信後に変更がある場合も
+      = link_to "3Aに登録", "http://r.hal.mu/aaa/"
+      をしたうえで連絡するようにしてください。
+
+- @plns.each_with_index do |pln, idx|
+  - if @plns.length > 1
+    %h4
+      = "練習 その" + (idx + 1).to_s
+  .bs-callout.bs-callout-info
+    %h4
+      = pln.practice_mode.name
+    %p
+      %table.table
+        %tr
+          %td
+            .col-md-3.col-sm3.col-xs-12
+              %strong
+                会場
+            .col-md-9.col-sm9.hidden-xs
+              = pln.practice_place.place_name + " " + pln.room
+              %span.small
+                = link_to "(地図を開く)", pln.practice_place.map_url
+            .visible-xs.col-xs-12
+              = pln.practice_place.place_name + " " + pln.room
+              .small.text-right
+                = link_to "(地図を開く)", pln.practice_place.map_url
+        %tr
+          %td
+            .col-md-3.col-sm3.col-xs-12
+              %strong
+                時間
+            .col-md-9.col-sm9.col-xs-12
+              = pln.practice_mode.name + ' ' + (pln.begining / 100).floor.to_s + ':' + pln.begining.to_s[-2, 2] + '〜' + (pln.ending / 100).floor.to_s + ':' + pln.ending.to_s[-2, 2]
+        %tr
+          %td
+            .col-md-3.col-sm3.col-xs-12
+              %strong
+                内容
+            .col-md-9.col-sm9.col-xs-12
+              = simple_format pln.description
+
+  .bs-callout.bs-callout-danger
+    %h4
+      出欠状況
+    .row
+      - if pln.nontans.length == 0
+        %tr
+          %td
+            .col-md-12.col-xs-10.col-sm-4
+              = "全員出席予定" 
+      - else
+        - parts.each do |part|
+          - nontans = Nontan.where(:practice_pln_id => pln.id).where(:part_id => part.id)
+          - if nontans.length > 0
+            .inst-bg{:style => "background: url('/assets/" + part.abbr + ".png')"}
+              .col-md-12
+                %h5= part.name
+              - nontans.each do |nontan|
+              
+                -# if
+                %table.table.col-md-12
+                  %tr
+                    %td        
+                      .col-md-3.col-xs-12.col-sm-7
+                        %p
+                          = nontan.user_name.gsub(/吉田/, '𠮷田') + (nontan.user_name.include?("笠原") ? "たん" : "さん") 
+                          = nontan.subs_name.length < 1 ? "　" : "⇒ " + nontan.subs_name + (nontan.subs_name.include?("笠原") ? "たん" : "さん")
+
+                      - case nontan.nontan_class_id
+                        - when 2
+                          - time = nontan.time.strftime('%H:%M') + '～'
+                        - when 3
+                          - time = nontan.time.strftime('%H:%M')
+                        -else
+                          - time = ""
+                          
+                      .col-md-2.hidden-xs.col-sm-3
+                        %p
+                          = nontan.nontan_class.name
+                          = time
+        
+                      .col-xs-12.visible-xs
+                        %p= nontan.nontan_class.name + time
+                      .col-md-6.col-xs-12.col-sm-10
+                        %p= nontan.reason
+              .clearfix
+    .clearfix                    
+

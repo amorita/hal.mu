@@ -1,0 +1,37 @@
+Orchestra HALから明日の練習のお知らせです。
+==
+練習の内容と、欠席・遅刻・早退の方は以下のとおりです。
+==
+- @plns.each_with_index do |pln, idx|
+  - if @plns.length > 1
+    = "練習 その" + (idx + 1).to_s
+  = "■" + pln.practice_mode.name
+  = "会場: " + pln.practice_place.place_name + " " + pln.room
+  = "時間: " + (pln.begining / 100).to_s + ":00 ~ " + (pln.ending / 100).to_s + ":00"
+  = "内容: "
+  = pln.description
+  ==
+  - if pln.nontans.length > 0
+    = "▼欠席・遅刻・早退の方 (" + pln.nontans.length.to_s + "名)"
+  - else
+    全員出席の予定です！
+    
+  - pln.nontans.order(:part_id).each_with_index do |nontan, idx|
+    = (idx + 1).to_s + ". " + nontan.user_name + (nontan.user_name.include?("笠原") ? "たん" : "さん") + " (" + nontan.part.name + ")"
+    - case nontan.nontan_class_id
+    - when 1
+      = "　" + nontan.nontan_class.name
+    - when 2
+      = "　" + nontan.nontan_class.name + "(" + nontan.time.strftime('%H:%M') + '～)'
+    - when 3
+      = "　" + nontan.nontan_class.name + '～(' + nontan.time.strftime('%H:%M') + ')'
+    - if nontan.subs_name.length > 1
+      = "代奏: " + nontan.subs_name + (nontan.subs_name.include?("笠原") ? "たん" : "さん")
+    = "・" + nontan.reason
+    ==
+  
+==
+= "--"
+※追加情報など
+    
+

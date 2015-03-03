@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  gender: 1
+  age: 1
+  time_req: 1
+  district: 1
+  source: 1
+
+two:
+  gender: 1
+  age: 1
+  time_req: 1
+  district: 1
+  source: 1
