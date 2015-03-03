@@ -1,0 +1,38 @@
+= form_for @practice_place, :html => {:class => "form-horizontal"} do |f|
+  - if @practice_place.errors.any? 
+    %div{:id => "error_explanation"}
+      %h2
+        = pluralize(@practice_place.errors.count, "error")
+        prohibited this practice_place from being saved:
+        %ul
+        - @practice_place.errors.full_messages.each do |msg|
+          %li= msg
+          
+  .form-group
+    %label.col-sm-2.control-label 会場名
+    .col-sm-10
+      = f.text_field :place_name, :class => 'form-control'       
+      .form-group
+    %label.col-sm-2.control-label 住所
+    .col-sm-10
+      = f.text_field :address, :class => 'form-control' 
+  .form-group
+    %label.col-sm-2.control-label アクセス方法
+    .col-sm-10
+      = f.text_area :description, :class => 'form-control' 
+  .form-group
+    %label.col-sm-2.control-label アクセス方法ページURL
+    .col-sm-10
+      = f.text_field :url, :class => 'form-control' 
+  .form-group
+    %label.col-sm-2.control-label Google map URL
+    .col-sm-10
+      = f.text_field :map_url, :class => 'form-control' 
+  .form-group
+    %label.col-sm-2.control-label 表示・非表示
+    .col-sm-10
+      = f.check_box :show_flg, :checked => true, :class => 'form-control' 
+  .form-group
+    %label.col-sm-2.control-label 
+    .col-sm-10
+      = f.submit '更新', :class => 'btn btn-info'

@@ -1,0 +1,27 @@
+%p#notice= notice
+
+%p
+  %b 回次:
+  = "第" + @enq_answer.concert_no.to_s + "回"
+%p
+  %b 性別:
+  = @enq_answer.enq_gender.nil? ? "入力なし" : @enq_answer.enq_gender.title
+%p
+  %b 年代:
+  = @enq_answer.enq_age.nil? ? "入力なし" : @enq_answer.enq_age.title
+%p
+  %b 会場までの所要時間:
+  = @enq_answer.enq_time_req.nil? ? "入力なし" : @enq_answer.enq_time_req.title
+%p
+  %b 居住地:
+  = @enq_answer.enq_district.nil? ? "入力なし" : @enq_answer.enq_district.title
+%p
+  %b 情報ソース:
+  = @enq_answer.enq_source.nil? ? "入力なし" : @enq_answer.enq_source.title
+%p
+  %b 備考:
+  = @enq_answer.memo
+
+= button_to '編集', edit_enq_answer_path(@enq_answer), :method => 'get', :class => 'btn btn-warning'
+= button_to '一覧へ', enq_answers_path,  :method => 'get', :class => 'btn btn-success'
+= button_to '新規登録', new_enq_answer_path, :method => 'get', :class => 'btn btn-info'

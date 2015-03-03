@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  filepath: MyString
+  description: MyText
+  category: 
+  uploader: MyString
+  name: MyString
+
+two:
+  filepath: MyString
+  description: MyText
+  category: 
+  uploader: MyString
+  name: MyString

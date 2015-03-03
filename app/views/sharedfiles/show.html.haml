@@ -1,0 +1,21 @@
+%p#notice= notice
+
+%p
+  %b Filepath:
+  = @sharedfile.filepath
+%p
+  %b Description:
+  = @sharedfile.description
+%p
+  %b Category:
+  = @sharedfile.category
+%p
+  %b Uploader:
+  = @sharedfile.uploader
+%p
+  %b Name:
+  = @sharedfile.name
+
+= link_to 'Edit', edit_sharedfile_path(@sharedfile)
+\|
+= link_to 'Back', sharedfiles_path

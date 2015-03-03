@@ -1,0 +1,18 @@
+!!!
+%html
+  %head
+    %title HAL 3A system
+    = stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true
+    = javascript_include_tag "application", "data-turbolinks-track" => true
+    = csrf_meta_tags
+  %body
+    .black{:style => 'background: black'}
+      %p{:align => 'center'}
+        = image_tag '3a_title.png', :height => '200px', :width => '800px', :class => 'img-responsive'
+    .container
+      = render 'body'
+    %br
+    .black.text-center{:style => 'background: black; color: #ccc; font-size:80%;'}
+      ©2010-2014 Orchestra HAL All rights reserved.
+    
+

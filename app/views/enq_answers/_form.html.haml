@@ -1,0 +1,54 @@
+= form_for @enq_answer do |f|
+  - if @enq_answer.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@enq_answer.errors.count, "error")} prohibited this enq_answer from being saved:"
+      %ul
+        - @enq_answer.errors.full_messages.each do |msg|
+          %li= msg
+          
+  %p
+    %label 回次
+    = f.select :concert_no, [["第5回", "5"], ["第6回", "6"], ["第7回", "7"], ["第8回", "8"]], :selected => "8"
+  %p
+    %label 年代
+    .btn-group.btn-group-lg{:'data-toggle' => "buttons-radio", :id => "age", :'data-toggle-name' => "age", :onclick => "clkbtn(this)"}
+      = f.text_field :enq_age_id
+      %br
+      - EnqAge.all.each do |age|
+        = button_tag age.title, :type => "button", :class => "btn btn-info enq_ans_btn", :value => age.id
+  %p
+    %label 性別
+    .btn-group.btn-group-lg{:'data-toggle' => "buttons-radio", :id => "gender", :'data-toggle-name' => "gender"}
+      = f.text_field :enq_gender_id
+      %br
+      -EnqGender.all.each do |gender|
+        = button_tag gender.title, :type => "button", :class => "btn btn-info enq_ans_btn", :value => gender.id
+  %p
+    %label 所要時間
+    .btn-group.btn-group-lg{:'data-toggle' => "buttons-radio", :'data-toggle-name' => "time_req"}
+      = f.text_field :enq_time_req_id
+      %br
+      - EnqTimeReq.all.each do |time|
+        = button_tag time.title, :type => "button", :class => "btn btn-info enq_ans_btn", :value => time.id
+  %p
+    %label 地域
+    .btn-group.btn-group-lg{:'data-toggle' => "buttons-radio", :'data-toggle-name' => "district"}
+      = f.text_field :enq_district_id
+      %br
+      - EnqDistrict.all.each do |dist|
+        = button_tag dist.title, :type => "button", :class => "btn btn-info enq_ans_btn", :value => dist.id
+  %p
+    %label ソース
+    .btn-group.btn-group-lg{:'data-toggle' => "buttons-radio", :'data-toggle-name' => "source"}
+      = f.text_field :enq_source_id
+      %br
+      - EnqSource.all.each_with_index do |src, idx|
+        = button_tag src.title, :type => "button", :class => "btn btn-info enq_ans_btn", :value => src.id
+        - if (idx + 1) % 5 == 0 && idx != 0
+          %br
+  %p
+    %label 備考
+    = f.text_area :memo, :class=> "form-control"
+ 
+  .actions
+    = f.submit 'Save', :class => "btn btn-danger"
