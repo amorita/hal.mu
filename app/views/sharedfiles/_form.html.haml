@@ -1,0 +1,41 @@
+%p &nbsp;
+= form_for @sharedfile, :html => {:class => "form-horizontal"}, :action => "/rails/sharedfiles" do |f|
+  - if @sharedfile.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@sharedfile.errors.count, "error")} prohibited this sharedfile from being saved:"
+      %ul
+        - @sharedfile.errors.full_messages.each do |msg|
+          %li= msg
+
+  .form-group
+    %label.col-sm-4.control-label ファイル
+    .col-sm-8
+      = f.file_field :file, :class => "form-control", :required => 'true'
+
+  .form-group
+    %label.col-sm-4.control-label ファイル名
+    .col-sm-8
+      = f.text_field :name, :placeholder => "表示用ファイル名",:class => "form-control", :required => 'true'
+
+  .form-group
+    %label.col-sm-4.control-label 説明
+    .col-sm-8
+      = f.text_area :description, :class => "form-control"
+
+  .form-group
+    %label.col-sm-4.control-label  お名前
+    .col-sm-8
+      = f.text_field :uploader, :placeholder => "おなまえ",:class => "form-control", :required => 'true'
+
+
+  .form-group
+    %label.col-sm-4.control-label カテゴリ
+    .col-sm-8
+      = f.collection_select :category, Part.all, :id, :name, {:prompt => "パート"}, {:class => "form-control part_select", :required => 'true'}
+
+  .actions
+    %label.col-sm-4.control-label 
+    .col-sm-8
+      = f.submit '登録', :class => "btn btn-default", :data => { :confirm => 'ファイルをアップロードします。' }, :onclick => "$('#new_sharedfile').attr('action', '/rails/sharedfiles');"
+.clearfix
+  

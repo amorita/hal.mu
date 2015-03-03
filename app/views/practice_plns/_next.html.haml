@@ -1,0 +1,12 @@
+= @practice_plns[0].pln_date.strftime("%Y年 %m月 %d日")
+- @practice_plns.each do |pln|
+  .bs-callout.bs-callout-default
+    %h4
+      = pln.practice_mode.name + " " + (pln.begining / 100).to_s + ":00 ~ " + (pln.ending / 100).to_s + ":00"
+    %table
+      %tr
+        %td
+          = pln.practice_place.place_name + " " + pln.room
+      %tr
+        %td
+          = simple_format(pln.description) 

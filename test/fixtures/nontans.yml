@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  practice_pln_id: 1
+  part_id: 1
+  user_name: MyString
+  subs_name: MyString
+  reason: MyString
+
+two:
+  practice_pln_id: 1
+  part_id: 1
+  user_name: MyString
+  subs_name: MyString
+  reason: MyString

@@ -1,0 +1,27 @@
+%h1 Listing sharedfiles
+
+%table
+  %tr
+    %th Filepath
+    %th Description
+    %th Category
+    %th Uploader
+    %th Name
+    %th
+    %th
+    %th
+
+  - @sharedfiles.each do |sharedfile|
+    %tr
+      %td= sharedfile.filepath
+      %td= sharedfile.description
+      %td= sharedfile.category
+      %td= sharedfile.uploader
+      %td= sharedfile.name
+      %td= link_to 'Show', sharedfile
+      %td= link_to 'Edit', edit_sharedfile_path(sharedfile)
+      %td= link_to 'Destroy', sharedfile, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+%br
+
+= link_to 'New Sharedfile', new_sharedfile_path

@@ -1,0 +1,39 @@
+= form_for @poster_candidate, :html => {:class => "form-horizontal"} do |f|
+  - if @poster_candidate.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@nontan.errors.count, "error")} prohibited this nontan from being saved:"
+      %ul
+        - @poster_candidate.errors.full_messages.each do |msg|
+          %li= msg
+  .form-group
+    %h4.bg-danger
+      以下の候補からひとつ選んで投票してください
+  .bs-callout.bs-callout-warning
+    %h4 おことわり
+    %p
+      以下のポスターのデザインはあくまでイメージです。最終的に出来上がるまでに文字の配置や内容、趣旨から外れない程度のデザインの変更は発生します。また、記載内容等に事実と異なる部分、もしくは言語的な誤謬等がある場合がありますが、最終的には修正されて制作されますので細かい点は気にせずに投票をお願い致します。
+
+  .form-group
+    %label.col-sm-4.control-label 候補3.
+    .col-sm-8
+      = image_tag asset_path('8th_3.png'), :size => '400x400'
+
+  .form-group
+    %label.col-sm-4.control-label 候補4.
+    .col-sm-8
+      = image_tag asset_path('8th_4.png'), :size => '400x400'
+
+  .form-group
+    %label.col-sm-4.control-label 投票
+    .col-sm-8
+      = f.select :selection, {'候補3' => '3', '候補4' => '4'}, {}, :class => "form-control", :required => 'true'
+  
+  .actions
+    %label.col-sm-4.control-label
+    .col-sm-8
+      - limit = Time.local(2014,5,30,0,0,0)
+      - if Time.now < limit
+        = f.submit '投票', :class => "btn btn-default"
+      - else
+        投票の受付は終了しました。
+  

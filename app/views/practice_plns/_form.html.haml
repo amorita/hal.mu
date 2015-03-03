@@ -1,0 +1,42 @@
+= form_for @practice_pln, :html => {:class => "form-horizontal"} do |f|
+  - if @practice_pln.errors.any? 
+    %div{:id => "error_explanation"}
+      %h2
+        = pluralize(@practice_pln.errors.count, "error")
+        prohibited this practice_pln from being saved:
+        %ul
+        - @practice_pln.errors.full_messages.each do |msg|
+          %li= msg
+          
+  .form-group
+    %label.col-sm-2.control-label 練習日
+    .col-sm-10
+      = f.date_field :pln_date, :class => 'form-control'       
+      .form-group
+    %label.col-sm-2.control-label 開始時間
+    .col-sm-10
+      = f.text_field :begining, :class => 'form-control' 
+  .form-group
+    %label.col-sm-2.control-label 終了時間
+    .col-sm-10
+      = f.text_field :ending, :class => 'form-control' 
+  .form-group
+    %label.col-sm-2.control-label 練習区分
+    .col-sm-10
+      = f.collection_select :mode, PracticeMode.all, :id, :name, {}, :class => 'form-control' 
+  .form-group
+    %label.col-sm-2.control-label 練習会場
+    .col-sm-10
+      = f.collection_select :place, PracticePlace.all, :id, :place_name, {}, :prompt => '練習会場', :class => 'form-control' 
+  .form-group
+    %label.col-sm-2.control-label 部屋
+    .col-sm-10
+      = f.text_field :room, :placeholder => '部屋', :class => 'form-control' 
+  .form-group
+    %label.col-sm-2.control-label 練習内容
+    .col-sm-10
+      = f.text_area :description, :placeholder => '練習内容', :class => 'form-control' 
+  .form-group
+    %label.col-sm-2.control-label 
+    .col-sm-10
+      = f.submit '更新', :class => 'btn btn-info'
