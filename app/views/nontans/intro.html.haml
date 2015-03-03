@@ -1,0 +1,94 @@
+.container
+  %h1
+    スマホからの予定参照
+  %p
+    iOS、Android、Windows Phoneなどから練習予定を参照する方法を説明します。なお、AndroidおよびWindows Phoneに関しては、こちらで動作検証ができていないため、お気づきの点があれば井上までお知らせください。
+  %p
+    .col-md-2.col-md-offset-1
+      %h2
+        iOS
+    .col-md-8
+      .bs-callout.bs-callout-info
+        %h4
+          プロファイルのインストール（推奨）
+        %p
+          iOSがインストールされたスマートデバイスでは、以下のプロファイルをインストールすることにより自動で設定が可能です。このプロファイルでは次の2点の設定が追加されます。
+        %li
+          練習予定カレンダーの参照設定
+        %li
+          3Aシステムへのリンク作成(ホーム画面に追加されます)
+        %p
+          %a{:href => asset_path('mu.hal.profile.rehearsalschedule.mobileconfig')}
+            .image.text-center
+              = image_tag('osxConfigProfileIcon.png', :size => '128x128', :alt => '構成プロファイル')
+              %br
+              プロファイルのダウンロード
+        %p
+          ※「未検証」、「署名されていない」などの警告が出ますが安全性には問題ありません。
+
+      .bs-callout.bs-callout-warning
+        %h4
+          手作業での設定
+        %p
+          以下の設定を行うことにより、設定を追加することも可能です。実現できることはプロファイルのインストールの場合の練習予定のカレンダーの参照設定のみです。
+          %ol
+            %li 
+              %strong
+                設定
+              を開きます
+            %li
+              %strong
+                「メール/連絡先/カレンダー」
+              をタップします
+            %li
+              %string
+                「アカウントの追加」
+              をタップします
+            %li
+              %strong
+                「その他」
+              から
+              %strong
+                「参照するカレンダーを追加」
+              をタップします
+            %li
+              サーバに
+              %strong
+                「r.hal.mu/ical」
+              を入力し、「次へ」をタップします
+            %li 
+              「アカウントをSSLなしで設定してみますか？」ときかれるので、「続ける」をタップします
+            %li
+              %strong
+                「次へ」
+              をタップして設定完了です
+          以上の設定で、iOSのカレンダー、もしくは対応したカレンダーアプリで練習予定を確認することができます。
+  %p
+    .col-md-2.col-md-offset-1
+      %h2
+        Android
+        %br
+        Windows Phone
+        %br
+        他
+    .col-md-8
+      .bs-callout.bs-callout-info
+        %h4
+          参照カレンダーへの追加
+        %p
+          Androidまたはその他のスマートデバイスでGoogleのアカウント(Gmailなど)を使用して予定の管理をしている場合、そのアカウントに対してカレンダーを追加することで参照が可能です。
+          %ol
+            %li
+              %a{:href => "http://pln-html.hal.mu/"}
+                http://pln-html.hal.mu/
+              にアクセスします
+            %li 
+              ページ最下部にある追加ボタン
+              = image_tag 'https://www.google.com/calendar/images/calendar_plus_ja.gif'
+              をタップします
+            %li
+              ログインを求められる場合は、お使いのGoogleアカウントでログインしてください
+            %li
+              「このカレンダーを追加しますか？」ときかれるので、「はい、このカレンダーを追加します」を選択してください
+
+  = button_to '戻る', nontans_path, :method => 'get', :class => "btn btn-default"   

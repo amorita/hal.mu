@@ -1,0 +1,54 @@
+= form_for @nontan, :html => {:class => "form-horizontal"} do |f|
+  - if @nontan.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@nontan.errors.count, "error")} prohibited this nontan from being saved:"
+      %ul
+        - @nontan.errors.full_messages.each do |msg|
+          %li= msg
+  .form-group
+    %h4.bg-danger
+      全ての項目に入力してください
+    %label.col-sm-2.control-label 対象日
+    .col-sm-10
+      = f.collection_select :practice_pln_id, PracticePlnSum.where('pln_date > curdate() - 1').order(:pln_date), :id, :text, {:prompt => "練習日を選択"}, {:class => "form-control", :required => 'true'}
+
+  .form-group
+    %label.col-sm-2.control-label パート
+    .col-sm-10
+      = f.collection_select :part_id, Part.all, :id, :name, {:prompt => "パート"}, {:class => "form-control part_select", :required => 'true'}
+
+  .form-group
+    %label.col-sm-2.control-label 申請区分
+    .col-sm-10
+      = f.collection_select :nontan_class_id, NontanClass.all, :id, :name, {:prompt => "区分を選択"}, {:class => "form-control nontan_class", :required => 'true'}
+
+  .form-group
+    %label.col-sm-2.control-label 時間
+    .col-sm-10
+      - if !@nontan.nontan_class_id.nil? && @nontan.nontan_class_id != 1
+        = f.time_field :time, :placeholder => "時間", :class => "form-control att_time"
+      - else
+        = f.time_field :time, :placeholder => "時間", :class => "form-control att_time", :style => "display: none"
+
+  .form-group
+    %label.col-sm-2.control-label  お名前
+    .col-sm-10
+      = f.text_field :user_name, :placeholder => "おなまえ",:class => "form-control", :required => 'true'
+
+  .form-group
+    %label.col-sm-2.control-label 代奏者
+    .col-sm-10
+      - if !@nontan.part_id.nil? && @nontan.part_id > 99
+        = f.text_field :subs_name, :placeholder => "代奏者",:class => "form-control subs_name"  
+      - else
+        = f.text_field :subs_name, :placeholder => "代奏者",:class => "form-control subs_name", :style => "display: none"
+  
+  .form-group
+    %label.col-sm-2.control-label 理由など
+    .col-sm-10
+      = f.text_field :reason, :placeholder => "理由を入力",:class => "form-control", :required => 'true'
+
+  .actions
+    = f.submit '登録', :class => "btn btn-default", :data => { :confirm => 'まことに残念です…。登録してよろしいですか？' }
+= button_to 'キャンセル', nontans_path, :method => 'get', :class => "btn btn-warning" 
+  

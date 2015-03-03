@@ -1,0 +1,11 @@
+.container
+  %h1 第8回定期演奏会 デザイン投票
+  .bs-callout.bs-callout-info
+    %h4 投票ありがとうございます！
+    %p
+      投票: 
+      = '候補' + @poster_candidate.selection.to_s
+    %p
+      = image_tag asset_path('8th_' + @poster_candidate.selection.to_s + '.png'), :size => '300x300'
+    %p
+      投票ありがとうございました。結果は締切後にMLにてお知らせいたします。しばらくお待ちください。

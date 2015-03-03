@@ -1,0 +1,2 @@
+class EnqAnswerController < ApplicationController
+end
