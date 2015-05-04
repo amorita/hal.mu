@@ -68,15 +68,6 @@ Hal::Application.routes.draw do
     end
   end
 
-  resources :concerts, :only => [:index, :show] do
-    collection do
-      get 'next'
-      get 'future'
-    end
-  end
-  
-  resources :topics, :only => [:index]
-
   resources :personal_data do
     collection do
       get 'join'
