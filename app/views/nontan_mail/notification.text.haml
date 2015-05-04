@@ -17,7 +17,7 @@ Orchestra HALから明日の練習のお知らせです。
     全員出席の予定です！
     
   - pln.nontans.order(:part_id).each_with_index do |nontan, idx|
-    = (idx + 1).to_s + ". " + nontan.user_name + (nontan.user_name.include?("笠原") ? "たん" : "さん") + " (" + nontan.part.name + ")"
+    = (idx + 1).to_s + ". " + nontan.user.family_name + ' ' + nontan.user.name + "さん"
     - case nontan.nontan_class_id
     - when 1
       = "　" + nontan.nontan_class.name
@@ -25,8 +25,8 @@ Orchestra HALから明日の練習のお知らせです。
       = "　" + nontan.nontan_class.name + "(" + nontan.time.strftime('%H:%M') + '～)'
     - when 3
       = "　" + nontan.nontan_class.name + '～(' + nontan.time.strftime('%H:%M') + ')'
-    - if nontan.subs_name.length > 1
-      = "代奏: " + nontan.subs_name + (nontan.subs_name.include?("笠原") ? "たん" : "さん")
+    - if !nontan.subs_user_id.nil?
+      = "代奏: " + nontan.subs_user.family_name + ' ' + nontan.subs_user.name + "さん"
     = "・" + nontan.reason
     ==
   

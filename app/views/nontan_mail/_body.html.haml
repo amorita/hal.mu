@@ -73,9 +73,9 @@
                     %td        
                       .col-md-3.col-xs-12.col-sm-7
                         %p
-                          = nontan.user_name.gsub(/吉田/, '𠮷田') + (nontan.user_name.include?("笠原") ? "たん" : "さん") 
-                          = nontan.subs_name.length < 1 ? "　" : "⇒ " + nontan.subs_name + (nontan.subs_name.include?("笠原") ? "たん" : "さん")
-
+                          - longname = nontan.user.family_name + ' ' + nontan.user.name + "さん"
+                          = longname
+                          = nontan.subs_user_id.nil? ? "　" : "⇒ " + nontan.subs_user.family_name + ' ' + nontan.subs_user.name + "さん"
                       - case nontan.nontan_class_id
                         - when 2
                           - time = nontan.time.strftime('%H:%M') + '～'

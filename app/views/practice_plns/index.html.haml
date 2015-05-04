@@ -1,30 +1,29 @@
-.container
-  %h1 練習予定一覧
-  = link_to '>>練習会場のメンテナンス', practice_places_path
-  %table.table
+%h1 練習予定一覧
+= link_to '>>練習会場のメンテナンス', practice_places_path
+%table.table
+  %tr
+    %th #
+    %th 日時
+    %th 練習区分
+    %th 練習会場
+    %th 練習内容
+    %th
+  - @practice_plns.each_with_index do |pln, idx|
     %tr
-      %th #
-      %th 日時
-      %th 練習区分
-      %th 練習会場
-      %th 練習内容
-      %th
-    - @practice_plns.each_with_index do |pln, idx|
-      %tr
-        %td= (idx + 1).to_s
-        %td
-          = pln.pln_date
-          = (pln.begining / 100).floor.to_s + ':' + pln.begining.to_s[-2, 2]
-          〜
-          = (pln.ending / 100).floor.to_s + ':' + pln.ending.to_s[-2, 2]
-        %td= pln.practice_mode.name
-        %td
-          = pln.practice_place.place_name
-          = pln.room
-        %td= simple_format pln.description
-        %td
-          = button_to '編集', edit_practice_pln_path(pln), :class => "btn btn-info", :method => 'get'
-          = button_to 'お知らせ', mail_notif_practice_pln_path(pln), :class => "btn btn-warning", :method => 'get'
-          = button_to '抹消', pln, method: :delete, data: { confirm: '無慈悲なまでに抹消されます。よろしいか？' }, :class => "btn btn-danger"
-        
-  = button_to '練習の新規作成', new_practice_pln_path, :class => "btn btn-default", :method => 'get'
+      %td= (idx + 1).to_s
+      %td
+        = pln.pln_date
+        = (pln.begining / 100).floor.to_s + ':' + pln.begining.to_s[-2, 2]
+        〜
+        = (pln.ending / 100).floor.to_s + ':' + pln.ending.to_s[-2, 2]
+      %td= pln.practice_mode.name
+      %td
+        = pln.practice_place.place_name
+        = pln.room
+      %td= simple_format pln.description
+      %td
+        = button_to '編集', edit_practice_pln_path(pln), :class => "btn btn-info", :method => 'get'
+        = button_to 'お知らせ', mail_notif_practice_pln_path(pln), :class => "btn btn-warning", :method => 'get'
+        = button_to '抹消', pln, method: :delete, data: { confirm: '無慈悲なまでに抹消されます。よろしいか？' }, :class => "btn btn-danger"
+      
+= button_to '練習の新規作成', new_practice_pln_path, :class => "btn btn-default", :method => 'get'
