@@ -41,6 +41,7 @@ config/database.yml
 config/omniauth.yml
 
 config/environments
+config/secrets.yml
 
 **.lock
 **~
