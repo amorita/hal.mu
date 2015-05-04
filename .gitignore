@@ -43,5 +43,7 @@ config/omniauth.yml
 config/environments
 config/secrets.yml
 
+public/assets
+
 **.lock
 **~
