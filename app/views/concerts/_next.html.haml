@@ -1,0 +1,22 @@
+%h4= @concert.name
+%img.img-responsive{:src => '/history/' + @concert.id.to_s + 'a.png', :onerror => 'this.src="/img/unavailable.png"'}
+%p &nbsp;
+%table
+  %tr
+    %td 日時：
+    %td= @concert.date.strftime("%Y年") + @concert.date.strftime("%m").to_i.to_s + "月" + @concert.date.strftime("%d").to_i.to_s + "日(" + ["日", "月", "火", "水", "木", "金", "土"][@concert.date.wday] + ")"
+  %tr
+    %td 場所：
+    %td= @concert.place
+  - prog = @concert.concert_programs.order '`order` DESC'
+  %tr
+    %td{:style => "vertical-align: top"} 曲目：
+    %td
+      - prog.each do |p|
+        %p
+          = p.composer
+          %br
+          = '　' + p.name
+          -if !p.sub_title.nil?
+            %br
+            = '　' + p.sub_title

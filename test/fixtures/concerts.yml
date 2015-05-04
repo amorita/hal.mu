@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  name: MyString
+  date: 2015-03-30
+  place: MyString
+  hall: MyString
+  conductor: MyString
+
+two:
+  name: MyString
+  date: 2015-03-30
+  place: MyString
+  hall: MyString
+  conductor: MyString
