@@ -24,7 +24,7 @@
               = "全員出席予定" 
       - else
         - parts.each do |part|
-          - nontans = Nontan.where(:practice_pln_id => pln.id).where(:part_id => part.id)
+          - nontans = Nontan.where(:practice_pln_id => pln.id).where(:part_id => part.id).where('user_id is not null')
           - if nontans.length > 0
             .inst-bg{:style => "background: url('/assets/" + part.abbr + ".png')"}
               %h4= part.name
@@ -42,8 +42,9 @@
                         .col-md-12.bg-warning
                           %h4 お知らせ後変更あり
                       .col-md-3.col-xs-12.col-sm-4
-                        = nontan.user_name + (nontan.user_name.include?("笠原") ? "たん" : "さん") 
-                        = nontan.subs_name.length < 1 ? "　" : "⇒ " + nontan.subs_name + (nontan.subs_name.include?("笠原") ? "たん" : "さん")
+                        - longname = nontan.user.family_name + ' ' + nontan.user.name + "さん"
+                        = longname
+                        = nontan.subs_user_id.nil? ? "　" : "⇒ " + nontan.subs_user.family_name + ' ' + nontan.subs_user.name + "さん"
                       - case nontan.nontan_class_id
                         - when 2
                           - time = nontan.time.strftime('%H:%M') + '～'
@@ -58,19 +59,22 @@
                         = nontan.nontan_class.name
                         %div{:style => "font-size: 80%; color: #999999"}
                           = time
-                        
-                      .col-sm-1.visible-sm
-                        = button_to '変更', edit_nontan_path(nontan), :class => "btn btn-info", :method => 'get', :class => 'btn btn-warning btn-xs'
-                        = button_to "削除", nontan, :method => :delete, :data => { :confirm => nontan.user_name + (nontan.user_name.include?("笠原") ? "たん" : "さん") + '、やはりご出席ですね！承りました！' }, :class => 'btn btn-default btn-xs'
+                      
+                      - if nontan.user_id == current_user.id  
+                        .col-sm-1.visible-sm
+                          = button_to '変更', edit_nontan_path(nontan), :class => "btn btn-info", :method => 'get', :class => 'btn btn-warning btn-xs'
+                          = button_to "削除", nontan, :method => :delete, :data => { :confirm => longname + '、やはりご出席ですね！承りました！' }, :class => 'btn btn-default btn-xs'
     
                       .col-md-6.col-xs-9.col-sm-12
                         = nontan.reason
-                      .col-xs-12.visible-xs.text-right
-                        = button_to '変更', edit_nontan_path(nontan), :class => "btn btn-info", :method => 'get', :class => 'btn btn-warning btn-xs'
-                        = button_to "削除", nontan, :method => :delete, :data => { :confirm => nontan.user_name + (nontan.user_name.include?("笠原") ? "たん" : "さん") + '、やはりご出席ですね！承りました！' }, :class => 'btn btn-info btn-xs'
-                      .col-sm-1.col-md-1.text-right.hidden-xs.hidden-sm
-                        = button_to '変更', edit_nontan_path(nontan), :class => "btn btn-info", :method => 'get', :class => 'btn btn-warning'
-                        = button_to "削除", nontan, :method => :delete, :data => { :confirm => nontan.user_name + (nontan.user_name.include?("笠原") ? "たん" : "さん") + '、やはりご出席ですね！承りました！' }, :class => 'btn btn-default'
+
+                      - if nontan.user_id == current_user.id  
+                        .col-xs-12.visible-xs.text-right
+                          = button_to '変更', edit_nontan_path(nontan), :class => "btn btn-info", :method => 'get', :class => 'btn btn-warning btn-xs'
+                          = button_to "削除", nontan, :method => :delete, :data => { :confirm => longname + '、やはりご出席ですね！承りました！' }, :class => 'btn btn-info btn-xs'
+                        .col-sm-1.col-md-1.text-right.hidden-xs.hidden-sm
+                          = button_to '変更', edit_nontan_path(nontan), :class => "btn btn-info", :method => 'get', :class => 'btn btn-warning'
+                          = button_to "削除", nontan, :method => :delete, :data => { :confirm => longname + '、やはりご出席ですね！承りました！' }, :class => 'btn btn-default'
                 .clearfix
     - if pln.mode == 20
       .bs-callout.bs-callout-warning

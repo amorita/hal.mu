@@ -1,0 +1,23 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  user_id: 1
+  user_memo: MyText
+  starts_at: 2015-05-03
+  ends_at: 2015-05-03
+  application_type_id: 1
+  part_user_id: 1
+  part_memo: MyText
+  part_accepted_at: 2015-05-03
+  somu_accepted_at: 2015-05-03
+
+two:
+  user_id: 1
+  user_memo: MyText
+  starts_at: 2015-05-03
+  ends_at: 2015-05-03
+  application_type_id: 1
+  part_user_id: 1
+  part_memo: MyText
+  part_accepted_at: 2015-05-03
+  somu_accepted_at: 2015-05-03

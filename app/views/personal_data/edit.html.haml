@@ -1,0 +1,79 @@
+%h1 登録情報の変更
+%p
+  - p @personal_data
+  = form_for @personal_data, :html => {:class => "form-horizontal"} do |f|
+    - if @personal_data.errors.any?
+      #error_explanation
+        %h2= "#{pluralize(@personal_data.errors.count, "error")} prohibited this nontan from being saved:"
+        %ul
+          - @personal_data.errors.full_messages.each do |msg|
+            %li= msg
+    .form-group
+      .col-md-12
+        %h4.bg-danger{:style => 'line-height: 2em'}
+          全ての項目に入力してください
+
+    .form-group
+      %label.col-sm-2.col-xs-12.control-label  名前
+      .col-xs-6.col-sm-5
+        = f.text_field :family_name, :placeholder => "姓",:class => "form-control", :required => 'true'
+      .col-xs-6.col-sm-5
+        = f.text_field :name, :placeholder => "名",:class => "form-control", :required => 'true'
+
+    .form-group
+      %label.col-sm-2.col-xs-12.control-label  名前(よみ)
+      .col-xs-6.col-sm-5
+        = f.text_field :family_name_pron, :placeholder => "せい",:class => "form-control", :required => 'true'
+      .col-xs-6.col-sm-5
+        = f.text_field :name_pron, :placeholder => "めい",:class => "form-control", :required => 'true'
+
+    .form-group
+      %label.col-sm-2.control-label パート
+      .col-sm-10
+        = f.collection_select :part_id, Part.all, :id, :name, {:prompt => "パート"}, {:class => "form-control part_select", :required => 'true'}
+
+    .form-group
+      %label.col-sm-2.control-label 区分
+      .col-sm-10
+        = f.select :worker, [['社会人',1],['学生',0]], {}, :class => "form-control part_select"
+
+    .form-group
+      %label.col-sm-2.control-label 学校名
+      .col-sm-10
+        = f.text_field :school, :placeholder => "学校名(学生のみ)",:class => "form-control"
+
+    .form-group
+      %label.col-sm-2.control-label  メールアドレス
+      .col-sm-10
+        = f.text_field :email, :placeholder => "メールアドレス",:class => "form-control", :required => 'true'
+
+    .form-group
+      %label.col-sm-2.control-label  電話番号
+      .col-sm-10
+        = f.text_field :phone, :placeholder => "電話番号",:class => "form-control", :required => 'true'
+
+    .form-group
+      %label.col-sm-2.control-label  郵便番号
+      .col-sm-10
+        = f.text_field :zip_code, :placeholder => "123-4567",:class => "form-control", :required => 'true'
+
+    .form-group
+      %label.col-sm-2.control-label  住所
+      .col-sm-10
+        - address = getAddress(@personal_data.zip_code)
+        = text_field_tag '', address, :class => 'form-control disable', :disabled => 'disabled'
+        
+
+    .form-group
+      %label.col-sm-2.control-label  番地
+      .col-sm-10
+        = f.text_field :address, :placeholder => "1-3",:class => "form-control", :required => 'true'
+
+    .form-group
+      %label.col-sm-2.control-label  建物名以下
+      .col-sm-10
+        = f.text_field :building, :placeholder => "任意",:class => "form-control"
+
+    .actions
+      %p.text-right
+        = f.submit '登録', :class => "btn btn-primary"

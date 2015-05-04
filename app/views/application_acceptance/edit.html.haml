@@ -1,0 +1,80 @@
+%h1 届出の承認
+%p
+  - p @app
+  = form_for @app, :url => '/application_acceptance/part_accept', :html => {:class => "form-horizontal"} do |f|
+    - if @app.errors.any?
+      #error_explanation
+        %h2= "#{pluralize(@app.errors.count, "error")} prohibited this nontan from being saved:"
+        %ul
+          - @app.errors.full_messages.each do |msg|
+            %li= msg
+
+    .form-group
+      %label.col-sm-2.col-xs-12.control-label  届出内容
+      .col-xs-12.col-sm-10
+        = text_field_tag '', @app.application_name, :class => 'form-control disable', :disabled => 'disabled'
+
+    .form-group
+      %label.col-sm-2.col-xs-12.control-label  提出日
+      .col-xs-12.col-sm-10
+        = text_field_tag '', @app.created_at.strftime("%Y年%m月%d日"), :class => 'form-control disable', :disabled => 'disabled'
+
+    .form-group
+      %label.col-sm-2.col-xs-12.control-label  名前
+      .col-xs-12.col-sm-10
+        = text_field_tag '', @app.user.formal_name, :class => 'form-control disable', :disabled => 'disabled'
+
+    .form-group
+      %label.col-sm-2.control-label パート
+      .col-sm-10
+        = text_field_tag '', @app.user.part.name, :class => 'form-control disable', :disabled => 'disabled'
+
+    .form-group
+      %label.col-sm-2.control-label 区分
+      .col-sm-10
+        = text_field_tag '', @app.user.worker == 1 ? '社会人' : '学生', :class => 'form-control disable', :disabled => 'disabled'
+
+    .form-group
+      %label.col-sm-2.control-label 学校名
+      .col-sm-10
+        = text_field_tag '', @app.user.school, :class => 'form-control disable', :disabled => 'disabled'
+
+    .form-group
+      %label.col-sm-2.control-label 申請者特記事項
+      .col-sm-10
+        = text_area_tag '', @app.user_memo, :class => 'form-control disable', :disabled => 'disabled'
+
+    - case @app.application_type
+      - when 'join'
+        .form-group
+          %label.col-sm-2.control-label 入団日
+          .col-sm-10
+            = f.date_field :starts_at, :class => "form-control", :required => 'true'
+      
+      - when 'absebce'
+        .form-group
+          %label.col-sm-2.control-label 休団開始日
+          .col-sm-10
+            = f.date_field :starts_at, :class => "form-control", :required => 'true'
+
+        .form-group
+          %label.col-sm-2.control-label 休団終了日
+          .col-sm-10
+            = f.date_field :ends_at, :class => "form-control", :required => 'true'
+      
+      - when 'retire'
+        .form-group
+          %label.col-sm-2.control-label 退団日
+          .col-sm-10
+            = f.date_field :ends_at, :class => "form-control", :required => 'true'
+
+    .form-group
+      %label.col-sm-2.control-label 特記事項
+      .col-sm-10
+        = f.text_area :part_memo, :class => "form-control"
+
+    = hidden_field_tag 'id', @app.id
+    
+    .actions
+      %p.text-right
+        = f.submit '承認', :class => "btn btn-primary"
