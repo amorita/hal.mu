@@ -20,7 +20,7 @@ Hal::Application.configure do
   # config.action_dispatch.rack_cache = true
 
   # Disable Rails's static asset server (Apache or nginx will already do this).
-  config.serve_static_assets = false
+  config.serve_static_assets = true
 
   # Compress JavaScripts and CSS.
   config.assets.js_compressor = :uglifier
@@ -77,4 +77,19 @@ Hal::Application.configure do
 
   # Use default logging formatter so that PID and timestamp are not suppressed.
   config.log_formatter = ::Logger::Formatter.new
+  config.action_mailer.raise_delivery_errors = true
+config.action_mailer.smtp_settings = {
+  :enable_starttls_auto => true,
+  :address => "smtp.gmail.com",
+  :port => 587,
+  :domain => "gmail.com",
+  :authentication => :login,
+  :user_name => "pln@hal.mu",
+  :password => "halokepln"
+}
+
+config.action_mailer.default_url_options = { :host => 'r.hal.mu' }
+config.action_mailer.asset_host = "http://r.hal.mu"
+
+config.secret_key_base = '8aac1206c766d9576cab4a94a1d3c05126ddacc1b2ad530afac29ccce2f5f86f6541795515505d835fea9af106e05f5a59618e19de938bbc1df2a953a3190369'
 end
