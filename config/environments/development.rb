@@ -39,4 +39,6 @@ config.action_mailer.smtp_settings = {
 
 config.action_mailer.default_url_options = { :host => 'r.hal.mu' }
 config.action_mailer.asset_host = "http://r.hal.mu"
+config.secret_key_base = '8aac1206c766d9576cab4a94a1d3c05126ddacc1b2ad530afac29ccce2f5f86f6541795515505d835fea9af106e05f5a59618e19de938bbc1df2a953a3190369'
+
 end
