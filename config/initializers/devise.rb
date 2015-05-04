@@ -297,4 +297,6 @@ OAUTH_CONFIG[:google]['key'], OAUTH_CONFIG[:google]['secret'], scope: 'https://w
   # https://github.com/arunagw/omniauth-twitter
   # https://dev.twitter.com/docs/api/1.1
   config.omniauth :twitter, OAUTH_CONFIG[:twitter]['key'], OAUTH_CONFIG[:twitter]['secret']
+
+  config.secret_key = '9d6ae6514306eb40a8eb38de1f5645096c25befed1e7cb5bf0f550cf2b540c0bcaeea25e951eb22ed9f01d0e71db8d01c8c290cab6663cca8ecc251f836e5ea4'
 end
