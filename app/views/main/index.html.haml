@@ -46,6 +46,7 @@
           //詳細情報読込系
         $("#recording").load("/podcast/rehearsal_prev");
         $("#recent_files").load("/sharedfiles");
+        $("#events").load("/events");
         
         
         });
@@ -126,6 +127,15 @@
                       = current_user.nickname.nil? ? current_user.family_name + ' ' + current_user.name : current_user.nickname
                       さん！
                     %p このページは団員専用です。各種申請やファイルのダウンロード、練習の録音などを聴いたりできます。
+                .clear_box
+
+          .grid.col-md-4.col-sm-6
+            .borders
+              %row
+                .col-xs-12.nopadding
+                  %img.img-responsive{:src => "/img/events.png"}/
+                .grid_content.indent
+                  .pad#events
                 .clear_box
 
           .grid.col-md-4.col-sm-6

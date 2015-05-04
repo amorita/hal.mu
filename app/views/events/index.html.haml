@@ -1,0 +1,14 @@
+%h4 この先のイベント
+- @future_events.each do |f|
+  .bs-callout.bs-callout-default
+    %h4= f.when.strftime("%m月%d日")
+    %h3= f.title
+    %p= simple_format f.description
+    %p
+      お問い合わせ：
+      = mail_to f.user.email, f.user.part.abbr + ' ' + f.user.normal_name + 'さん'
+
+%h4 終了したイベント
+- @past_events.each do |p|
+  %p= p.when.strftime("%m月%d日") + ' ' + p.title
+  %p &nbsp;

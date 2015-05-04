@@ -1,0 +1,168 @@
+
+<VirtualHost apps.xn--n8jeg4m.com:80>
+        ServerName apps.xn--n8jeg4m.com
+        Redirect / https://www.google.com/a/cpanel/hal.mu/Dashboard
+</VirtualHost>
+
+#Calendar用 転送設定
+# iCal
+<VirtualHost ical.hal.mu:80>
+	ServerName ical.hal.mu
+	Redirect / http://www.google.com/calendar/ical/pln%40hal.mu/public/basic.ics
+</VirtualHost>
+# HTML
+<VirtualHost pln-html.hal.mu:80>
+	ServerName pln-html.hal.mu
+	Redirect / http://www.google.com/calendar/embed?src=op7ue2i7qgs2l4jmf8ibi90ab16hupar%40import.calendar.google.com&ctz=Asia/Tokyo
+</VirtualHost>
+# XML
+<VirtualHost pln-xml.hal.mu:80>
+	ServerName pln-xml.hal.mu
+	Redirect / http://www.google.com/calendar/feeds/pln%40hal.mu/public/basic
+</VirtualHost>
+
+#rails
+<VirtualHost r.hal.mu:80>
+	ServerName r.hal.mu
+	ProxyRequests off
+	ProxyPass / http://localhost:3000/
+	<location />
+		  ProxyPassReverse http://localhost:3000/
+		  ProxyPassReverseCookieDomain localhost r.hal.mu
+		  ProxyPassReverseCookiePath / /
+		  Order allow,deny
+		  Allow from all
+	</location>
+</VirtualHost>
+
+
+#見学アンケート
+<VirtualHost q.hal.mu:80>
+	ServerName q.hal.mu
+	Redirect / https://docs.google.com/a/hal.mu/forms/d/1LNQdK1RoX060HJ1wvVIGJjviYYAp-vygGzDcrfKXHBM/viewform
+</VirtualHost>
+
+#委任状
+<VirtualHost inin.hal.mu:80>
+        ServerName inin.hal.mu
+        Redirect / https://docs.google.com/forms/d/1CnJngDw-0k7THUycgbPc1MR8zYLXmEKxbTc9YN0KFi4/viewform
+</VirtualHost>
+
+#チケットプレゼント
+<VirtualHost invite.hal.mu:80>
+        ServerName invite.hal.mu
+        Redirect / https://docs.google.com/forms/d/1suC-Jr0ieF-xpegW7810deFOhY3EbNccBRbnkTz5Ee0/viewform?usp=send_form
+</VirtualHost>
+
+<VirtualHost md.hal.mu:80>
+        ServerName md.hal.mu
+        Redirect / http://ishige.music.coocan.jp/homepage/Welcome.html
+</VirtualHost>
+
+<VirtualHost fb.hal.mu:80>
+	ServerName fb.hal.mu
+	Redirect / https://www.facebook.com/OrchHal/
+</VirtualHost>
+
+<VirtualHost tw.hal.mu:80>
+        ServerName tw.hal.mu
+	Redirect / https://twitter.com/OrchestraHAL/
+</VirtualHost>
+
+
+<VirtualHost apps.hal.mu:80>
+	ServerName apps.hal.mu
+	Redirect / https://www.google.com/a/cpanel/hal.mu/Dashboard
+</VirtualHost>
+
+
+
+
+<VirtualHost inou.eu:80>
+    ServerName inou.eu
+    DocumentRoot /home/yu/www/inou.eu/
+    ErrorLog ${APACHE_LOG_DIR}/task.error.log
+    ScriptAlias /cgi-bin/ /home/yu/www/inou.eu/
+
+    <Directory /home/yu/www/inou.eu/>
+         AllowOverride all       
+         Options -MultiViews       
+    </Directory>
+</VirtualHost>
+<VirtualHost *:80>
+    ServerName moru.ca
+    DocumentRoot /home/yu/www/moru.ca/
+    ErrorLog ${APACHE_LOG_DIR}/task.error.log
+    ScriptAlias /cgi-bin/ /home/yu/www/moru.ca/
+
+    <Directory /home/yu/www/moru.ca/>
+         AllowOverride all       
+         Options -MultiViews       
+    </Directory>
+</VirtualHost>
+
+
+<VirtualHost *:80>
+    ServerName rec.hal.mu
+    DocumentRoot /home/yu/www/rec/
+    ErrorLog ${APACHE_LOG_DIR}/rec.error.log
+
+    <Directory /home/yu/www/rec/>
+         AllowOverride all
+         Options -MultiViews
+                AuthType Basic
+                AuthName "Oechestra HAL member zone"
+                AuthUserFile /home/yu/www/priv.hal.mu/.htpasswd
+                Require user mokyu
+     </Directory>
+</VirtualHost>
+
+<VirtualHost priv.hal.mu:80>
+   RewriteEngine On
+   RewriteCond %{HTTP_HOST} priv.hal.mu
+   RewriteRule ^/(.*)$ https://priv.hal.mu/$1 [R=301,L]
+</VirtualHost>
+
+
+
+<VirtualHost hal.mu:80>
+	ServerAdmin webmaster@localhost
+	ServerName hal.mu
+
+	ProxyPass /rails/ http://hal.mu:3000/
+
+	DocumentRoot /home/yu/www/hal.mu
+
+	<Directory />
+		Options FollowSymLinks
+		AllowOverride None
+	</Directory>
+	<Directory /home/yu/www/hal.mu>
+		Options Indexes FollowSymLinks MultiViews
+		AllowOverride None
+		Order allow,deny
+		allow from all
+	</Directory>
+
+
+	ErrorLog ${APACHE_LOG_DIR}/error.log
+
+	# Possible values include: debug, info, notice, warn, error, crit,
+	# alert, emerg.
+	LogLevel warn
+
+	CustomLog ${APACHE_LOG_DIR}/access.log combined
+
+    Alias /rails "/home/yu/rails/hal/public"
+    RailsEnv production
+    <Directory "/home/yu/rails/hal/public">
+        Options -MultiViews
+        AllowOverride all
+    </Directory>
+    RailsBaseURI /rails
+
+</VirtualHost>
+
+
+
+

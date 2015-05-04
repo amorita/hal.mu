@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150503170151) do
+ActiveRecord::Schema.define(version: 20150504160552) do
 
   create_table "ab_list", force: true do |t|
     t.string "part", limit: 5
@@ -102,6 +102,15 @@ ActiveRecord::Schema.define(version: 20150503170151) do
 
   create_table "enq_time_reqs", force: true do |t|
     t.string   "title"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "events", force: true do |t|
+    t.string   "title"
+    t.date     "when"
+    t.text     "description"
+    t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -231,7 +240,7 @@ ActiveRecord::Schema.define(version: 20150503170151) do
 
   create_table "sharedfiles", force: true do |t|
     t.string   "filepath"
-    t.text     "description"
+    t.text     "description",      limit: 16777215
     t.integer  "file_category_id"
     t.integer  "user_id"
     t.string   "name"
@@ -259,6 +268,13 @@ ActiveRecord::Schema.define(version: 20150503170151) do
   end
 
   add_index "social_profiles", ["user_id"], name: "index_social_profiles_on_user_id", using: :btree
+
+  create_table "topics", force: true do |t|
+    t.string   "title"
+    t.string   "link"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "users", force: true do |t|
     t.string   "family_name",            limit: 50
