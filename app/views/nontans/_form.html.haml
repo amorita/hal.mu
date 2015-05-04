@@ -13,11 +13,6 @@
       = f.collection_select :practice_pln_id, PracticePlnSum.where('pln_date > curdate() - 1').order(:pln_date), :id, :text, {:prompt => "練習日を選択"}, {:class => "form-control", :required => 'true'}
 
   .form-group
-    %label.col-sm-2.control-label パート
-    .col-sm-10
-      = f.collection_select :part_id, Part.all, :id, :name, {:prompt => "パート"}, {:class => "form-control part_select", :required => 'true'}
-
-  .form-group
     %label.col-sm-2.control-label 申請区分
     .col-sm-10
       = f.collection_select :nontan_class_id, NontanClass.all, :id, :name, {:prompt => "区分を選択"}, {:class => "form-control nontan_class", :required => 'true'}
@@ -31,18 +26,11 @@
         = f.time_field :time, :placeholder => "時間", :class => "form-control att_time", :style => "display: none"
 
   .form-group
-    %label.col-sm-2.control-label  お名前
-    .col-sm-10
-      = f.text_field :user_name, :placeholder => "おなまえ",:class => "form-control", :required => 'true'
-
-  .form-group
     %label.col-sm-2.control-label 代奏者
     .col-sm-10
-      - if !@nontan.part_id.nil? && @nontan.part_id > 99
-        = f.text_field :subs_name, :placeholder => "代奏者",:class => "form-control subs_name"  
-      - else
-        = f.text_field :subs_name, :placeholder => "代奏者",:class => "form-control subs_name", :style => "display: none"
-  
+      - if current_user.part_id > 99
+        = f.collection_select :subs_user_id, User.where(:part_id => current_user.part_id).where.not(:id => current_user.id), :id, :name, {:prompt => "代奏者を選択"}, {:class => "form-control"}  
+      
   .form-group
     %label.col-sm-2.control-label 理由など
     .col-sm-10

@@ -1,0 +1,11 @@
+- @topics.each do |topic|
+  .row
+    .col-xs-12= topic.created_at.strftime("%Y年") + topic.created_at.strftime("%m").to_i.to_s + "月" + topic.created_at.strftime("%d").to_i.to_s + "日"
+    .col-xs-1 &nbsp;
+    .col-xs-11
+      - if topic.link.nil?
+        = topic.title
+      - else
+        %a{:href => topic.link}
+          =topic.title
+    %p &nbsp;

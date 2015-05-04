@@ -1,4 +1,14 @@
 Hal::Application.routes.draw do
+
+
+  devise_for :user, controllers: {
+   omniauth_callbacks: "omniauth_callbacks",
+   sessions: "sessions"
+ }
+  
+#  devise_for :users
+
+  
   resources :sharedfiles
 
   resources :poster_candidates
@@ -36,14 +46,43 @@ Hal::Application.routes.draw do
     end
   end
   
-  resources :calendar do
+  resources :ical
+  
+  resources :concerts, :only => [:index, :show] do
     collection do
-      get 'oauth2authorize'
-      get 'oauth2callback'
+      get 'next'
+      get 'future'
     end
   end
   
-  resources :ical
+  resources :topics, :only => [:index]
+
+  resources :application_acceptance do
+    collection do
+      patch 'part_accept'
+      get 'somu_index'
+      patch 'somu_accept'
+    end
+    member do
+      get 'somu_edit'
+    end
+  end
+
+  resources :personal_data do
+    collection do
+      get 'join'
+      patch 'join_process'
+    end
+  end
+
+  get 'main' => 'main#index'
+
+  post 'auth/validate' => 'auth#validate'
+  get 'auth/logout' => 'auth#logout'
+
+  resources :users
+  
+  root "user#login"
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

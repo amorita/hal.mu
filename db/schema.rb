@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150215030454) do
+ActiveRecord::Schema.define(version: 20150503170151) do
 
   create_table "ab_list", force: true do |t|
     t.string "part", limit: 5
@@ -24,6 +24,44 @@ ActiveRecord::Schema.define(version: 20150215030454) do
     t.string  "user",   limit: 100, null: false
     t.integer "q_no",               null: false
     t.integer "answer",             null: false
+  end
+
+  create_table "applications", force: true do |t|
+    t.integer  "user_id"
+    t.text     "user_memo"
+    t.date     "starts_at"
+    t.date     "ends_at"
+    t.string   "application_type", limit: 50
+    t.integer  "part_user_id"
+    t.text     "part_memo"
+    t.date     "part_accepted_at"
+    t.text     "somu_memo"
+    t.date     "somu_accepted_at"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "concert_programs", force: true do |t|
+    t.integer  "concert_id"
+    t.integer  "order"
+    t.string   "composer"
+    t.string   "name"
+    t.string   "sub_title"
+    t.text     "note",       limit: 16777215
+    t.string   "writer"
+    t.string   "file"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "concerts", force: true do |t|
+    t.string   "name"
+    t.date     "date"
+    t.string   "place"
+    t.string   "hall"
+    t.string   "conductor"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "enq_ages", force: true do |t|
@@ -68,6 +106,22 @@ ActiveRecord::Schema.define(version: 20150215030454) do
     t.datetime "updated_at"
   end
 
+  create_table "fee_amounts", force: true do |t|
+    t.date     "starts_at"
+    t.date     "ends_at"
+    t.integer  "workers"
+    t.integer  "students"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "file_categories", force: true do |t|
+    t.string   "name"
+    t.string   "description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "google_cal", id: false, force: true do |t|
     t.date   "Start Date"
     t.string "Start Time",      limit: 14
@@ -79,6 +133,15 @@ ActiveRecord::Schema.define(version: 20150215030454) do
     t.string "Reminder On/Off", limit: 3,   default: "", null: false
   end
 
+  create_table "monthly_fees", force: true do |t|
+    t.integer  "user_id"
+    t.integer  "year"
+    t.integer  "month"
+    t.integer  "amount"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "nontan_classes", force: true do |t|
     t.string   "name"
     t.datetime "created_at"
@@ -88,7 +151,9 @@ ActiveRecord::Schema.define(version: 20150215030454) do
   create_table "nontans", force: true do |t|
     t.integer  "practice_pln_id",                                 null: false
     t.integer  "part_id",                                         null: false
-    t.string   "user_name",                                       null: false
+    t.integer  "user_id"
+    t.string   "user_name"
+    t.integer  "subs_user_id"
     t.string   "subs_name"
     t.string   "reason",                                          null: false
     t.datetime "created_at"
@@ -103,6 +168,7 @@ ActiveRecord::Schema.define(version: 20150215030454) do
     t.boolean  "need_subs"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "user_id"
   end
 
   create_table "poster_candidates", force: true do |t|
@@ -151,6 +217,13 @@ ActiveRecord::Schema.define(version: 20150215030454) do
     t.integer "answer"
   end
 
+  create_table "responsibles", force: true do |t|
+    t.string   "name"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "result", id: false, force: true do |t|
     t.string  "''''||a.user||''','", limit: 103
     t.integer "count(a.user)",       limit: 8,   default: 0, null: false
@@ -159,11 +232,80 @@ ActiveRecord::Schema.define(version: 20150215030454) do
   create_table "sharedfiles", force: true do |t|
     t.string   "filepath"
     t.text     "description"
-    t.integer  "category"
-    t.string   "uploader"
+    t.integer  "file_category_id"
+    t.integer  "user_id"
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "social_profiles", force: true do |t|
+    t.integer  "user_id"
+    t.string   "provider"
+    t.string   "uid"
+    t.string   "name"
+    t.string   "nickname"
+    t.string   "email"
+    t.string   "url"
+    t.string   "image_url"
+    t.string   "description"
+    t.text     "other"
+    t.text     "credentials"
+    t.text     "raw_info"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "access_token"
+    t.string   "access_secret"
+  end
+
+  add_index "social_profiles", ["user_id"], name: "index_social_profiles_on_user_id", using: :btree
+
+  create_table "users", force: true do |t|
+    t.string   "family_name",            limit: 50
+    t.string   "name",                   limit: 50
+    t.string   "family_name_pron",       limit: 50
+    t.string   "name_pron",              limit: 50
+    t.string   "nickname",               limit: 50
+    t.integer  "profession"
+    t.integer  "part_id"
+    t.string   "email",                             default: "",                                                       null: false
+    t.string   "phone",                  limit: 50
+    t.string   "zip_code",               limit: 50
+    t.string   "address",                limit: 50
+    t.string   "building"
+    t.string   "initial_access_token",              default: "SELECT LPAD(FLOOR(RAND() * 1000000), 6, '0') FROM DUAL"
+    t.string   "encrypted_password"
+    t.string   "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.integer  "sign_in_count",                     default: 0,                                                        null: false
+    t.datetime "current_sign_in_at"
+    t.datetime "last_sign_in_at"
+    t.string   "current_sign_in_ip"
+    t.string   "last_sign_in_ip"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.boolean  "admin",                             default: false
+    t.boolean  "worker",                            default: true
+    t.string   "school"
+  end
+
+  create_table "views", force: true do |t|
+    t.string   "email",                  default: "", null: false
+    t.string   "encrypted_password",     default: "", null: false
+    t.string   "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.integer  "sign_in_count",          default: 0,  null: false
+    t.datetime "current_sign_in_at"
+    t.datetime "last_sign_in_at"
+    t.string   "current_sign_in_ip"
+    t.string   "last_sign_in_ip"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "views", ["email"], name: "index_views_on_email", unique: true, using: :btree
+  add_index "views", ["reset_password_token"], name: "index_views_on_reset_password_token", unique: true, using: :btree
 
 end

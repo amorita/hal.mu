@@ -2,11 +2,13 @@ require 'securerandom'
 
 class SharedfilesController < ApplicationController
   before_action :set_sharedfile, only: [:show, :edit, :update, :destroy]
+  before_filter :authenticate_user!
+  layout false
 
   # GET /sharedfiles
   # GET /sharedfiles.json
   def index
-    @sharedfiles = Sharedfile.all
+    @sharedfiles = Sharedfile.where('created_at >= DATE_ADD(NOW(), INTERVAL -1 MONTH)')
   end
 
   # GET /sharedfiles/1
@@ -30,19 +32,21 @@ class SharedfilesController < ApplicationController
     file = sharedfile_params[:file]
     name = file.original_filename
     dir = SecureRandom.hex(16)
-    exec 'mkdir /home/yu/www/priv.hal.mu/sharedfiles/' + dir
- p "file write start"
-    File.open("/home/yu/www/priv.hal.mu/sharedfiles/" + dir + "/" + name, 'wb') { |f|
+    `mkdir /home/yu/rails/hal/public/sharedfiles/#{dir}`
+    File.open("/home/yu/rails/hal/public/sharedfiles/" + dir + "/" + name, 'wb') { |f|
       f.write(file.read)
     }
-p "file write finished"
-    sharedile_params.file.delete!
-    
-    @sharedfile = Sharedfile.new(sharedfile_params)
+    @sharedfile = Sharedfile.new
+
+    @sharedfile.name = sharedfile_params[:name]
+    @sharedfile.description = sharedfile_params[:description]
+    @sharedfile.file_category_id = sharedfile_params[:file_category_id]
+    @sharedfile.user_id = current_user.id
+    @sharedfile.filepath = dir + "/" + name
     
     respond_to do |format|
       if @sharedfile.save
-        format.html { redirect_to @sharedfile, notice: 'Sharedfile was successfully created.' }
+        format.html { redirect_to :controller => 'main', :action => 'index', notice: 'ファイルを正常にアップロードしました！' }
         format.json { render action: 'show', status: :created, location: @sharedfile }
       else
         format.html { render action: 'new' }
@@ -83,6 +87,6 @@ p "file write finished"
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def sharedfile_params
-      params.require(:sharedfile).permit(:filepath, :description, :category, :uploader, :name, :file)
+      params.require(:sharedfile).permit(:filepath, :description, :file_category_id, :uploader, :name, :file)
     end
 end

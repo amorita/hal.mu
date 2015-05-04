@@ -37,5 +37,11 @@ bower.json
 # database
 config/database.yml
 
+#ominiauth
+config/omniauth.yml
+
+config/environments
+config/secrets.yml
+
 **.lock
 **~
