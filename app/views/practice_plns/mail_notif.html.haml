@@ -1,60 +1,59 @@
-.container
-  %h1 お知らせ作成
-  = form_for @practice_pln, :url => {:action => "update_sendmail"}, :html => {:class => "form-horizontal"} do |f|
-    - if @practice_pln.errors.any? 
-      %div{:id => "error_explanation"}
-        %h2
-          = pluralize(@practice_pln.errors.count, "error")
-          prohibited this practice_pln from being saved:
-          %ul
-          - @practice_pln.errors.full_messages.each do |msg|
-            %li= msg
-    %h4 
-      練習内容
-      %small 内容の変更も可能です        
-    .form-group
-      %label.col-sm-2.control-label 練習日
-      .col-sm-10
-        = f.date_field :pln_date, :class => 'form-control'
-    .form-group
-      %label.col-sm-2.control-label 開始時間
-      .col-sm-10
-        = f.text_field :begining, :class => 'form-control' 
-    .form-group
-      %label.col-sm-2.control-label 終了時間
-      .col-sm-10
-        = f.text_field :ending, :class => 'form-control' 
-    .form-group
-      %label.col-sm-2.control-label 練習区分
-      .col-sm-10
-        = f.collection_select :mode, PracticeMode.all, :id, :name, {}, :class => 'form-control' 
-    .form-group
-      %label.col-sm-2.control-label 練習会場
-      .col-sm-10
-        = f.collection_select :place, PracticePlace.all, :id, :place_name, {}, :prompt => '練習会場', :class => 'form-control' 
-    .form-group
-      %label.col-sm-2.control-label 部屋
-      .col-sm-10
-        = f.text_field :room, :placeholder => '部屋', :class => 'form-control' 
-    .form-group
-      %label.col-sm-2.control-label 練習内容
-      .col-sm-10
-        = f.text_area :description, :placeholder => '練習内容', :class => 'form-control', :rows => 10
-        
-    %h4
-      お知らせメール送信内容
-      %small ここで記入した内容は保存されません
-    .form-group
-      %label.col-sm-2.control-label ヘッダ（あいさつ）
-      .col-sm-10
-        = text_area_tag 'header_text', "みなさま\n\nこんにちは、吉田＠インペクです。\n今週末の" + @practice_pln.practice_mode.name + "のお知らせです。", :class => 'form-control', :rows => 6
+%h1 お知らせ作成
+= form_for @practice_pln, :url => {:action => "update_sendmail"}, :html => {:class => "form-horizontal"} do |f|
+  - if @practice_pln.errors.any? 
+    %div{:id => "error_explanation"}
+      %h2
+        = pluralize(@practice_pln.errors.count, "error")
+        prohibited this practice_pln from being saved:
+        %ul
+        - @practice_pln.errors.full_messages.each do |msg|
+          %li= msg
+  %h4 
+    練習内容
+    %small 内容の変更も可能です        
+  .form-group
+    %label.col-sm-2.control-label 練習日
+    .col-sm-10
+      = f.date_field :pln_date, :class => 'form-control'
+  .form-group
+    %label.col-sm-2.control-label 開始時間
+    .col-sm-10
+      = f.text_field :begining, :class => 'form-control' 
+  .form-group
+    %label.col-sm-2.control-label 終了時間
+    .col-sm-10
+      = f.text_field :ending, :class => 'form-control' 
+  .form-group
+    %label.col-sm-2.control-label 練習区分
+    .col-sm-10
+      = f.collection_select :mode, PracticeMode.all, :id, :name, {}, :class => 'form-control' 
+  .form-group
+    %label.col-sm-2.control-label 練習会場
+    .col-sm-10
+      = f.collection_select :place, PracticePlace.all, :id, :place_name, {}, :prompt => '練習会場', :class => 'form-control' 
+  .form-group
+    %label.col-sm-2.control-label 部屋
+    .col-sm-10
+      = f.text_field :room, :placeholder => '部屋', :class => 'form-control' 
+  .form-group
+    %label.col-sm-2.control-label 練習内容
+    .col-sm-10
+      = f.text_area :description, :placeholder => '練習内容', :class => 'form-control', :rows => 10
+      
+  %h4
+    お知らせメール送信内容
+    %small ここで記入した内容は保存されません
+  .form-group
+    %label.col-sm-2.control-label ヘッダ（あいさつ）
+    .col-sm-10
+      = text_area_tag 'header_text', "みなさま\n\nこんにちは、吉田＠インペクです。\n今週末の" + @practice_pln.practice_mode.name + "のお知らせです。", :class => 'form-control', :rows => 6
 
-    .form-group
-      %label.col-sm-2.control-label フッタ（その他お知らせなど）
-      .col-sm-10
-        = text_area_tag 'footer_text', "\n\n\n吉田 沙蘭", :class => 'form-control', :rows => 10     
-         
-    .form-group
-      %label.col-sm-2.control-label 
-      .col-sm-10
-        = f.submit '更新&送信', :class => 'btn btn-info'
+  .form-group
+    %label.col-sm-2.control-label フッタ（その他お知らせなど）
+    .col-sm-10
+      = text_area_tag 'footer_text', "\n\n\n吉田 沙蘭", :class => 'form-control', :rows => 10     
+       
+  .form-group
+    %label.col-sm-2.control-label 
+    .col-sm-10
+      = f.submit '更新&送信', :class => 'btn btn-info'

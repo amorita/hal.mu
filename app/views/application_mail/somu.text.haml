@@ -1,0 +1,18 @@
+- @users.each do |user|
+  = user.user.normal_name + 'さん'
+
+おつかれさまです。
+==
+= @app.user.part.name + 'パートへの届け出がパートリーダーによって承認されました。'
+団員専用サイトにログインし、内容を確認、総務承認してください。
+==
+https://priv.hal.mu/
+==
+●申請内容
+= '区分：' + @app.application_name
+= '申請者：' + @app.user.long_name
+= '承認者：' + @app.part_user.long_name
+== 
+以上です。
+==
+なにかお困りの場合は 井上ゆう y@inou.eu までお気軽にお問い合わせください。

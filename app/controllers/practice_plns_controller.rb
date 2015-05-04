@@ -1,6 +1,6 @@
 class PracticePlnsController < ApplicationController
   before_action :set_practice_pln, only: [:show, :edit, :update, :destroy]
-
+  layout 'priv'
   # GET /practice_plns
   # GET /practice_plns.json
   def index

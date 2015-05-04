@@ -2,6 +2,8 @@ class NontansController < ApplicationController
   before_action :set_nontan, only: [:show, :edit, :update, :destroy]
   skip_before_filter :verify_authenticity_token
 
+  before_filter :authenticate_user!
+
   # GET /nontans
   # GET /nontans.json
   def index
@@ -36,6 +38,9 @@ class NontansController < ApplicationController
   def create
     p nontan_params
     @nontan = Nontan.new(nontan_params)
+
+    @nontan.part_id = current_user.part_id
+    @nontan.user_id = current_user.id
 
     respond_to do |format|
       if @nontan.save
@@ -80,6 +85,6 @@ class NontansController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def nontan_params
-      params.require(:nontan).permit(:practice_pln_id, :part_id, :user_name, :subs_name, :reason, :time, :nontan_class_id)
+      params.require(:nontan).permit(:practice_pln_id, :part_id, :user_name, :subs_name, :reason, :time, :nontan_class_id, :user_id, :subs_user_id)
     end
 end
