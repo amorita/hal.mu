@@ -1,0 +1,35 @@
+%p &nbsp;
+%p
+  Orchectra HALでは
+  = @concerts.max.name
+  までのプログラムを決定しております。各演奏会に関するお問い合せは
+  %a{:href => "javascript:window.open('https://docs.google.com/forms/d/1jkYASfXzo-koo7zC7zY6lr2dvSyzdJRN_Z-86g1Q2P4/viewform','windowname','width=640,height=450');void(0);"} こちら
+  までお願いいたします。なお、以下のプログラムはやむをえない事情等により予告なく変更となる場合もありますのであらかじめご了承ください。
+  
+- @concerts.each do |concert|
+  %h1= concert.name
+  %p
+  .bs-callout.bs-callout-default
+    - if  concert.date.strftime("%d").to_i ==1 && ( concert.date.strftime("%m").to_i == 7 || concert.date.strftime("%m").to_i == 1)
+      %h4= concert.date.strftime("%Y年") + ' ' + (concert.date.strftime("%m").to_i == 7 ? '秋' : '春')
+    - else
+      %h4= concert.date.strftime("%Y年") + concert.date.strftime("%m").to_i.to_s + "月" + concert.date.strftime("%d").to_i.to_s + "日(" + ["日", "月", "火", "水", "木", "金", "土"][concert.date.wday] + ")"
+    %p
+      %span{:style => 'font-weight: 300'}= concert.place
+      = concert.hall
+    %p= "指揮: " + concert.conductor
+  .row  
+    .col-xs-12.col-md-6
+      %img.img-responsive{:src => '/history/' + concert.id.to_s + 'a.png', :onerror => 'this.src="/img/unavailable.png"'}
+    .col-xs-12.col-md-6
+      %img.img-responsive{:src => '/history/' + concert.id.to_s + 'b.png', :onerror => 'this.src="/img/unavailable.png"'}
+  %p
+  %h1 演奏曲目
+  - concert.concert_programs.each do |program|
+    - id = program.id.to_s
+    .bs-callout.bs-callout-default
+      %p.h2= program.composer
+      %p.h3
+        = program.name
+        %span.small
+          = program.sub_title.nil? ? "" : program.sub_title

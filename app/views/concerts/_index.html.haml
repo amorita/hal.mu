@@ -1,0 +1,6 @@
+- @concerts.each do |concert|
+  .grid.col-md-4.col-sm-6
+    .borders
+      .col-xs-12.nopadding
+        %input.img-responsive.modalShow{:type => 'image', :src => '/history/' + concert.id.to_s + 'a.png', :onClick => 'loadDetail(' + concert.id.to_s + ')', :'data-toggle' => 'modal', :'data-target' => '#dtlModal'}
+      .clearfix

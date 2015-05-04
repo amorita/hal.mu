@@ -32,8 +32,8 @@ class SharedfilesController < ApplicationController
     file = sharedfile_params[:file]
     name = file.original_filename
     dir = SecureRandom.hex(16)
-    `mkdir /Users/yu/rails/sharedfiles/#{dir}`
-    File.open("/Users/yu/rails/sharedfiles/" + dir + "/" + name, 'wb') { |f|
+    `mkdir /home/yu/rails/hal/public/sharedfiles/#{dir}`
+    File.open("/home/yu/rails/hal/public/sharedfiles/" + dir + "/" + name, 'wb') { |f|
       f.write(file.read)
     }
     @sharedfile = Sharedfile.new
