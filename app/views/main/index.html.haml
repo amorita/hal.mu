@@ -216,10 +216,10 @@
                 .clear_box
 
           -# INSPECTOR
-          - if current_user.admin || Responsible.where(:name => 'inspector', :user_id => current_user.id).count > 0
+          -# if current_user.admin || Responsible.where(:name => 'inspector', :user_id => current_user.id).count > 0
 
           -# LOCATOR
-          - if current_user.admin || Responsible.where(:name => 'locator', :user_id => current_user.id).count > 0
+          -# if current_user.admin || Responsible.where(:name => 'locator', :user_id => current_user.id).count > 0
 
           -# SOMU
           - if is_granted :somu
