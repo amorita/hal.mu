@@ -261,7 +261,7 @@ Devise.setup do |config|
 
   # https://github.com/mkdynamic/omniauth-facebook
   # https://developers.facebook.com/docs/concepts/login/
-  config.omniauth :facebook, OAUTH_CONFIG[:facebook]['key'], OAUTH_CONFIG[:facebook]['secret'], scope: 'email,publish_stream,user_birthday'
+  config.omniauth :facebook, OAUTH_CONFIG[:facebook]['key'], OAUTH_CONFIG[:facebook]['secret'], scope: 'email,user_birthday'
 
   # https://github.com/intridea/omniauth-github
   # http://developer.github.com/v3/oauth/
