@@ -1,6 +1,8 @@
 class PracticePlacesController < ApplicationController
   before_action :set_practice_place, only: [:show, :edit, :update, :destroy]
   layout 'priv'
+  before_filter :authenticate_user!
+
   # GET /practice_places
   # GET /practice_places.json
   def index

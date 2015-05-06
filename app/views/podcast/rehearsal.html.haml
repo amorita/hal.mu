@@ -1,5 +1,6 @@
 %table{:border => "0", :width => "500"}
   - priv_date = nil
+  - cnt = 0
   - @list.each do |item|
     - if item[:update] < Date::today - 30
       - next
@@ -7,6 +8,7 @@
       - priv_date = item[:update].strftime('%m/%d')
       %tr
         %td= priv_date
+    - cnt += 1
     %tr
       %td
         %table{:border => "0", :width => "500"}
@@ -21,3 +23,5 @@
                 audio タグ未対応です。
                 %a{:href => "http://priv.hal.mu/sharedfiles/" + item[:file]}> ここ
                 をクリックすると聞けます。
+  - if cnt == 0
+    %p …直近の録音はありません
