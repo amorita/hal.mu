@@ -215,8 +215,14 @@
                     %img.img-responsive{:src => "/img/applicationacceptance.png"}/
                 .clear_box
 
+          -# INSPECTOR
+          - if current_user.admin || Responsible.where(:name => 'inspector', :user_id => current_user.id).count > 0
+
+          -# LOCATOR
+          - if current_user.admin || Responsible.where(:name => 'locator', :user_id => current_user.id).count > 0
+
           -# SOMU
-          - if current_user.admin || Responsible.where(:name => 'somu', :user_id => current_user.id).count > 0
+          - if is_granted :somu
             .grid.col-md-4.col-sm-6
               .borders
                 .col-xs-12.nopadding
