@@ -216,10 +216,19 @@
                 .clear_box
 
           -# INSPECTOR
-          -# if current_user.admin || Responsible.where(:name => 'inspector', :user_id => current_user.id).count > 0
-
-          -# LOCATOR
-          -# if current_user.admin || Responsible.where(:name => 'locator', :user_id => current_user.id).count > 0
+          - if is_granted :locator, :inspector
+            .grid.col-md-4.col-sm-6
+              .borders
+                .col-xs-12.nopadding
+                  %img.img-responsive{:src => "/img/schedule_arr.png"}/
+                .grid_content
+                  .pad
+                    %ui
+                      %li
+                        = link_to '練習会場メンテナンス', practice_places_path, {:target => '_blank'}
+                      %li
+                        = link_to '練習予定の編集', practice_plns_path, {:target => '_blank'}
+                .clear_box
 
           -# SOMU
           - if is_granted :somu
@@ -234,10 +243,6 @@
                         = link_to '各種届出の承認', '/application_acceptance/somu_index', {:target => '_blank'}
                       %li
                         = link_to '名簿一覧', '#'
-                      %li
-                        = link_to '練習会場メンテナンス', practice_places_path, {:target => '_blank'}
-                      %li
-                        = link_to '練習予定の編集', practice_plns_path, {:target => '_blank'}
                 .clear_box
 
 
