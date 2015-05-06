@@ -12,10 +12,11 @@ class WelcomeMail < ActionMailer::Base
   end
 
   def send_all_unlogin
-    #personal_datas = PersonalData.where('updated_at is null')
-    personal_datas = PersonalData.where(:id => 124)
+    personal_datas = PersonalData.where('updated_at is null')
+    #personal_datas = PersonalData.where(:id => 124)
     personal_datas.each do |data|
       @personal_data = data
+      p data.family_name
       mail to: data.email, subject: "【重要】Orchestra HAL 団員専用サイトからお知らせ"
     end
   end
