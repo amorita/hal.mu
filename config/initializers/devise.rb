@@ -278,7 +278,7 @@ OAUTH_CONFIG[:google]['key'], OAUTH_CONFIG[:google]['secret'], scope: 'https://w
   # http://developer.hatena.ne.jp/ja/documents/auth/apis/oauth
   config.omniauth :hatena, OAUTH_CONFIG[:hatena]['key'], OAUTH_CONFIG[:hatena]['secret']
 
-  config.omniauth :yahoojp, OAUTH_CONFIG[:yahoo]['key'], OAUTH_CONFIG[:yahoo]['secret'], name: :yahoo
+  config.omniauth :yahoojp, OAUTH_CONFIG[:yahoo]['key'], OAUTH_CONFIG[:yahoo]['secret'], scope: 'openid profile email address',  name: :yahoo
 
   # https://github.com/skorks/omniauth-linkedin
   # https://developer.linkedin.com/documents/authentication
