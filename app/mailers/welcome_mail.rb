@@ -23,4 +23,6 @@ class WelcomeMail < ActionMailer::Base
     personal_datas.each do |data|
       send_all_unlogin(data).deliver
     end
+    true
+  end
 end
