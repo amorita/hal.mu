@@ -4,8 +4,7 @@
     %h4= f.when.strftime("%m月%d日")
     %h3= f.title
     - if !f.description.nil?
-      %p.indent= simple_format f.description
-      %p &nbsp;
+      .indent= simple_format f.description
     %p
       お問い合わせ：
       = mail_to f.user.email, f.user.part.abbr.capitalize + ' ' + f.user.normal_name + 'さん'
