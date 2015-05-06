@@ -1,13 +1,15 @@
 %h4 この先のイベント
 - @future_events.each do |f|
   .bs-callout.bs-callout-default
-    %h4= f.when.strftime("%m月%d日")
+    %h4= f.when.strftime("%m月%d日") + "(" + ["日", "月", "火", "水", "木", "金", "土"][f.when.wday] + ")"
     %h3= f.title
+    %p &nbsp;
     - if !f.description.nil?
       .indent= simple_format f.description
+      %p &nbsp;
     %p
       お問い合わせ：
-      = mail_to f.user.email, f.user.part.abbr.capitalize + ' ' + f.user.normal_name + 'さん'
+      = mail_to f.user.email, f.user.part.abbr.capitalize + '. ' + f.user.normal_name + 'さん'
 
 %h4 終了したイベント
 - @past_events.each do |p|
