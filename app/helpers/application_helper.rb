@@ -4,7 +4,7 @@ module ApplicationHelper
 			return true
 		end
 
-		for res in responsibles.class do 
+		responsibles.each do |res| 
 			if Responsible.where(:name => res.to_s, :user_id => current_user.id).count > 0
 				return true
 			end

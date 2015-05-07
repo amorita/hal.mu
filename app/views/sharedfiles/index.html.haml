@@ -2,5 +2,5 @@
   - @sharedfiles.each do |sharedfile|
     %tr
       %td= sharedfile.file_category.name
-      %td= link_to sharedfile.name, 'hoge/' + sharedfile.filepath
+      %td= link_to sharedfile.name, '/shared_files/' + sharedfile.filepath
       %td= 'by ' + sharedfile.user.normal_name + 'さん'
