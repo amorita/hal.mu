@@ -1,3 +1,13 @@
+- att = EventAttendance.where(:user_id => current_user.id)
+- if att.count > 0
+  %h4 参加予定のイベント
+  - att.each do |a|
+    %p &nbsp;
+    %p
+      = a.event.when.strftime("%m月%d日") + "(" + ["日", "月", "火", "水", "木", "金", "土"][a.event.when.wday] + ")"
+      = a.event.title
+      = button_tag 'キャンセル', :type => 'button', :onclick => "$('events').load('/events?action=cancel&id=#{a.id}')", :class => 'btn btn-xs btn-danger'
+  %p &nbsp;
 %h4 この先のイベント
 - @future_events.each do |f|
   .bs-callout.bs-callout-default
@@ -10,6 +20,15 @@
     %p
       お問い合わせ：
       = mail_to f.user.email, f.user.part.abbr.capitalize + '. ' + f.user.normal_name + 'さん'
+    %p &nbsp;
+    %p
+      参加予定：
+      - names = []
+      - f.event_attendances.each do |att|
+        - names << att.user.normal_name + 'さん'
+      = names.join('、')
+    %p.text-right= button_tag '参加する！', :type => 'button', :onclick => "$('events').load('/events?action=join&id=#{a.event_id}')", :class => 'btn btn-xs btn-primary'
+
 
 %h4 終了したイベント
 - @past_events.each do |p|
