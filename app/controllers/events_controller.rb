@@ -4,7 +4,7 @@ class EventsController < ApplicationController
   layout false
   
   def index
-  	action = params[:action]
+  	action = params[:mode]
   	id = params[:id]
   	if !action.nil?
   		if action == 'join'

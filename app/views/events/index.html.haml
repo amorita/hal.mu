@@ -6,7 +6,7 @@
     %p
       = a.event.when.strftime("%m月%d日") + "(" + ["日", "月", "火", "水", "木", "金", "土"][a.event.when.wday] + ")"
       = a.event.title
-      = button_tag 'キャンセル', :type => 'button', :onclick => "$('events').load('/events?action=cancel&id=#{a.id}')", :class => 'btn btn-xs btn-danger'
+      = button_tag 'キャンセル', :type => 'button', :onclick => "javascript: $('#events').load('/events?mode=cancel&id=#{a.id}')", :class => 'btn btn-xs btn-danger'
   %p &nbsp;
 %h4 この先のイベント
 - @future_events.each do |f|
@@ -27,7 +27,8 @@
       - f.event_attendances.each do |att|
         - names << att.user.normal_name + 'さん'
       = names.join('、')
-    %p.text-right= button_tag '参加する！', :type => 'button', :onclick => "$('events').load('/events?action=join&id=#{a.event_id}')", :class => 'btn btn-xs btn-primary'
+    - if EventAttendance.where(:event_id => f.id, :user_id => current_user.id).count == 0
+      %p.text-right= button_tag '参加する！', :type => 'button', :onclick => "javascript: $('#events').load('/events?id=#{f.id}&mode=join')", :class => 'btn btn-xs btn-primary'
 
 
 %h4 終了したイベント
