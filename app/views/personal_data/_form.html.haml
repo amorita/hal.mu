@@ -18,6 +18,11 @@
     = f.text_field :name_pron, :placeholder => "めい",:class => "form-control", :required => 'true'
 
 .form-group
+  %label.col-sm-2.control-label ニックネーム
+  .col-sm-10
+    = f.text_field :nickname, :placeholder => "いわゆる愛称",:class => "form-control"
+
+.form-group
   %label.col-sm-2.control-label パート
   .col-sm-10
     = f.collection_select :part_id, Part.all, :id, :name, {:prompt => "パート"}, {:class => "form-control part_select", :required => 'true'}
