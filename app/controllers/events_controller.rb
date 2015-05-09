@@ -28,6 +28,10 @@ class EventsController < ApplicationController
   	end
 
   	@future_events = Event.where("`when` >= date(addtime(now(), '7:00'))").order(:when)
+        @fids = []
+        @future_events.each do |f|
+          @fids << f.id
+        end
   	@past_events = Event.where("`when` < date(addtime(now(), '7:00'))").order("`when` DESC").limit(5)
   end
 
