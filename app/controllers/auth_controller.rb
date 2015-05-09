@@ -18,6 +18,6 @@ end
 
 def logout
 	sign_out current_user
-	redirect_to '/'
+	redirect_to 'http://hal.mu/'
 end
 end
