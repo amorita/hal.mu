@@ -16,7 +16,7 @@ class EventsController < ApplicationController
   		if action == 'cancel'
   			EventAttendance.find(id).destroy
   		end
-      if action == 'album' && params[:url].present? && params[:url].length > 0
+      if action == 'album' && params[:url].present? && params[:url].length > 10
         url = params[:url]
         album = Album.new
         album.event_id = id
