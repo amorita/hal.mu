@@ -16,10 +16,24 @@ class EventsController < ApplicationController
   		if action == 'cancel'
   			EventAttendance.find(id).destroy
   		end
+      if action == 'album'
+        url = params[:url]
+        album = Album.new
+        album.event_id = id
+        album.user_id = current_user.id
+        album.url = url
+        album.save!
+        send_album_share_mail album
+      end
   	end
 
-  	@future_events = Event.where('`when` >= current_date()').order(:when)
-  	@past_events = Event.where('`when` < current_date()').order("`when` DESC").limit(5)
+  	@future_events = Event.where("`when` >= date(addtime(now(), '7:00'))").order(:when)
+  	@past_events = Event.where("`when` < date(addtime(now(), '7:00'))").order("`when` DESC").limit(5)
   end
 
+  def send_album_share_mail(album)
+    album.event.event_attendances.each do |att|
+      EventMail.share_album(att.user, album).deliver
+    end
+  end
 end

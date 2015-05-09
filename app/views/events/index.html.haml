@@ -33,5 +33,20 @@
 
 %h4 終了したイベント
 - @past_events.each do |p|
-  %p= p.when.strftime("%m月%d日") + ' ' + p.title
-  %p &nbsp;
+  - attend = EventAttendance.where(:event_id => p.id, :user_id => current_user.id).count != 0
+  .event
+    %p= 
+      p.when.strftime("%m月%d日") + ' ' + p.title
+      - if attend
+        = button_tag '写真を共有', :type => 'button', :onclick => "javascript: url=window.prompt('共有アルバムのURLを入力してください','');$('#events').load('/events?id=#{f.id}&mode=album&url='+url);", :class => 'btn btn-xs btn-primary'
+    - if attend
+      %ul
+        - p.albums.each do |album|
+          %li
+            %a{:href => album.url, :target => '_blank'}
+              %i.fa.fa-picture-o
+              = 'アルバム' + album.id.to_s
+              %i.fa.fa-camera-o
+              by
+              = album.user_id.normal_name + 'さん'
+    %p &nbsp;
