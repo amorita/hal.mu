@@ -30,7 +30,10 @@
     .form-group
       %label.col-sm-2.control-label パート
       .col-sm-10
-        = text_field_tag '', current_user.part.name, :class => 'form-control disable', :disabled => 'disabled'
+        - if !current_user.admin
+          = text_field_tag '', current_user.part.name, :class => 'form-control disable', :disabled => 'disabled'
+        - else
+          = f.collection_select :part_id, Part.all, :id, :name, {:prompt => 'select part'}, {:class => 'form-control'}
 
     .form-group
       %label.col-sm-2.control-label  メールアドレス
