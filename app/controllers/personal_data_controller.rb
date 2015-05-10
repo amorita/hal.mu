@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 class PersonalDataController < ApplicationController
 
 before_filter :authenticate_user!
@@ -80,7 +81,9 @@ layout 'priv'
   def create
     @personal_data = PersonalData.new(personal_data_params)
 
-    @personal_data.part_id = current_user.part_id
+    unless current_user.admin
+      @personal_data.part_id = current_user.part_id
+    end
     @personal_data.initial_access_token = format('%06d', rand(1000000))
 
     respond_to do |format|

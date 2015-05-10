@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 class EventMail < ActionMailer::Base
   default from: '"Orchestra HAL" <welcome@hal.mu>'
 
@@ -19,5 +20,11 @@ class EventMail < ActionMailer::Base
       send_all_unlogin(data).deliver
     end
     true
+  end
+
+  def new_attendant(event, user)
+    @attendant = user
+    @event = event
+    mail to: event.user.email, subject: "new attendant has been detected!!"
   end
 end
