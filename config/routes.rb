@@ -57,7 +57,7 @@ end
   end
   
   resources :topics, :only => [:index]
-  resources :events, :only => [:index]
+  resources :events
 
   resources :application_acceptance do
     collection do
