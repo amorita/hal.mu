@@ -35,7 +35,7 @@
       - f.event_attendances.each do |att|
         - names << att.user.normal_name + 'さん'
       = names.join('、')
-    - if EventAttendance.where(:event_id => f.id, :user_id => current_user.id).count == 0
+    - if f.invite_until >= Date.today && EventAttendance.where(:event_id => f.id, :user_id => current_user.id).count == 0
       %p.text-right= button_tag '参加する！', :type => 'button', :onclick => "javascript: $('#events').load('/events?id=#{f.id}&mode=join')", :class => 'btn btn-xs btn-primary'
     - if f.user_id == current_user.id
       %p.text-right
