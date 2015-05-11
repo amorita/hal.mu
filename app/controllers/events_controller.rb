@@ -13,7 +13,10 @@ class EventsController < ApplicationController
   			event_att.event_id = id
   			event_att.user_id = current_user.id
   			event_att.save!
-        EventMail.new_attendant(Event.find(id), current_user).deliver
+        event = Event.find(id)
+        if Date.today >= event.when - event.alert_days_before
+          EventMail.new_attendant(event, current_user).deliver
+        end
   		end
   		if action == 'cancel'
   			EventAttendance.find(id).destroy
