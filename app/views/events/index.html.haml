@@ -6,7 +6,8 @@
     %p
       = a.event.when.strftime("%m月%d日") + "(" + ["日", "月", "火", "水", "木", "金", "土"][a.event.when.wday] + ")"
       = a.event.title
-      = button_tag 'キャンセル', :type => 'button', :onclick => "javascript: $('#events').load('/events?mode=cancel&id=#{a.id}')", :class => 'btn btn-xs btn-danger'
+      - if a.event.user_id != current_user.id
+        = button_tag 'キャンセル', :type => 'button', :onclick => "javascript: $('#events').load('/events?mode=cancel&id=#{a.id}')", :class => 'btn btn-xs btn-danger'
   %p &nbsp;
 %h4 この先のイベント
 - @future_events.each do |f|
@@ -16,13 +17,14 @@
       %h3{:style => "display: inline"}
         = f.title
       %small
-        %a{:href => "#", :onclick => "javascript: $(this).toggle();$('#event-desc-#{f.id}').toggle(); return false;"}
+        %a{:href => "#", :onclick => "javascript: $(this).toggle();$('#event-desc-#{f.id}').toggle();vg.vgrefresh(null, null, null); return false;"}
           %span.glyphicon.glyphicon-chevron-down
           詳細
     %p &nbsp;
     - if !f.description.nil?
-      .indent.hidden{:id => "event-desc-#{f.id}"}= simple_format f.description
-      %p &nbsp;
+      .indent{:id => "event-desc-#{f.id}", :style => "display: none;"}
+        = simple_format f.description
+        %p &nbsp;
     %p
       お問い合わせ：
       = mail_to f.user.email, f.user.part.abbr.capitalize + '. ' + f.user.normal_name + 'さん'
@@ -35,7 +37,7 @@
       = names.join('、')
     - if EventAttendance.where(:event_id => f.id, :user_id => current_user.id).count == 0
       %p.text-right= button_tag '参加する！', :type => 'button', :onclick => "javascript: $('#events').load('/events?id=#{f.id}&mode=join')", :class => 'btn btn-xs btn-primary'
-    - if f.user_id == current_user_id
+    - if f.user_id == current_user.id
       %p.text-right
         = link_to '>>イベントのマネジメント', edit_event_path(f.id), {:target => '_blank'}
 

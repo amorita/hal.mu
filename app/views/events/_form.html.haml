@@ -1,4 +1,5 @@
 = form_for @event, :html => {:class => "form-horizontal"} do |f|
+  %p= notice
   - if @event.errors.any?
     #error_explanation
       %h2= "#{pluralize(@event.errors.count, "error")} prohibited this nontan from being saved:"
@@ -14,7 +15,7 @@
   .form-group
     %label.col-sm-2.control-label 内容詳細
     .col-sm-10
-      = f.text_area :title, :class => "form-control", :placeholder => 'クラブライブイベントをすることに決定いたした! 飲めや歌えや踊れやの3時間半 実力派DJやセクシーディーバ、秘密兵器を迎えての第1弾!!×2 こなきゃ損損!'
+      = f.text_area :description, :class => "form-control", :placeholder => 'クラブライブイベントをすることに決定いたした! 飲めや歌えや踊れやの3時間半 実力派DJやセクシーディーバ、秘密兵器を迎えての第1弾!!×2 こなきゃ損損!'
 
   .form-group
     %label.col-sm-2.control-label  日付
@@ -25,12 +26,13 @@
     %label.col-sm-2.control-label  終了日
     .col-sm-10
       %small 複数日にまたがる場合
-      = f.date_field :ends_at, :class => "form-control", :required => 'true'
+      = f.date_field :ends_at, :class => "form-control"
 
   .form-group
     %label.col-sm-2.control-label 参加表明期限
     .col-sm-10
-      = f.date_field :invite_until, :class => "form-control", :required => 'true'
+      %small 未入力の場合、当日17時まで
+      = f.date_field :invite_until, :class => "form-control"
 
   .form-group
     %label.col-sm-2.control-label 新規参加者お知らせ配信
