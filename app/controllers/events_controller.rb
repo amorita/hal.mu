@@ -1,6 +1,7 @@
+# -*- coding: utf-8 -*-
 class EventsController < ApplicationController
   before_action :set_event, only: [:edit, :update, :destroy]
- # before_filter :authenticate_user!
+  before_filter :authenticate_user!
   layout 'priv'
   
   def index
@@ -50,7 +51,7 @@ class EventsController < ApplicationController
     @event.user_id = current_user.id
     respond_to do |format|
       if @event.save
-        format.html { redirect_to edit_event_path(@event.id), notice: '作成しました' }
+        format.html { render acrion: 'edit', notice: '作成しました' }
       else
         format.html { render action: 'new' }
       end
