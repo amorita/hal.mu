@@ -36,9 +36,19 @@ class EventsController < ApplicationController
   	@past_events = Event.where("`when` < date(addtime(now(), '7:00'))").order("`when` DESC").limit(5)
   end
 
+  def edit
+  end
+  
+
   def send_album_share_mail(album)
     album.event.event_attendances.each do |att|
       EventMail.share_album(att.user, album).deliver
     end
   end
+
+  private
+    # Use callbacks to share common setup or constraints between actions.
+    def set_event
+      @event = Event.find(params[:id])
+    end  
 end
