@@ -12,10 +12,16 @@
 - @future_events.each do |f|
   .bs-callout.bs-callout-default
     %h4= f.when.strftime("%m月%d日") + "(" + ["日", "月", "火", "水", "木", "金", "土"][f.when.wday] + ")"
-    %h3= f.title
+    %p
+      %h3{:style => "display: inline"}
+        = f.title
+      %small
+        %a{:href => "#", :onclick => "javascript: $(this).toggle();$('#event-desc-#{f.id}').toggle(); return false;"}
+          %span.glyphicon.glyphicon-chevron-down
+          詳細
     %p &nbsp;
     - if !f.description.nil?
-      .indent= simple_format f.description
+      .indent.hidden{:id => "event-desc-#{f.id}"}= simple_format f.description
       %p &nbsp;
     %p
       お問い合わせ：
