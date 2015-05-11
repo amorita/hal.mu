@@ -1,3 +1,11 @@
 = @event.user.normal_name + 'さん'
 ==
-= @attendant.normal_name
+= "あなたが主催するイベント「" + @event.title + "」に参加者が増えました。"
+==
+■新しく増えた方
+= '・' + @attendant.long_name + 'さん'
+==
+= '■参加予定の方 (' + @event.event_attendances.count + '名)'
+- for @event.event_attendances do |att|
+  = '・' + att.user.long_name
+  
