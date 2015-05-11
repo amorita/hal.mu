@@ -1,0 +1,43 @@
+= form_for @event, :html => {:class => "form-horizontal"} do |f|
+  - if @event.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@event.errors.count, "error")} prohibited this nontan from being saved:"
+      %ul
+        - @event.errors.full_messages.each do |msg|
+          %li= msg
+
+  .form-group
+    %label.col-sm-2.control-label イベント名
+    .col-sm-10
+      = f.text_field :title, :placeholder => "第34回ハルオケパーリナイ！",:class => "form-control", :required => 'true'
+
+  .form-group
+    %label.col-sm-2.control-label 内容詳細
+    .col-sm-10
+      = f.text_area :title, :class => "form-control", :placeholder => 'クラブライブイベントをすることに決定いたした! 飲めや歌えや踊れやの3時間半 実力派DJやセクシーディーバ、秘密兵器を迎えての第1弾!!×2 こなきゃ損損!'
+
+  .form-group
+    %label.col-sm-2.control-label  日付
+    .col-sm-10
+      = f.date_field :when, :class => "form-control", :required => 'true'
+
+  .form-group
+    %label.col-sm-2.control-label  終了日
+    .col-sm-10
+      %small 複数日にまたがる場合
+      = f.date_field :ends_at, :class => "form-control", :required => 'true'
+
+  .form-group
+    %label.col-sm-2.control-label 参加表明期限
+    .col-sm-10
+      = f.date_field :invite_until, :class => "form-control", :required => 'true'
+
+  .form-group
+    %label.col-sm-2.control-label 新規参加者お知らせ配信
+    .col-sm-10
+      %small 開催日の指定日数前以降に増えた場合はメールを配信します。0は常に配信します。
+      = f.number_field :alert_days_before, :class => "form-control", :required => 'true'
+
+  .actions
+    %p.text-right
+      = f.submit '登録', :class => "btn btn-primary"

@@ -14,10 +14,7 @@ class User::OmniauthCallbacksController < Devise::OmniauthCallbacksController
 
   private
   def basic_action
-p '@omniauth'
-p @omniauth
-    
-@omniauth = request.env['omniauth.auth']
+    @omniauth = request.env['omniauth.auth']
     if @omniauth.present?
       @profile = SocialProfile.where(provider: @omniauth['provider'], uid: @omniauth['uid']).first
       unless @profile

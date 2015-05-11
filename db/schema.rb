@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150509020055) do
+ActiveRecord::Schema.define(version: 20150511100916) do
 
   create_table "ab_list", force: true do |t|
     t.string "part", limit: 5
@@ -130,6 +130,9 @@ ActiveRecord::Schema.define(version: 20150509020055) do
     t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.date     "invite_until"
+    t.integer  "alert_days_before"
+    t.date     "ends_at"
   end
 
   create_table "fee_amounts", force: true do |t|
@@ -280,17 +283,17 @@ ActiveRecord::Schema.define(version: 20150509020055) do
     t.text     "raw_info"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "access_token",  limit: 2048
-    t.string   "access_secret", limit: 2048
+    t.string   "access_token"
+    t.string   "access_secret"
   end
 
   add_index "social_profiles", ["user_id"], name: "index_social_profiles_on_user_id", using: :btree
 
   create_table "topics", force: true do |t|
-    t.string    "title"
-    t.string    "link"
-    t.timestamp "created_at"
-    t.timestamp "updated_at"
+    t.string   "title"
+    t.string   "link"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "users", force: true do |t|
