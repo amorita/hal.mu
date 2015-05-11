@@ -25,6 +25,6 @@ class EventMail < ActionMailer::Base
   def new_attendant(event, user)
     @attendant = user
     @event = event
-    mail to: event.user.email, subject: "new attendant has been detected!!"
+    mail to: event.user.email, subject: "イベント「" + event.title + "」に参加者が増えました！"
   end
 end
