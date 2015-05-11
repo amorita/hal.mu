@@ -43,34 +43,7 @@
                 .css("border-color",(function(){return "#" +  Math.floor(Math.random()* 512 + 1)}));
             
         $(function() {
-        
-          //詳細情報読込系
-        $("#recording").load("/podcast/rehearsal_prev");
-        $("#recent_files").load("/sharedfiles");
-        $("#events").load("/events");
-        
-        
-        });
-        });
-        
-        function getiframeWidth(){
-          var windowWidth = getBrowserWidth();
-          var result = 300;
-          while(result < (windowWidth - 360)){
-            result = result + 360;
-          }
-          return result;
-        }
-
-                function getBrowserWidth ( ) {
-          if ( window.innerWidth ) { return window.innerWidth; }
-          else if ( document.documentElement && document.documentElement.clientWidth != 0 ) { return document.documentElement.clientWidth; }
-          else if ( document.body ) { return document.body.clientWidth; }
-          return 0;
-        }
-      
-      $(function(){
-        //setup
+                //setup
         vg = $("#grid-content").vgrid({
           easing: "easeOutQuint",
           useLoadImageEvent: true,
@@ -93,8 +66,31 @@
               })
       
           }
+
+          //詳細情報読込系
+        $("#recording").load("/podcast/rehearsal_prev", null, vg.vgrefresh(null, null, null));
+        $("#recent_files").load("/sharedfiles", null, vg.vgrefresh(null, null, null));
+        $("#events").load("/events", null, vg.vgrefresh(null, null, null));
+        
+        
+        });
         });
         
+        function getiframeWidth(){
+          var windowWidth = getBrowserWidth();
+          var result = 300;
+          while(result < (windowWidth - 360)){
+            result = result + 360;
+          }
+          return result;
+        }
+
+                function getBrowserWidth ( ) {
+          if ( window.innerWidth ) { return window.innerWidth; }
+          else if ( document.documentElement && document.documentElement.clientWidth != 0 ) { return document.documentElement.clientWidth; }
+          else if ( document.body ) { return document.body.clientWidth; }
+          return 0;
+        }
                 
          $(document).resize(function(){
           vg.vgrefresh(null, null, null);
