@@ -5,7 +5,6 @@
 ■新しく増えた方
 = '・' + @attendant.long_name + 'さん'
 ==
-= '■参加予定の方 (' + @event.event_attendances.count + '名)'
-- for @event.event_attendances do |att|
+= '■参加予定の方 (' + @event.event_attendances.count.to_s + '名)'
+- @event.event_attendances.each do |att|
   = '・' + att.user.long_name
-  
