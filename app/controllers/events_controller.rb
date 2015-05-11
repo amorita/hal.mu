@@ -1,7 +1,7 @@
 class EventsController < ApplicationController
 
-  before_filter :authenticate_user!
-  layout false
+ # before_filter :authenticate_user!
+  layout 'priv'
   
   def index
   	action = params[:mode]
@@ -34,11 +34,39 @@ class EventsController < ApplicationController
           @fids << f.id
         end
   	@past_events = Event.where("`when` < date(addtime(now(), '7:00'))").order("`when` DESC").limit(5)
+    render :layout => false
   end
 
   def edit
   end
-  
+
+  def new
+    @event = Event.new
+    @event.alert_days_before = 0
+  end
+
+  def create
+    @event = Event.new(event_params)
+    @event.user_id = current_user.id
+    respond_to do |format|
+      if @event.save
+        format.html { redirect_to edit_event_path(@event.id), notice: '作成しました' }
+      else
+        format.html { render action: 'new' }
+      end
+    end
+  end
+
+  def update
+    respond_to do |format|
+      if @event.update(event_params)
+        format.html { render action: 'edit', notice: '更新しました' }
+      else
+        format.html { render action: 'edit' }
+      end
+    end
+  end
+
 
   def send_album_share_mail(album)
     album.event.event_attendances.each do |att|
@@ -51,4 +79,8 @@ class EventsController < ApplicationController
     def set_event
       @event = Event.find(params[:id])
     end  
+
+    def event_params
+      params.require(:event).permit(:title, :description, :when, :ends_at, :alert_days_before, :invite_until)
+    end
 end
