@@ -4,7 +4,11 @@ before_filter :authenticate_user!
 layout 'priv'
 
 def index
-	@apps = Application.where('part_accepted_at is null and user_id in (select id from users where part_id = ?)', current_user.part_id)
+	if current_user.admin
+		@apps = Application.where('part_accepted_at is null')
+	else
+		@apps = Application.where('part_accepted_at is null and user_id in (select id from users where part_id = ?)', current_user.part_id)
+	end
 end
 
 def edit
