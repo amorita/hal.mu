@@ -49,7 +49,7 @@
     %p
       = p.when.strftime("%m月%d日") + ' ' + p.title
       - if attend
-        = button_tag '写真を共有', :type => 'button', :onclick => "javascript: url=window.prompt('共有アルバムのURLを入力してください','');$('#events').load('/events?id=#{p.id}&mode=album&url='+url);", :class => 'btn btn-xs btn-primary'
+        = button_tag '写真を共有', :type => 'button', :onclick => "javascript: url=window.prompt('共有アルバムのURLを入力してください','');$('#events').load('/events?id=#{p.id}&mode=album&url='+encodeURIComponent(url));", :class => 'btn btn-xs btn-primary'
     - if attend
       %ul
         - p.albums.each do |album|
