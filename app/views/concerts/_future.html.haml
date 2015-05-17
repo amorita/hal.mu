@@ -18,6 +18,8 @@
       %span{:style => 'font-weight: 300'}= concert.place
       = concert.hall
     %p= "指揮: " + concert.conductor
+    - unless concert.supporter.nil?
+      %p= "後援: " + concert.supporter
   .row  
     .col-xs-12.col-md-6
       %img.img-responsive{:src => '/history/' + concert.id.to_s + 'a.png', :onerror => 'this.src="/img/unavailable.png"'}
