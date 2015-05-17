@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150511100916) do
+ActiveRecord::Schema.define(version: 20150517075136) do
 
   create_table "ab_list", force: true do |t|
     t.string "part", limit: 5
@@ -23,7 +23,7 @@ ActiveRecord::Schema.define(version: 20150511100916) do
   create_table "albums", force: true do |t|
     t.integer  "event_id"
     t.integer  "user_id"
-    t.string   "url",        limit: 511
+    t.string   "url"
     t.text     "memo"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -40,7 +40,7 @@ ActiveRecord::Schema.define(version: 20150511100916) do
     t.text     "user_memo"
     t.date     "starts_at"
     t.date     "ends_at"
-    t.string   "application_type", limit: 50
+    t.string   "application_type",      limit: 50
     t.integer  "part_user_id"
     t.text     "part_memo"
     t.date     "part_accepted_at"
@@ -48,6 +48,8 @@ ActiveRecord::Schema.define(version: 20150511100916) do
     t.date     "somu_accepted_at"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.date     "president_accepted_at"
+    t.text     "president_memo"
   end
 
   create_table "concert_programs", force: true do |t|
@@ -283,17 +285,17 @@ ActiveRecord::Schema.define(version: 20150511100916) do
     t.text     "raw_info"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "access_token",  limit: 2048
-    t.string   "access_secret", limit: 2048
+    t.string   "access_token"
+    t.string   "access_secret"
   end
 
   add_index "social_profiles", ["user_id"], name: "index_social_profiles_on_user_id", using: :btree
 
   create_table "topics", force: true do |t|
-    t.string    "title"
-    t.string    "link"
-    t.timestamp "created_at"
-    t.timestamp "updated_at"
+    t.string   "title"
+    t.string   "link"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "users", force: true do |t|

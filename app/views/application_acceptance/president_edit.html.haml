@@ -54,11 +54,6 @@
       .col-sm-10
         = text_area_tag '',  @app.part_memo, :class => 'form-control disable', :disabled => 'disabled'
 
-    .form-group
-      %label.col-sm-2.control-label 団長特記事項
-      .col-sm-10
-        = text_area_tag '',  @app.president_memo, :class => 'form-control disable', :disabled => 'disabled'
-
     - case @app.application_type
       - when 'join'
         .form-group
@@ -86,7 +81,7 @@
     .form-group
       %label.col-sm-2.control-label 特記事項
       .col-sm-10
-        = f.text_area :somu_memo, :class => "form-control"
+        = f.text_area :president_memo, :class => "form-control"
 
 
     = hidden_field_tag 'id', @app.id

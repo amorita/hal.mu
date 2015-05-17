@@ -23,7 +23,7 @@ def part_accept
 	@app.part_user_id = current_user.id
 
 	if @app.save
-		ApplicationMail.somu(@app.id).deliver
+		ApplicationMail.president(@app.id).deliver
 	    redirect_to :action => 'index', notice: 'successfully updated.'
   	else
     	render action: 'edit'
@@ -31,8 +31,30 @@ def part_accept
 end
 
 
+def president_index
+	@apps = Application.where('president_accepted_at is null and part_accepted_at is not null')
+end
+
+def president_edit
+	@app = Application.find params[:id]
+end
+
+def president_accept
+	p params
+	@app = Application.find params[:id]
+	@app.assign_attributes(app_params)
+	@app.somu_accepted_at = Date.today
+
+	if @app.save
+		ApplicationMail.somu(@app.id).deliver
+	    redirect_to :action => 'somu_index', notice: 'successfully updated.'
+  	else
+    	render action: 'edit'
+  	end
+end
+
 def somu_index
-	@apps = Application.where('somu_accepted_at is null and part_accepted_at is not null')
+	@apps = Application.where('president_accepted_at is null and part_accepted_at is not null')
 end
 
 def somu_edit

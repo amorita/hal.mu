@@ -246,6 +246,19 @@
                         = link_to '名簿一覧', '#'
                 .clear_box
 
+          -# DANCHO
+          - if is_granted :president
+            .grid.col-md-4.col-sm-6
+              .borders
+                .col-xs-12.nopadding
+                  %img.img-responsive{:src => "/img/president.png"}/
+                .grid_content
+                  .pad
+                    %ui
+                      %li
+                        = link_to '各種届出の承認', '/application_acceptance/president_index', {:target => '_blank'}
+                .clear_box
+
 
 
 

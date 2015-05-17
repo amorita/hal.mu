@@ -1,0 +1,17 @@
+%table.table
+  %tr
+    %th #
+    %th パート
+    %th 申請者
+    %th 申請書
+    %th 提出日
+    %th
+  - @apps.each do |app|
+    %tr 
+      %td= app.id.to_s
+      %td= app.user.part.name
+      %td= app.user.long_name
+      %td= app.application_name
+      %td= app.created_at.strftime("%m月%d日")
+      %td= button_to '確認', '/application_acceptance/' + app.id.to_s + '/somu_edit', :method => 'get', :class => 'btn btn-sm btn-primary'
+      
