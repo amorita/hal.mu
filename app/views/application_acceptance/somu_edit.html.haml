@@ -32,7 +32,7 @@
     .form-group
       %label.col-sm-2.control-label 区分
       .col-sm-10
-        = text_field_tag '', @app.user.worker == 1 ? '社会人' : '学生', :class => 'form-control disable', :disabled => 'disabled'
+        = text_field_tag '', @app.user.worker ? '社会人' : '学生', :class => 'form-control disable', :disabled => 'disabled'
 
     .form-group
       %label.col-sm-2.control-label 学校名
