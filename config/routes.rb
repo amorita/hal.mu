@@ -64,9 +64,12 @@ end
       patch 'part_accept'
       get 'somu_index'
       patch 'somu_accept'
+      get 'president_index'
+      patch 'president_accept'
     end
     member do
       get 'somu_edit'
+      get 'president_edit'
     end
   end
 

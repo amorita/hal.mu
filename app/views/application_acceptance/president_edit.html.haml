@@ -1,7 +1,7 @@
-%h1 届出の承認
+%h1 届出の承認(団長)
 %p
   - p @app
-  = form_for @app, :url => '/application_acceptance/somu_accept', :html => {:class => "form-horizontal"} do |f|
+  = form_for @app, :url => '/application_acceptance/president_accept', :html => {:class => "form-horizontal"} do |f|
     - if @app.errors.any?
       #error_explanation
         %h2= "#{pluralize(@app.errors.count, "error")} prohibited this nontan from being saved:"
