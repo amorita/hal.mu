@@ -97,10 +97,10 @@ end
     end
 
 	if @app.save
-	  ApplicationMail.notification(app.id).deliver
-	  format.html { render 'sent' }
+	  ApplicationMail.notification(@app.id).deliver
+	  render 'sent' and return
 	else
-	  format.html { render 'new' }
+	  render 'new' and return
 	end
 
   end
@@ -110,7 +110,7 @@ end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def app_params
-      params.require(:application).permit(:starts_at, :ends_at, :part_memo, :user_memo, :part_memo, :somu_memo)
+      params.require(:application).permit(:starts_at, :ends_at, :part_memo, :user_memo, :part_memo, :somu_memo, :user_id, :application_type)
     end
 
 end
