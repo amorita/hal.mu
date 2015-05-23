@@ -90,24 +90,19 @@ end
     render 'new'
   end
 
-  # GET /tests/1/edit
-  def edit
-  end
-
-  # POST /tests
-  # POST /tests.json
   def create
-    @test = Test.new(test_params)
-
-    respond_to do |format|
-      if @test.save
-        format.html { redirect_to @test, notice: 'Test was successfully created.' }
-        format.json { render action: 'show', status: :created, location: @test }
-      else
-        format.html { render action: 'new' }
-        format.json { render json: @test.errors, status: :unprocessable_entity }
-      end
+    @app = Application.new(app_params)
+    unless params['agree']
+      @app.errors[:base] << '同意条項への同意が必要です。'
     end
+
+	if @app.save
+	  ApplicationMail.notification(app.id).deliver
+	  format.html { render 'sent' }
+	else
+	  format.html { render 'new' }
+	end
+
   end
 
 
@@ -115,7 +110,7 @@ end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def app_params
-      params.require(:application).permit(:starts_at, :ends_at, :part_memo)
+      params.require(:application).permit(:starts_at, :ends_at, :part_memo, :user_memo, :part_memo, :somu_memo)
     end
 
 end
