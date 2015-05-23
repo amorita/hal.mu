@@ -79,12 +79,14 @@ end
     @app = Application.new
     @app.application_type = 'absence'
     @app.ends_at = Concert.where('date > now()').order(:date).first.date
+    @app.user_id = current_user.id
     render 'new'
   end
 
   def retire_new
     @app = Application.new
     @app.application_type = 'retire'
+    @app.user_id = current_user.id
     render 'new'
   end
 
