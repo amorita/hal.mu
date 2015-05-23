@@ -1,13 +1,15 @@
 %h1= @app.application_name
 %p
   - p @app
-  = form_for @app, :url => '/application_acceptance/create', :html => {:class => "form-horizontal"} do |f|
+  = form_for @app, :url => '/application_acceptance', :html => {:class => "form-horizontal"} do |f|
     - if @app.errors.any?
       #error_explanation
         %h2= "#{pluralize(@app.errors.count, "error")} prohibited this nontan from being saved:"
         %ul
           - @app.errors.full_messages.each do |msg|
             %li= msg
+    = f.hidden_field :application_type
+    = f.hidden_field :user_id
 
     .form-group
       %label.col-sm-2.col-xs-12.control-label  届出内容
