@@ -92,6 +92,9 @@ end
 
   def create
     @app = Application.new(app_params)
+    if @app.application_type == 'absence'
+    	@app.ends_at = Concert.where('date > now()').order(:date).first.date
+    end
     unless params['agree']
       @app.errors[:base] << '同意条項への同意が必要です。'
     end
