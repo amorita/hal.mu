@@ -1,7 +1,7 @@
-%h1 届出の承認
+%h1= @app.application_name
 %p
   - p @app
-  = form_for @app :url => '/application_acceptance/create', :html => {:class => "form-horizontal"} do |f|
+  = form_for @app, :url => '/application_acceptance/create', :html => {:class => "form-horizontal"} do |f|
     - if @app.errors.any?
       #error_explanation
         %h2= "#{pluralize(@app.errors.count, "error")} prohibited this nontan from being saved:"
@@ -27,7 +27,7 @@
     .form-group
       %label.col-sm-2.control-label 区分
       .col-sm-10
-        = text_field_tag '', @app.user.worker == 1 ? '社会人' : '学生', :class => 'form-control disable', :disabled => 'disabled'
+        = text_field_tag '', @app.user.worker ? '社会人' : '学生', :class => 'form-control disable', :disabled => 'disabled'
 
     - case @app.application_type
       - when 'join'
@@ -91,7 +91,7 @@
     .form-group
       %label.col-sm-2.control-label 特記事項
       .col-sm-10
-        = f.text_area :memo, :class => "form-control"
+        = f.text_area :user_memo, :class => "form-control"
 
     .actions
       %p.text-right
