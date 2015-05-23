@@ -74,6 +74,39 @@ def somu_accept
   	end
 end
 
+  def absence_new
+    @app = Application.new
+    @app.applicaton_type = 'absence'
+    @app.application_name = '休団届'
+    @app.ends_at = Concert.where('date > now()').order(:date).first.date
+  end
+
+  def retire_new
+    @app = Application.new
+    @app.applicaton_type = 'retire'
+    @app.application_name = '退団届'
+  end
+
+  # GET /tests/1/edit
+  def edit
+  end
+
+  # POST /tests
+  # POST /tests.json
+  def create
+    @test = Test.new(test_params)
+
+    respond_to do |format|
+      if @test.save
+        format.html { redirect_to @test, notice: 'Test was successfully created.' }
+        format.json { render action: 'show', status: :created, location: @test }
+      else
+        format.html { render action: 'new' }
+        format.json { render json: @test.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
 
   private
 

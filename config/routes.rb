@@ -66,6 +66,8 @@ end
       patch 'somu_accept'
       get 'president_index'
       patch 'president_accept'
+      get 'absence_new'
+      get 'retire_new'
     end
     member do
       get 'somu_edit'

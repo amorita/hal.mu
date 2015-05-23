@@ -1,0 +1,98 @@
+%h1 届出の承認
+%p
+  - p @app
+  = form_for @app, :html => {:class => "form-horizontal"} do |f|
+    - if @app.errors.any?
+      #error_explanation
+        %h2= "#{pluralize(@app.errors.count, "error")} prohibited this nontan from being saved:"
+        %ul
+          - @app.errors.full_messages.each do |msg|
+            %li= msg
+
+    .form-group
+      %label.col-sm-2.col-xs-12.control-label  届出内容
+      .col-xs-12.col-sm-10
+        = text_field_tag '', @app.application_name, :class => 'form-control disable', :disabled => 'disabled'
+
+    .form-group
+      %label.col-sm-2.col-xs-12.control-label  名前
+      .col-xs-12.col-sm-10
+        = text_field_tag '', @app.user.formal_name, :class => 'form-control disable', :disabled => 'disabled'
+
+    .form-group
+      %label.col-sm-2.control-label パート
+      .col-sm-10
+        = text_field_tag '', @app.user.part.name, :class => 'form-control disable', :disabled => 'disabled'
+
+    .form-group
+      %label.col-sm-2.control-label 区分
+      .col-sm-10
+        = text_field_tag '', @app.user.worker == 1 ? '社会人' : '学生', :class => 'form-control disable', :disabled => 'disabled'
+
+    - case @app.application_type
+      - when 'join'
+        .form-group
+          %label.col-sm-2.control-label 入団日
+          .col-sm-10
+            = f.date_field :starts_at, :class => "form-control", :required => 'true'
+      
+      - when 'absence'
+        .form-group
+          %label.col-sm-2.control-label 休団開始日
+          .col-sm-10
+            = f.date_field :starts_at, :class => "form-control", :required => 'true'
+
+        .form-group
+          %label.col-sm-2.control-label 休団終了日
+          .col-sm-10
+            = f.date_field :ends_at, :class => "form-control", :required => 'true', :disabled => 'disabled'
+
+        .form-group
+          %label.col-sm-2.control-label  同意条項
+          .col-sm-10
+            - fee = FeeAmount.where('starts_at < now() and ends_at > now()').first
+            %p 
+              この休団届けを提出する前に、休団期間中の団費（社会人は月額
+              = number_to_currency(fee.workers/2, :format => "%n%u", :unit => "円", :precision => 0)
+              、学生は月額
+              = number_to_currency(fee.students/2, :format => "%n%u", :unit => "円", :precision => 0)
+              ）を全額納めている必要があります。
+              納付がない場合は休団届けの受理が延び、休団開始が遅くなります。
+            %p
+              = check_box_tag 'agree', false, false, {:required => 'true'}
+              %label{:for => 'agree'}
+                上記に同意する
+          
+      - when 'retire'
+        .form-group
+          %label.col-sm-2.control-label 退団日
+          .col-sm-10
+            = f.date_field :ends_at, :class => "form-control", :required => 'true'
+
+        .form-group
+          %label.col-sm-2.control-label  同意条項
+          .col-sm-10
+            - fee = FeeAmount.where('starts_at < now() and ends_at > now()').first
+            %p 
+              この退団届けを提出する前に、所属期間中の団費（社会人は月額
+              = number_to_currency(fee.workers, :format => "%n%u", :unit => "円", :precision => 0)
+              、学生は月額
+              = number_to_currency(fee.students, :format => "%n%u", :unit => "円", :precision => 0)
+              ）を全額納めている必要があります。
+              納付がない場合は退団届けの受理が延び、退団扱いが遅くなります。
+              また、すでに納付された団費のうち超過分は登録された口座に振込を行います。
+              超過分がある場合は、口座の登録を「登録情報」からご確認ください。
+              なお、その他所属していた期間に登録された情報等は、退団届けが承認し受理されると消去されます。
+            %p
+              = check_box_tag 'agree', false, false, {:required => 'true'}
+              %label{:for => 'agree'}
+                上記に同意する
+
+    .form-group
+      %label.col-sm-2.control-label 特記事項
+      .col-sm-10
+        = f.text_area :memo, :class => "form-control"
+
+    .actions
+      %p.text-right
+        = f.submit '提出', :class => "btn btn-primary"
