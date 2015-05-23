@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 class ApplicationAcceptanceController < ApplicationController
 
 before_filter :authenticate_user!
@@ -76,15 +77,15 @@ end
 
   def absence_new
     @app = Application.new
-    @app.applicaton_type = 'absence'
-    @app.application_name = '休団届'
+    @app.application_type = 'absence'
     @app.ends_at = Concert.where('date > now()').order(:date).first.date
+    render 'new'
   end
 
   def retire_new
     @app = Application.new
-    @app.applicaton_type = 'retire'
-    @app.application_name = '退団届'
+    @app.application_type = 'retire'
+    render 'new'
   end
 
   # GET /tests/1/edit
