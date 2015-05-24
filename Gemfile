@@ -69,3 +69,6 @@ gem 'omniauth-twitter'
 gem 'omniauth-yahoojp'
 
 gem 'active_attr'
+
+gem 'ofx'
+

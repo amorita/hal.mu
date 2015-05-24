@@ -1,0 +1,28 @@
+%table.table
+  %tr
+    %th #
+    %th 処理日
+    %th 取引内容
+    %th 入金額
+    %th 出金額
+    %th 振込人
+    %th
+  - @account_transactions.each do |trans|
+    %tr 
+      %td= trans.id
+      %td= trans.posted_at.strftime("%Y年%m月%d日")
+      %td= trans.name
+      %td.text-right
+        - if trans.transaction_type == 'dep'
+          = number_to_currency(trans.amount, :format => "%n%u", :unit => "円", :precision => 0)
+      %td.text-right
+        - if trans.transaction_type == 'debit'
+          = number_to_currency(trans.amount * -1, :format => "%n%u", :unit => "円", :precision => 0)
+      %td
+        - unless trans.user_id.nil?
+          = trans.user.long_name
+      %td
+        - if trans.transaction_type == 'dep' && trans.user_id.nil? && !trans.name.include?('利息')
+          = button_to '編集', '/account_transactions/' + trans.id.to_s + '/edit', :method => 'get', :class => 'btn btn-xs btn-danger'
+        - else
+          = button_to '編集', '/account_transactions/' + trans.id.to_s + '/edit', :method => 'get', :class => 'btn btn-xs btn-info'
