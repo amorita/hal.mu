@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  amount: 1
+  fit_id: 1
+  name: MyString
+  posted_at: 2015-05-24 13:07:02
+  type: 
+  user_id: 1
+
+two:
+  amount: 1
+  fit_id: 1
+  name: MyString
+  posted_at: 2015-05-24 13:07:02
+  type: 
+  user_id: 1

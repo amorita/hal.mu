@@ -1,0 +1,34 @@
+%h1 取引内容の編集
+%p
+  = form_for @account_transaction, :html => {:class => "form-horizontal"} do |f|
+    - if @account_transaction.errors.any?
+      #error_explanation
+        %h2= "#{pluralize(@account_transaction.errors.count, "error")} prohibited this 取引内容 from being saved:"
+        %ul
+          - @account_transaction.errors.full_messages.each do |msg|
+            %li= msg
+
+    .form-group
+      %label.col-sm-2.col-xs-12.control-label  取引日
+      .col-xs-12.col-sm-10
+        = text_field_tag '', @account_transaction.posted_at.strftime("%Y年%m月%d日"), :class => 'form-control disable', :disabled => 'disabled'
+
+    .form-group
+      %label.col-sm-2.col-xs-12.control-label  取引額
+      .col-xs-12.col-sm-10
+        %small 出金の取引はマイナス
+        = f.number_field :amount, :class => "form-control", :required => 'true'
+
+    .form-group
+      %label.col-sm-2.col-xs-12.control-label  取引名
+      .col-xs-12.col-sm-10
+        = f.text_field :name, :class => "form-control", :required => 'true'
+
+    .form-group
+      %label.col-sm-2.control-label 振込人
+      .col-sm-10
+        = f.grouped_collection_select :user_id, Part.all, :users, :name, :id, :long_name, {:prompt => "振込人を選択"}, {:class => "form-control"}
+    
+    .actions
+      %p.text-right
+        = f.submit '承認', :class => "btn btn-primary"

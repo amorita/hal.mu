@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150517140935) do
+ActiveRecord::Schema.define(version: 20150524063022) do
 
   create_table "ab_list", force: true do |t|
     t.string "part", limit: 5
@@ -20,10 +20,21 @@ ActiveRecord::Schema.define(version: 20150517140935) do
 
   add_index "ab_list", ["id"], name: "id_UNIQUE", unique: true, using: :btree
 
+  create_table "account_transactions", force: true do |t|
+    t.integer  "amount"
+    t.string   "fit_id",           limit: 50
+    t.string   "name"
+    t.datetime "posted_at"
+    t.string   "transaction_type"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "albums", force: true do |t|
     t.integer  "event_id"
     t.integer  "user_id"
-    t.string   "url",        limit: 511
+    t.string   "url"
     t.text     "memo"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -44,12 +55,12 @@ ActiveRecord::Schema.define(version: 20150517140935) do
     t.integer  "part_user_id"
     t.text     "part_memo"
     t.date     "part_accepted_at"
-    t.text     "president_memo"
-    t.date     "president_accepted_at"
     t.text     "somu_memo"
     t.date     "somu_accepted_at"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.date     "president_accepted_at"
+    t.text     "president_memo"
   end
 
   create_table "concert_programs", force: true do |t|
@@ -286,17 +297,17 @@ ActiveRecord::Schema.define(version: 20150517140935) do
     t.text     "raw_info"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "access_token",  limit: 2048
-    t.string   "access_secret", limit: 2048
+    t.string   "access_token"
+    t.string   "access_secret"
   end
 
   add_index "social_profiles", ["user_id"], name: "index_social_profiles_on_user_id", using: :btree
 
   create_table "topics", force: true do |t|
-    t.string    "title"
-    t.string    "link"
-    t.timestamp "created_at"
-    t.timestamp "updated_at"
+    t.string   "title"
+    t.string   "link"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "users", force: true do |t|
@@ -327,6 +338,10 @@ ActiveRecord::Schema.define(version: 20150517140935) do
     t.boolean  "admin",                             default: false
     t.boolean  "worker",                            default: true
     t.string   "school"
+    t.string   "bank"
+    t.string   "bank_branch"
+    t.string   "bank_account"
+    t.string   "bank_name"
   end
 
   create_table "views", force: true do |t|
