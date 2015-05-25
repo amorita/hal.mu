@@ -1,21 +1,26 @@
+%p &nbsp;
 %h1 共有ファイル
 %p &nbsp;
-%table{:width => 520, :border => 'none'}
+%table.table{:width => 520}
   - tmp_date = nil
   - @sharedfiles.each do |file|
     - if tmp_date != file.created_at.to_date
       - tmp_date = file.created_at.to_date
       %tr
-        %td{:colspan => 4}
+        %td{:colspan => 5}
           = file.created_at.strftime '%Y/%m/%d'
     %tr
       %td{:width => 20} &nbsp;
-      %td{:width => 300}= file.name
+      %td{:width => 300, :colspan => 2}= file.name
       %td{:width => 150}
         %i.fa.fa-download
         ダウンロード
       %td{:width => 50}
         - if file.user == current_user
           = button_tag '削除', :type => 'button', :onclick => "javascript: alert('削除します。よろしいですか？');$('#sharedfile').load('/sharedfiles/#{file.id};", :class => 'btn btn-xs btn-danger', :method => :delete
+    - unless file.description.nil?
+      %tr
+        %td{:width => 30, :colspan => 2}
+        %td.indent{:colspan => 3}= simple_format file.description
 
 

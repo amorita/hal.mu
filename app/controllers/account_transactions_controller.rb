@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 class AccountTransactionsController < ApplicationController
 
 layout 'priv'
@@ -30,8 +31,8 @@ def import
 end
 
 def index
-  @page = params[:pages].to_i - 1
-  @page = 0 if @page < 0
+  @page = params[:page].to_i 
+  @page = 1 if @page < 1
   @account_transactions = AccountTransaction.page(@page).per(20).order('posted_at DESC')
   @count = AccountTransaction.all.count
 end
