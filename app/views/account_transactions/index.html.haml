@@ -1,5 +1,5 @@
 %h1 口座取引の一覧
-%p= page_entries_info @account_transactions
+%p= page_entries_info @account_transactions, :entry_name => '明細'
 %table.table
   %tr
     %th #
@@ -28,4 +28,5 @@
           = button_to '編集', '/account_transactions/' + trans.id.to_s + '/edit', :method => 'get', :class => 'btn btn-xs btn-danger'
         - else
           = button_to '編集', '/account_transactions/' + trans.id.to_s + '/edit', :method => 'get', :class => 'btn btn-xs btn-info'
+
 %p.text-center= paginate @account_transactions
