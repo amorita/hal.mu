@@ -31,6 +31,7 @@ end
 
 def index
   @page = params[:pages].to_i - 1
+  @page = 0 if @page < 0
   @account_transactions = AccountTransaction.limit(100).offset(@page * 100).order('posted_at DESC')
   @count = AccountTransaction.all.count
 end
