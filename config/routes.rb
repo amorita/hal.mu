@@ -10,7 +10,11 @@ end
 #  devise_for :users
 
   
-  resources :sharedfiles
+  resources :sharedfiles do
+    collection do
+      get 'all_index'
+    end
+  end
 
   resources :poster_candidates
 

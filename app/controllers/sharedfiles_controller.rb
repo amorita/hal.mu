@@ -3,13 +3,17 @@ require 'securerandom'
 
 class SharedfilesController < ApplicationController
   before_action :set_sharedfile, only: [:show, :edit, :update, :destroy]
-  before_filter :authenticate_user!
+#  before_filter :authenticate_user!
   layout false
 
   # GET /sharedfiles
   # GET /sharedfiles.json
   def index
-    @sharedfiles = Sharedfile.where('created_at >= DATE_ADD(NOW(), INTERVAL -1 MONTH)')
+    @sharedfiles = Sharedfile.where('created_at >= DATE_ADD(NOW(), INTERVAL -1 MONTH)').order('created_at DESC')
+  end
+
+  def all_index
+    @sharedfiles = Sharedfile.all.order('created_at DESC')
   end
 
   # GET /sharedfiles/1
@@ -74,10 +78,7 @@ class SharedfilesController < ApplicationController
   # DELETE /sharedfiles/1.json
   def destroy
     @sharedfile.destroy
-    respond_to do |format|
-      format.html { redirect_to sharedfiles_url }
-      format.json { head :no_content }
-    end
+    redirect_to :action => 'all_index'
   end
 
   private
