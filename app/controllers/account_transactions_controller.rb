@@ -19,7 +19,7 @@ def import
       account_transaction.name = trans.name
       account_transaction.posted_at = trans.posted_at + (9 / 24)
       account_transaction.transaction_type = trans.type.to_s
-      user = User.where(:bank_name => trans.name).first if trans.type == 'dep'
+      user = User.where(:bank_name => trans.name).first if trans.type == :dep
       unless user.nil?
         account_transaction.user_id = user.id
       end
