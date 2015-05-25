@@ -259,6 +259,19 @@
                         = link_to '各種届出の承認', '/application_acceptance/president_index', {:target => '_blank'}
                 .clear_box
 
+          -# ACCOUNTING
+          - if is_granted :accountant
+            .grid.col-md-4.col-sm-6
+              .borders
+                .col-xs-12.nopadding
+                  %img.img-responsive{:src => "/img/accounting.png"}/
+                .grid_content
+                  .pad
+                    %ui
+                      %li
+                        = link_to '口座取引の連携', '/account_transactions/new', {:target => '_blank'}
+                        = link_to '口座取引の一覧', '/account_transactions', {:target => '_blank'}
+                .clear_box
 
 
 
