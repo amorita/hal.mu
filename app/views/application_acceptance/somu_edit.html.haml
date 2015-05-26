@@ -66,6 +66,12 @@
           .col-sm-10
             = f.date_field :starts_at, :class => "form-control", :required => 'true'
       
+      - when 'return'
+        .form-group
+          %label.col-sm-2.control-label 復団日
+          .col-sm-10
+            = f.date_field :starts_at, :class => "form-control", :required => 'true'
+      
       - when 'absence'
         .form-group
           %label.col-sm-2.control-label 休団開始日

@@ -10,6 +10,8 @@ class Application < ActiveRecord::Base
 			return '休団届'
 		when 'retire'
 			return '退団届'
+		when 'return'
+			return '復団届'
 		else
 			return ''
 		end

@@ -90,6 +90,13 @@ end
     render 'new'
   end
 
+  def reutrn_new
+    @app = Application.new
+    @app.application_type = 'return'
+    @app.user_id = current_user.id
+    render 'new'
+  end    
+
   def create
     @app = Application.new(app_params)
     if @app.application_type == 'absence'

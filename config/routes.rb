@@ -72,6 +72,7 @@ end
       patch 'president_accept'
       get 'absence_new'
       get 'retire_new'
+      get 'return_new'
     end
     member do
       get 'somu_edit'
