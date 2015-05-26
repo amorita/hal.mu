@@ -90,7 +90,7 @@ end
     render 'new'
   end
 
-  def reutrn_new
+  def return_new
     @app = Application.new
     @app.application_type = 'return'
     @app.user_id = current_user.id
