@@ -116,6 +116,67 @@ end
   end
 
 
+  def create_monthly_fees(app)
+    # 承認情報を元にして支払予定を作成する
+    user = app.user
+    practice_modes = app.user.part_id < 100 ? [1, 2, 10, 20] : [1, 3, 10, 20]
+    last_rehearsal = PracticePln.where("pln_date <= '#{app.starts_at.strftime('%Y/%m/%d')}'").where(:mode => practice_modes).order('pln_date DESC').first
+    next_rehearsal = PracticePln.where("pln_date >= '#{app.starts_at.strftime('%Y/%m/%d')}'").where(:mode => practice_modes).order(:pln_date).first
+    unless app.ends_at.nil?
+      end_next_rehearsal = PracticePln.where("pln_date > '#{app.ends_at.strftime('%Y/%m/%d')}'").where(:mode => practice_modes).order(:pln_date).first
+    end
+
+    start_year = last_rehearsal.pln_date.year
+
+    case app.application_type
+    when 'absence'
+      range = (last_rehearsal.pln_date.month + 1)..(end_next_rehearsal.pln_date.month - 1)
+      start_year = last_rehearsal.pln_date.year
+    when 'return'
+      range = next_rehearsal.pln_date.month..(next_rehearsal.pln_date.month + 12)
+      start_year = next_rehearsal.pln_date.year
+    end
+
+    for month in range do
+      # 対象の年月を取得
+      if month > 12
+        month = month - 12
+        year = start_year + 1
+      else
+        year = start_year
+      end
+
+      monthly_fee = MonthlyFee.where(:user_id => user.id, :year => year, :month => month).first
+      if monthly_fee.nil?
+        monthly_fee = MonthlyFee.new 
+        monthly_fee.year = year
+        monthly_fee.month = month
+        monthly_fee.user_id = app.user.id
+      end
+
+      date_str = year.to_s + '/' + month.to_s + '/01'
+      fee = FeeAmount.where("starts_at < '#{date_str}' and ends_at > '#{date_str}'").first
+      if app.user.worker
+        case app.application_type
+        when 'absence'
+          monthly_fee.amount = fee.workers / 2
+        when 'return'
+          monthly_fee.amount = fee.workers
+        end
+      else
+        case app.application_type
+        when 'absence'
+          monthly_fee.amount = fee.students / 2
+        when 'return'
+          monthly_fee.amount = fee.students
+        end
+      end
+      monthly_fee.save!
+    end      
+  end
+
+
+
   private
 
     # Never trust parameters from the scary internet, only allow the white list through.
