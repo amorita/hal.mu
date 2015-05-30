@@ -32,6 +32,7 @@ layout 'priv'
     @personal_data = PersonalData.where(:id => current_user.id).first
     respond_to do |format|
       if @personal_data.update(personal_data_params)
+        create_monthly_fees @perconal_data
         format.html { redirect_to @personal_data, notice: 'Test was successfully updated.' }
         format.json { head :no_content }
       else
@@ -71,12 +72,7 @@ layout 'priv'
         format.html { render 'join' and return}
       end
     end
-
-
   end
-
-
-
 
   def create
     @personal_data = PersonalData.new(personal_data_params)
@@ -95,6 +91,38 @@ layout 'priv'
       end
     end
   end
+
+  def create_monthly_fees(user)
+    # 現状のユーザ情報を元にして12ヶ月分の支払予定を作成する
+    start_month = Date.today.month
+    for cnt in 0..11 do
+      # 対象の年月を取得
+      if start_month + cnt > 12
+        month = start_month + cnt - 12
+        year = Date.today.year + 1
+      else
+        month = start_month + cnt
+        year = Date.today.year
+      end
+      monthly_fee = MonthlyFee.where(:user_id => user.id, :year => year, :month => month).first
+      if monthly_fee.nil?
+        monthly_fee = MonthlyFee.new 
+        monthly_fee.year = year
+        monthly_fee.month = month
+        monthly_fee.user_id = user.id
+      end
+
+      date_str = year.to_s + '/' + month.to_s + '/01'
+      fee = FeeAmount.where("starts_at < '#{date_str}' and ends_at > '#{date_str}'").first
+      if user.worker
+        monthly_fee.amount = fee.workers
+      else
+        monthly_fee.amount = fee.students
+      end
+      monthly_fee.save!
+    end      
+  end
+
 
   private
   def personal_data_params
