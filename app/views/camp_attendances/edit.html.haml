@@ -1,0 +1,38 @@
+h1= 合宿出欠登録・編集
+%p
+  - p @camp_att
+  = form_for @camp_att, :html => {:class => "form-horizontal"} do |f|
+    - if @camp_att.errors.any?
+      #error_explanation
+        %h2= "#{pluralize(@camp_att.errors.count, "error")} prohibited this nontan from being saved:"
+        %ul
+          - @camp_att.errors.full_messages.each do |msg|
+            %li= msg
+    = f.hidden_field :user_id
+    - camp_dates = CampSection.group :pln_date
+    - camp_date.each do |date|
+      .bs-callout
+        %h4 date.pln_date.strftime("%Y年%m月%d日")
+        - sections = CampSection.where(:pln_date => date.pln_date).order(:id)
+        - sections.each do |sec|
+          .form-group
+            %label.col-sm-2.control-label= sec.title
+            .col-sm-10
+              = f.hidden_field ('section_' + sec.id.to_s).to_sym, :class => "form-control", :required => 'true'
+        
+    .form-group
+      %label.col-sm-2.control-label  駐車場の使用
+      .col-sm-10
+        = f.check_box :use_car
+        %label{:for => 'agree'}
+          あり
+          
+
+    .form-group
+      %label.col-sm-2.control-label その他
+      .col-sm-10
+        = f.text_area :memo, :class => "form-control"
+
+    .actions
+      %p.text-right
+        = f.submit '登録・更新', :class => "btn btn-primary"

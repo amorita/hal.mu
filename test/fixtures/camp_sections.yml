@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  pln_date: 2015-06-03
+  title: 
+  memo: MyText
+  amount: 1
+  start_at: 2015-06-03 02:13:39
+  end_at: 2015-06-03 02:13:39
+
+two:
+  pln_date: 2015-06-03
+  title: 
+  memo: MyText
+  amount: 1
+  start_at: 2015-06-03 02:13:39
+  end_at: 2015-06-03 02:13:39
