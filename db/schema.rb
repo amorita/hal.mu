@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150524063022) do
+ActiveRecord::Schema.define(version: 20150602171339) do
 
   create_table "ab_list", force: true do |t|
     t.string "part", limit: 5
@@ -22,7 +22,7 @@ ActiveRecord::Schema.define(version: 20150524063022) do
 
   create_table "account_transactions", force: true do |t|
     t.integer  "amount"
-    t.string   "fit_id"
+    t.string   "fit_id",           limit: 50
     t.string   "name"
     t.datetime "posted_at"
     t.string   "transaction_type"
@@ -34,7 +34,7 @@ ActiveRecord::Schema.define(version: 20150524063022) do
   create_table "albums", force: true do |t|
     t.integer  "event_id"
     t.integer  "user_id"
-    t.string   "url",        limit: 511
+    t.string   "url"
     t.text     "memo"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -55,10 +55,59 @@ ActiveRecord::Schema.define(version: 20150524063022) do
     t.integer  "part_user_id"
     t.text     "part_memo"
     t.date     "part_accepted_at"
-    t.text     "president_memo"
-    t.date     "president_accepted_at"
     t.text     "somu_memo"
     t.date     "somu_accepted_at"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.date     "president_accepted_at"
+    t.text     "president_memo"
+  end
+
+  create_table "camp_attendances", force: true do |t|
+    t.integer  "user_id"
+    t.boolean  "by_car"
+    t.text     "memo"
+    t.integer  "section_1"
+    t.integer  "section_2"
+    t.integer  "section_3"
+    t.integer  "section_4"
+    t.integer  "section_5"
+    t.integer  "section_6"
+    t.integer  "section_7"
+    t.integer  "section_8"
+    t.integer  "section_9"
+    t.integer  "section_10"
+    t.integer  "section_11"
+    t.integer  "section_12"
+    t.integer  "section_13"
+    t.integer  "section_14"
+    t.integer  "section_15"
+    t.integer  "section_16"
+    t.integer  "section_17"
+    t.integer  "section_18"
+    t.integer  "section_19"
+    t.integer  "section_20"
+    t.integer  "section_21"
+    t.integer  "section_22"
+    t.integer  "section_23"
+    t.integer  "section_24"
+    t.integer  "section_25"
+    t.integer  "section_26"
+    t.integer  "section_27"
+    t.integer  "section_28"
+    t.integer  "section_29"
+    t.integer  "section_30"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "camp_sections", force: true do |t|
+    t.date     "pln_date"
+    t.string   "title"
+    t.text     "memo"
+    t.integer  "amount"
+    t.datetime "start_at"
+    t.datetime "end_at"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -82,9 +131,9 @@ ActiveRecord::Schema.define(version: 20150524063022) do
     t.string   "place"
     t.string   "hall"
     t.string   "conductor"
-    t.string   "supporter"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "supporter"
   end
 
   create_table "enq_ages", force: true do |t|
@@ -297,17 +346,17 @@ ActiveRecord::Schema.define(version: 20150524063022) do
     t.text     "raw_info"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "access_token",  limit: 2048
-    t.string   "access_secret", limit: 2048
+    t.string   "access_token"
+    t.string   "access_secret"
   end
 
   add_index "social_profiles", ["user_id"], name: "index_social_profiles_on_user_id", using: :btree
 
   create_table "topics", force: true do |t|
-    t.string    "title"
-    t.string    "link"
-    t.timestamp "created_at"
-    t.timestamp "updated_at"
+    t.string   "title"
+    t.string   "link"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "users", force: true do |t|
