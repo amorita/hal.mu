@@ -80,6 +80,8 @@ end
     end
   end
 
+  resources :camp_attendances
+
   resources :personal_data do
     collection do
       get 'join'

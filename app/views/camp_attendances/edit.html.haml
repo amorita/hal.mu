@@ -1,4 +1,4 @@
-h1= 合宿出欠登録・編集
+%h1 合宿出欠登録・編集
 %p
   - p @camp_att
   = form_for @camp_att, :html => {:class => "form-horizontal"} do |f|
@@ -10,20 +10,35 @@ h1= 合宿出欠登録・編集
             %li= msg
     = f.hidden_field :user_id
     - camp_dates = CampSection.group :pln_date
-    - camp_date.each do |date|
-      .bs-callout
-        %h4 date.pln_date.strftime("%Y年%m月%d日")
+    - camp_dates.each do |date|
+      .bs-callout.bs-callout-info
+        %h4= date.pln_date.strftime("%Y年%m月%d日")
         - sections = CampSection.where(:pln_date => date.pln_date).order(:id)
         - sections.each do |sec|
           .form-group
             %label.col-sm-2.control-label= sec.title
+            - btn_p = ''
+            - btn_w = ''
+            - btn_d = ''
+            - case @camp_att.send(('section_' + sec.id.to_s).to_sym)
+            - when 0
+              - btn_d = 'active'
+            - when 2
+              - btn_w = 'active'
+            - else
+              - btn_p = 'active'
             .col-sm-10
-              = f.hidden_field ('section_' + sec.id.to_s).to_sym, :class => "form-control", :required => 'true'
-        
+              .btn-group{:'data-toggle' => 'buttons'}
+                %label.btn.btn-default.primary.campradio{:class => btn_p + ' ' + sec.id.to_s, :value => '1'}
+                  %input{:checked => (btn_p.length > 0), :type => 'radio', :name => 'sec[' + sec.id.to_s + '][1]', :id => 'option1', :autocomplete => 'off'}◯
+                %label.btn.btn-default.warning.campradio{:class => btn_w + ' ' + sec.id.to_s, :value => '2'}
+                  %input{:checked => (btn_w.length > 0),:type => 'radio', :name => 'sec[' + sec.id.to_s + '][2]', :id => 'option1', :autocomplete => 'off'}△
+                %label.btn.btn-default.danger.campradio{:class => btn_d + ' ' + sec.id.to_s, :value => '0'}
+                  %input{:checked => (btn_d.length > 0),:type => 'radio', :name => 'sec[' + sec.id.to_s + '][0]', :id => 'option1', :autocomplete => 'off'}  ×      
     .form-group
       %label.col-sm-2.control-label  駐車場の使用
       .col-sm-10
-        = f.check_box :use_car
+        = f.check_box :by_car
         %label{:for => 'agree'}
           あり
           
@@ -32,7 +47,7 @@ h1= 合宿出欠登録・編集
       %label.col-sm-2.control-label その他
       .col-sm-10
         = f.text_area :memo, :class => "form-control"
-
+    = hidden_field_tag "selections"
     .actions
       %p.text-right
-        = f.submit '登録・更新', :class => "btn btn-primary"
+        = f.submit '登録・更新', :class => "btn btn-primary", :onclick => 'javascript: var i = 0;f=$("#selections");while(i < 31){i++;e=$("label.campradio.active." + i);console.log(e);if(e.length==0){break;}f.val(f.val()+e.attr("value"))}'
