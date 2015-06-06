@@ -28,9 +28,9 @@ def create
     eval '@camp_att.section_' + idx.to_s  + ' = val'
   end
   if @camp_att.save!
-    redirct_to @camp_att
+    redirect_to @camp_att
   else
-    render 'edit'
+    render :action 'edit'
   end
 end
 
