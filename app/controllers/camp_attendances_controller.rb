@@ -30,7 +30,7 @@ def create
   if @camp_att.save!
     redirect_to @camp_att
   else
-    render :action 'edit'
+    render action: 'edit'
   end
 end
 
