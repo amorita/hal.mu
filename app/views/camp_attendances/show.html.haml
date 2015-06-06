@@ -40,11 +40,11 @@
               - btn_p = 'active'
             .col-sm-10
               .btn-group{:'data-toggle' => 'buttons'}
-                %label.btn.btn-default.primary.campradio{:class => btn_p + ' ' + sec.id.to_s, :value => '1'}
+                %label.btn.btn-default.primary.campradio{:class => btn_p + ' ' + sec.id.to_s, :value => '1', :disabled => 'disabled'}
                   %input{:checked => (btn_p.length > 0), :type => 'radio', :name => 'sec[' + sec.id.to_s + '][1]', :id => 'option1', :autocomplete => 'off', :disabled => 'disabled'}◯
-                %label.btn.btn-default.warning.campradio{:class => btn_w + ' ' + sec.id.to_s, :value => '2'}
+                %label.btn.btn-default.warning.campradio{:class => btn_w + ' ' + sec.id.to_s, :value => '2', :disabled => 'disabled'}
                   %input{:checked => (btn_w.length > 0),:type => 'radio', :name => 'sec[' + sec.id.to_s + '][2]', :id => 'option1', :autocomplete => 'off', :disabled => 'disabled'}△
-                %label.btn.btn-default.danger.campradio{:class => btn_d + ' ' + sec.id.to_s, :value => '0'}
+                %label.btn.btn-default.danger.campradio{:class => btn_d + ' ' + sec.id.to_s, :value => '0', :disabled => 'disabled'}
                   %input{:checked => (btn_d.length > 0),:type => 'radio', :name => 'sec[' + sec.id.to_s + '][0]', :id => 'option1', :autocomplete => 'off', :disabled => 'disabled'}  ×      
     .form-group
       %label.col-sm-2.control-label  駐車場の使用
