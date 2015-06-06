@@ -12,6 +12,10 @@ def show
   @camp_att = CampAttendance.where(:user_id => current_user).first
 end
 
+def update
+  create
+end
+
 def create
   @camp_att = CampAttendance.where(:user_id => current_user).first
   if @camp_att.nil?
@@ -21,7 +25,7 @@ def create
   @camp_att.by_car = params[:by_car]
   @camp_att.memo = params[:memo]
   params[:selections].each_char.with_index(1) do |val, idx|
-    @camp_att.send(('section_' + idx).to_sym) = val
+    eval '@camp_att.section_' + idx.to_s  + ' = val'
   end
   if @camp_att.save!
     redirct_to @camp_att
