@@ -62,5 +62,5 @@
                 登録されていません！登録してください。
             - if changeable
               %p.text-right
-                = button_to '登録・変更', '/camp_attendances/0/edit', :method => 'get', :class => 'btn btn-sm btn-primary'
+                %a{:href => '/camp_attendances/0/edit', :method => 'get', :class => 'btn btn-sm btn-primary', :target => '_blank'}登録・変更
         .clear_box
