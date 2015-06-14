@@ -1,4 +1,4 @@
-- camp = Camp.where('fist_poll_start_at <= current_date() and current_date() >= end_date').first
+- camp = Camp.where('first_poll_start_at <= current_date() and current_date() < end_date').first
 - unless camp.nil?
   .grid.col-md-4.col-sm-6
     .borders
@@ -9,59 +9,56 @@
           .pad
             %h4 合宿
             .bs-callout.bs-callout-info
-              %h4= camp.start_date.strftime("%Y年%m月%d日") + '〜' + camp.end_date.strftime("%Y年%m月%d日")
+              %h4= camp.start_date.strftime("%m月%d日") + '〜' + camp.end_date.strftime("%m月%d日")
             - changeable = false
-            - if camp.first_poll_start_at <= Date.today
+            - if camp.fiest_poll_end_at >= Date.today
               %h4.text-danger
                 一次出欠確認中
                 - changeable = true
-            - elsif camp.first_poll_end_at < Date.today
+            - elsif camp.final_poll_start_at > Date.today
               %h4.text-muted
                 一次出欠確認終了
-            - elsif camp.final_poll_start_at <= Date.today
+            - elsif camp.final_poll_end_at >= Date.today
               %h4.text-danger
                 最終出欠確認中
                 - changeable = true
-            - elsif camp.final_poll_end_at < Date.today
+            - else
               %h4.text-danger
                 最終出欠確認終了
 
             - camp_att = CampAttendance.where(:user_id => current_user.id).first
-            - unless camp_att.nil?
+            - if !camp_att.nil?
               %p
                 = current_user.normal_name + 'さんの合宿参加費は'
                 - amount = 0
                 - sections = CampSection.all.each do |sec|
-                  - if @camp_att.send(('section_' + sec.id.to_s).to_sym) == 1
+                  - if camp_att.send(('section_' + sec.id.to_s).to_sym) == 1
                     - amount += sec.amount
-                = current_user.normal_name + 'さんは'
                 %big
                   = number_to_currency(amount, :format => "%n%u", :unit => "円", :precision => 0)
                 です。
-              %p %nbsp;
-              %p 登録状況
+              %p &nbsp;
+              %p 
+                %h4 登録状況
                 - camp_dates = CampSection.group :pln_date
                 - camp_dates.each do |date|
                   .bs-callout.bs-callout-info
-                    %p.big= date.pln_date.strftime("%Y年%m月%d日")
+                    %h4= date.pln_date.strftime("%Y年%m月%d日")
                     - sections = CampSection.where(:pln_date => date.pln_date).order(:id)
                     %p
                       - sections.each do |sec|
                         - case camp_att.send(('section_' + sec.id.to_s).to_sym)
                         - when 0
-                          %label.btn.btn-xs.danger.campradio.active{:disabled => 'disabled', :title => sec.title}
-                            %input{:disabled => 'disabled', :title => sec.title}◯
+                          = button_tag '×', :class => 'btn btn-xsbtn- danger campradio active', :title => sec.title
                         - when 2
-                          %label.btn.btn-xs.warning.campradio.active{:disabled => 'disabled', :title => sec.title}
-                            %input{:disabled => 'disabled', :title => sec.title}△
+                          = button_tag '△', :class => 'btn btn-xs btn-warning campradio active', :title => sec.title
                         - else
-                          %label.btn.btn-xs.primary.campradio.active{:disabled => 'disabled', :title => sec.title}
-                            %input{:disabled => 'disabled', :title => sec.title}◯
-                - elsif
-                  - changeable = true
-                  %p.big.test-danger
-                    登録されていません！登録してください。
-                - if changeable
-                  %p.text-right
-                    = button_to '登録・変更', '/camp_attendances/0/edit', :method => 'get', :class => 'btn btn-sm btn-primary'
+                          = button_tag '◯', :class => 'btn btn-xs btn-primary campradio active', :title => sec.title
+            - elsif
+              - changeable = true
+              %p.big.test-danger
+                登録されていません！登録してください。
+            - if changeable
+              %p.text-right
+                = button_to '登録・変更', '/camp_attendances/0/edit', :method => 'get', :class => 'btn btn-sm btn-primary'
         .clear_box
