@@ -276,6 +276,19 @@
                         = link_to '口座取引の一覧', '/account_transactions', {:target => '_blank'}
                 .clear_box
 
+          -# CAMPING COORDINATOR
+          - if is_granted :camping_coordinator
+            .grid.col-md-4.col-sm-6
+              .borders
+                .col-xs-12.nopadding
+                  %img.img-responsive{:src => "/img/camping_coordinator.png"}/
+                .grid_content
+                  .pad
+                    %ui
+                      %li
+                        = link_to 準備中
+                .clear_box
+
 
 
 
