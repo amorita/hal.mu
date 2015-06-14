@@ -40,7 +40,7 @@
               %p &nbsp;
               %p 
                 %h4 登録状況
-                - if camp_att.updated_at < camp.final_poll_start_at && camp.final_poll_start_at >= Date.today
+                - if camp_att.updated_at < camp.final_poll_start_at && camp.final_poll_start_at <= Date.today
                   %p.text-danger 最終確認を行ってください。出欠に変更がない場合でも一度「登録・変更」を押して保存してください。
                 - camp_dates = CampSection.group :pln_date
                 - camp_dates.each do |date|

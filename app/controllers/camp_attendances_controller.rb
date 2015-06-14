@@ -22,8 +22,8 @@ def create
     @camp_att = CampAttendance.new
     @camp_att.user_id = current_user.id
   end
-  @camp_att.by_car = params[:by_car]
-  @camp_att.memo = params[:memo]
+  @camp_att.by_car = params[:camp_attendance][:by_car]
+  @camp_att.memo = params[:camp_attendance][:memo]
   params[:selections].each_char.with_index(1) do |val, idx|
     eval '@camp_att.section_' + idx.to_s  + ' = val'
   end
