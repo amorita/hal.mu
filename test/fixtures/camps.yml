@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  start_date: 2015-06-14
+  end_date: 2015-06-14
+  first_poll_start_at: 2015-06-14
+  fiest_poll_end_at: 2015-06-14
+  final_poll_start_at: 2015-06-14
+  final_poll_end_at: 2015-06-14
+
+two:
+  start_date: 2015-06-14
+  end_date: 2015-06-14
+  first_poll_start_at: 2015-06-14
+  fiest_poll_end_at: 2015-06-14
+  final_poll_start_at: 2015-06-14
+  final_poll_end_at: 2015-06-14
