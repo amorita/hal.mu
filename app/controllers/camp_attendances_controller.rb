@@ -34,4 +34,8 @@ def create
   end
 end
 
+def index
+  @users = User.all.order :part_id
+end
+
 end

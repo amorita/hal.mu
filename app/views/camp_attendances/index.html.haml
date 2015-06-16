@@ -1,0 +1,54 @@
+%h1 合宿参加登録状況
+- camp = Camp.where('first_poll_start_at <= current_date() and current_date() < end_date').first
+- total = []
+%table.table
+  %tr
+    %th パート
+    %th 名前
+    %th 最終確認
+    - sections = CampSections.all.order :id
+    - sections.each do |sec|
+      %th= sec.title
+      - total << 0
+    - total << 0
+    %th 参加費
+  - @users.each do |user|
+    - att = CampAttendance.where(:user_id => user.id).first
+  	%tr
+  	  %td= user.part.abbr
+  	  %td= user.formal_name
+  	  %td
+  	    - if att.nil?
+  	      %i.fa.fa-exclamation.text-danger
+  	    - elsif att.updated_at < camp.final_poll_start_at
+  	      %span.glyphicon.glyphicon-remove.text-warning
+  	    - else
+  	      %span.glyphicon.glyphicon-ok.text-success
+  	  - amount = 0
+  	  - sections.each do |sec|
+  	    %td
+  	      - if att.nil?
+  	        = ""
+  	      - else
+  	        - case camp_att.send(('section_' + sec.id.to_s).to_sym)
+            - when 0
+              = button_tag '×', :class => 'btn btn-xs btn-danger campradio active', :title => sec.title
+            - when 2
+              = button_tag '△', :class => 'btn btn-xs btn-warning campradio active', :title => sec.title
+            - else
+              = button_tag '◯', :class => 'btn btn-xs btn-primary campradio active', :title => sec.title
+              - amount =+ sec.amount
+              - total[sec.id] =+ 1
+      %td.text-right
+        = number_to_currency(amount, :format => "%n%u", :unit => "", :precision => 0)
+        - total[sec.count] =+ amount
+  %tr.bg-info
+    %td{:colspan => 3} 合計
+    - sections.each do |sec|
+      %td.text-right= total[sec.id].to_s
+    %td.text-right
+      = number_to_currency(total[sec.count].to_s, :format => "%n%u", :unit => "", :precision => 0)
+
+
+
+
