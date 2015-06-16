@@ -14,23 +14,23 @@
     %th 参加費
   - @users.each do |user|
     - att = CampAttendance.where(:user_id => user.id).first
-  	%tr
-  	  %td= user.part.abbr
-  	  %td= user.formal_name
-  	  %td
-  	    - if att.nil?
-  	      %i.fa.fa-exclamation.text-danger
-  	    - elsif att.updated_at < camp.final_poll_start_at
-  	      %span.glyphicon.glyphicon-remove.text-warning
-  	    - else
-  	      %span.glyphicon.glyphicon-ok.text-success
-  	  - amount = 0
-  	  - sections.each do |sec|
-  	    %td
-  	      - if att.nil?
-  	        = ""
-  	      - else
-  	        - case camp_att.send(('section_' + sec.id.to_s).to_sym)
+    %tr
+      %td= user.part.abbr
+      %td= user.formal_name
+      %td
+        - if att.nil?
+          %i.fa.fa-exclamation.text-danger
+        - elsif att.updated_at < camp.final_poll_start_at
+          %span.glyphicon.glyphicon-remove.text-warning
+        - else
+          %span.glyphicon.glyphicon-ok.text-success
+      - amount = 0
+      - sections.each do |sec|
+        %td
+          - if att.nil?
+            = ""
+          - else
+            - case camp_att.send(('section_' + sec.id.to_s).to_sym)
             - when 0
               = button_tag '×', :class => 'btn btn-xs btn-danger campradio active', :title => sec.title
             - when 2
