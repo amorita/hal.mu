@@ -17,12 +17,12 @@
   - @users.each do |user|
     - att = CampAttendance.where(:user_id => user.id).first
     - if att.nil?
-      - class = 'bg-danger'
+      - bg = 'bg-danger'
     - elsif att.updated_at < camp.final_poll_start_at
-      - class = 'bg-warning'
+      - bg = 'bg-warning'
     - else
-      - class = 'bg-success'
-    %tr{:class => class}
+      - bg = 'bg-success'
+    %tr{:class => bg}
       %td= user.part.abbr
       %td= user.formal_name
       %td
