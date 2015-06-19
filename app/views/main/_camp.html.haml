@@ -27,7 +27,7 @@
                 最終出欠確認終了
 
             - camp_att = CampAttendance.where(:user_id => current_user.id).first
-            - camp_att.updated_at =+ 3600 * 9
+            -# camp_att.updated_at =+ 3600 * 9
             - if !camp_att.nil?
               %p
                 = current_user.normal_name + 'さんの合宿参加費は'
