@@ -16,6 +16,7 @@
     %th 参加費
   - @users.each do |user|
     - att = CampAttendance.where(:user_id => user.id).first
+    - att += 3600 * 9
     - if att.nil?
       - bg = 'bg-danger'
     - elsif att.updated_at < camp.final_poll_start_at
