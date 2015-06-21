@@ -1,5 +1,6 @@
 class CampAttendancesController < ApplicationController
 layout 'priv'
+before_filter :authenticate_user!
 def edit
   @camp_att = CampAttendance.where(:user_id => current_user).first
   if @camp_att.nil?
