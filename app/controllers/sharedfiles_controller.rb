@@ -5,7 +5,7 @@ class SharedfilesController < ApplicationController
   before_action :set_sharedfile, only: [:show, :edit, :update, :destroy]
 #  before_filter :authenticate_user!
   layout false
-
+  before_filter :authenticate_user!
   # GET /sharedfiles
   # GET /sharedfiles.json
   def index
