@@ -28,7 +28,7 @@ def create
   params[:selections].each_char.with_index(1) do |val, idx|
     eval '@camp_att.section_' + idx.to_s  + ' = val'
   end
-  @camp_att.updated_at = Time.now
+  @camp_att.updated_at = Time.now + (3600 * 9)
   if @camp_att.save!
     redirect_to @camp_att
   else
