@@ -1,0 +1,36 @@
+%link{:rel=> "stylesheet", :href => "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css"}
+%h1 団費納入状況
+
+%table.table
+  %tr
+    %th パート
+    %th 名前
+    %th 納入金額
+    - @terms.each do |term|
+      %th
+        = term[:year].to_s
+        %br
+        = "/" + term[:month].to_s
+
+  - @fee_calcs.each do |calc|
+    %tr
+      %td= calc.user.part.abbr
+      %td= calc.user.formal_name
+      %td.text-right= number_to_currency(calc.amount, :format => "%n%u", :unit => "", :precision => 0)
+      - @terms.each do |term|
+        - fee = MonthlyFee.where(:user_id => calc.user.id, :year => term[:year], :month => term[:month]).first
+        - if fee.nil?
+          %td −
+        - else
+          - if calc.amount > 0
+            - if calc.amount >= fee.amount
+              %td= button_tag '◯', :class => 'btn btn-xs btn-primary campradio active', :title => fee.amount.to_s
+            - else
+              %td= button_tag '△', :class => 'btn btn-xs btn-warning campradio active', :title => fee.amount.to_s
+            - calc.amount =- fee.amount
+          - else
+            - unless Date.today.month <= term[:month] && Date.today.year <= term[:year]
+              %td
+            - else
+              %td= button_tag '×', :class => 'btn btn-xs btn-danger campradio active', :title => fee.amount.to_s
+            

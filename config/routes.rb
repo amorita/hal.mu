@@ -60,6 +60,8 @@ end
     end
   end
   
+  resources :fees, :only => [:index]
+
   resources :topics, :only => [:index]
   resources :events
 
