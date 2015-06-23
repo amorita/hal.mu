@@ -33,7 +33,7 @@ end
 def index
   @page = params[:page].to_i 
   @page = 1 if @page < 1
-  @account_transactions = AccountTransaction.page(@page).per(20).order('posted_at DESC')
+  @account_transactions = AccountTransaction.where(:transaction_type => ['dep', 'debit']).page(@page).per(20).order('posted_at DESC')
   @count = AccountTransaction.all.count
 end
 
