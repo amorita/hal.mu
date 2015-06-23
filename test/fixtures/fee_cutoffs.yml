@@ -1,0 +1,7 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  cutoff_date: 2015-06-24
+
+two:
+  cutoff_date: 2015-06-24
