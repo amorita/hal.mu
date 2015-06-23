@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150614101229) do
+ActiveRecord::Schema.define(version: 20150623164853) do
 
   create_table "ab_list", force: true do |t|
     t.string "part", limit: 5
@@ -214,6 +214,12 @@ ActiveRecord::Schema.define(version: 20150614101229) do
     t.date     "ends_at"
     t.integer  "workers"
     t.integer  "students"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "fee_cutoffs", force: true do |t|
+    t.date     "cutoff_date"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
