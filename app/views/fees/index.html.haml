@@ -27,9 +27,9 @@
               %td= button_tag '◯', :class => 'btn btn-xs btn-primary campradio active', :title => fee.amount.to_s
             - else
               %td= button_tag '△', :class => 'btn btn-xs btn-warning campradio active', :title => fee.amount.to_s
-            - calc.amount =- fee.amount
+            - calc.amount = calc.amount - fee.amount
           - else
-            - unless Date.today.month <= term[:month] && Date.today.year <= term[:year]
+            - if Date.today.month <= term[:month] && Date.today.year <= term[:year]
               %td
             - else
               %td= button_tag '×', :class => 'btn btn-xs btn-danger campradio active', :title => fee.amount.to_s
