@@ -7,7 +7,7 @@
     %th 名前
     %th 納入金額
     - @terms.each do |term|
-      %th
+      %th{:style => 'width: 2em'}
         = term[:year].to_s
         %br
         = "/" + term[:month].to_s
