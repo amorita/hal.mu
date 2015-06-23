@@ -1,5 +1,5 @@
 class FeesController < ApplicationController
-
+layout 'priv'
 before_filter :authenticate_user!
 
   def index
