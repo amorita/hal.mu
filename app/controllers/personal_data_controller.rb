@@ -118,6 +118,7 @@ layout 'priv'
         monthly_fee.amount = fee.workers
       else
         monthly_fee.amount = fee.students
+        monthly_fee.is_student = true
       end
       monthly_fee.save!
     end      
