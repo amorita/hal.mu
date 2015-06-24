@@ -6,6 +6,7 @@
     %th パート
     %th 名前
     %th 納入金額
+    %th 過不足額
     - @terms.each do |term|
       %th{:style => 'width: 2em'}
         = term[:year].to_s
@@ -17,20 +18,44 @@
       %td= calc.user.part.abbr
       %td= calc.user.formal_name
       %td.text-right= number_to_currency(calc.amount, :format => "%n%u", :unit => "", :precision => 0)
+
+      - debt = 0
+      - @terms.each do |term|
+        - if Date.today.month <= term[:month] && Date.today.year <= term[:year]
+          - break
+        - fee = MonthlyFee.where(:user_id => calc.user.id, :year => term[:year], :month => term[:month]).first
+        - if fee.nil?
+          - debt =+ 0
+        - else
+          - debt =+ fee.amount
+      - diff = calc.amount - debt
+
+      - if diff < 0
+        %td.text-danger= number_to_currency(diff, :format => "%n%u", :unit => "", :precision => 0)
+      - else
+        %td.text-success= number_to_currency(diff, :format => "%n%u", :unit => "", :precision => 0)
+
+      %td.text-right= number_to_currency(calc.amount, :format => "%n%u", :unit => "", :precision => 0)
       - @terms.each do |term|
         - fee = MonthlyFee.where(:user_id => calc.user.id, :year => term[:year], :month => term[:month]).first
         - if fee.nil?
           %td −
         - else
+          - stat = ''
+          - if fee.is_absent
+            - stat = '休'
+          - if fee.is_student
+            - stat = '学' + stat
+
           - if calc.amount > 0
             - if calc.amount >= fee.amount
-              %td= button_tag '◯', :class => 'btn btn-xs btn-primary campradio active', :title => fee.amount.to_s
+              %td= button_tag (stat == '' ? '◯' : stat), :class => 'btn btn-xs btn-primary campradio active', :title => fee.amount.to_s
             - else
-              %td= button_tag '△', :class => 'btn btn-xs btn-warning campradio active', :title => fee.amount.to_s
+              %td= button_tag (stat == '' ? '△' : stat), :class => 'btn btn-xs btn-warning campradio active', :title => fee.amount.to_s
             - calc.amount = calc.amount - fee.amount
           - else
             - if Date.today.month <= term[:month] && Date.today.year <= term[:year]
               %td
             - else
-              %td= button_tag '×', :class => 'btn btn-xs btn-danger campradio active', :title => fee.amount.to_s
+              %td= button_tag (stat == '' ? '×' : stat), :class => 'btn btn-xs btn-danger campradio active', :title => fee.amount.to_s
             

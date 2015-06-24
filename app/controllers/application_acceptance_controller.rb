@@ -160,6 +160,7 @@ end
         case app.application_type
         when 'absence'
           monthly_fee.amount = fee.workers / 2
+          monthly_fee.is_absent = true
         when 'return'
           monthly_fee.amount = fee.workers
         end
@@ -167,6 +168,7 @@ end
         case app.application_type
         when 'absence'
           monthly_fee.amount = fee.students / 2
+          monthly_fee.is_absent = true
         when 'return'
           monthly_fee.amount = fee.students
         end
