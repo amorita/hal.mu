@@ -39,9 +39,9 @@
                   %input{:checked => (btn_d.length > 0),:type => 'radio', :name => 'sec[' + sec.id.to_s + '][0]', :id => 'option1', :autocomplete => 'off'}  ×     
             .col-sm-3
               - unless sec.start_at.nil?
-                = sec.start_at.hour.to_s + ':' + format("%02d", sec.start_at.minute)
+                = sec.start_at.hour.to_s + ':' + format("%02d", sec.start_at.min)
                 〜
-                = sec.end_at.hour.to_s + ':' + format("%02d", sec.end_at.minute)
+                = sec.end_at.hour.to_s + ':' + format("%02d", sec.end_at.min)
             .col-sm-4
               = sec.memo
                  
