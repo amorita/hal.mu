@@ -1,5 +1,5 @@
 - camp = Camp.where('first_poll_start_at <= current_date() and current_date() < end_date').first
-- unless camp.nil?
+- unless camp.nil? && current_user.absent_on?(camp.start_date)
   .grid.col-md-4.col-sm-6
     .borders
       %row
