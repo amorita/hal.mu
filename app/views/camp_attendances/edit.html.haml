@@ -28,7 +28,7 @@
               - btn_w = 'active'
             - else
               - btn_p = 'active'
-            .col-sm-3
+            .col-sm-3.col-xs-6
               .btn-group{:'data-toggle' => 'buttons'}
                 %label.btn.btn-default.primary.campradio{:class => btn_p + ' ' + sec.id.to_s, :value => '1'}
                   %input{:checked => (btn_p.length > 0), :type => 'radio', :name => 'sec[' + sec.id.to_s + '][1]', :id => 'option1', :autocomplete => 'off'}◯
@@ -37,14 +37,19 @@
                     %input{:checked => (btn_w.length > 0),:type => 'radio', :name => 'sec[' + sec.id.to_s + '][2]', :id => 'option1', :autocomplete => 'off'}△
                 %label.btn.btn-default.danger.campradio{:class => btn_d + ' ' + sec.id.to_s, :value => '0'}
                   %input{:checked => (btn_d.length > 0),:type => 'radio', :name => 'sec[' + sec.id.to_s + '][0]', :id => 'option1', :autocomplete => 'off'}  ×     
-            .col-sm-3
+            .visible-xs-block
+              - if sec.amount > 0
+                = number_to_currency(amount, :format => "%n%u", :unit => "円", :precision => 0)
+            .col-sm-2.col-xs-4
               - unless sec.start_at.nil?
                 = sec.start_at.hour.to_s + ':' + format("%02d", sec.start_at.min)
                 〜
                 = sec.end_at.hour.to_s + ':' + format("%02d", sec.end_at.min)
-            .col-sm-4
+            .col-sm-4.col-xs-8
               = sec.memo
-                 
+            .col-sm-1.hidden-xs
+              - if sec.amount > 0
+                = number_to_currency(amount, :format => "%n%u", :unit => "円", :precision => 0)
     .form-group
       %label.col-sm-2.control-label  駐車場の使用
       .col-sm-10
