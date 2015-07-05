@@ -37,4 +37,13 @@ class User < ActiveRecord::Base
     return !self.absent_on?(date)
   end
 
+  def vaild?
+    reuturn self.valid_on?(Date.today)
+  end
+
+  def vaild_on?(date)  
+    fee = MonthlyFee.where(:user_id => self.id, :year => date.year, :month => date.month).first
+    return !fee.nil?
+  end
+
 end
