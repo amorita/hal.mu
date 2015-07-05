@@ -16,7 +16,12 @@
     %th 参加費
   - @users.each do |user|
     - unless user.valid? next
-    - if user.absent? next
+    - if user.absent_on? camp.start_date
+      - next
+    - if pre_part != user.part.id
+      - pre_part = user.part.id
+      %tr.bg-info
+        %td{:colspan => 4 + sections.count}
     - att = CampAttendance.where(:user_id => user.id).first
     -# att += 3600 * 9
     - if att.nil?
