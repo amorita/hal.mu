@@ -21,7 +21,7 @@
   .bs-callout.bs-callout-info
     .col-sm-6.col-xs-12
       %h4
-        = (pln.begining / 100).to_s + ":00 ~ " + (pln.ending / 100).to_s + ":00 "
+        = pln.practice_mode.name + " " +  (pln.begining / 100).floor.to_s + ':' + pln.begining.to_s[-2, 2] + "〜" + (pln.ending / 100).floor.to_s + ':' + pln.ending.to_s[-2, 2]
         = pln.practice_mode.name
       %p
         = pln.practice_place.place_name + " " + pln.room

@@ -2,7 +2,7 @@
 - @practice_plns.each do |pln|
   .bs-callout.bs-callout-default
     %h4
-      = pln.practice_mode.name + " " + (pln.begining / 100).to_s + ":00 ~ " + (pln.ending / 100).to_s + ":00"
+      = pln.practice_mode.name + " " +  (pln.begining / 100).floor.to_s + ':' + pln.begining.to_s[-2, 2] + "〜" + (pln.ending / 100).floor.to_s + ':' + pln.ending.to_s[-2, 2]
     %table
       %tr
         %td
