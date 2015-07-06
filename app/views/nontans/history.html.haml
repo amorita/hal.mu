@@ -1,0 +1,81 @@
+- parts = Part.all.order :id
+
+.container
+  %h1 履歴参照
+  %p
+  = form_tag '/aaa/history' do
+    - p @start_date
+    - p @end_date
+    = date_field_tag 'start_date', @start_date
+    〜
+    = date_field_tag 'end_date', @end_date
+    = button_tag '照会', :class => 'btn btn-info'
+  - @plns.each do |pln|
+    %h2 
+      - notifTime = DateTime.new (pln.pln_date - 1).year, (pln.pln_date - 1).month, (pln.pln_date - 1).day, 22, 0, 0, '+9'
+      = pln.pln_date.strftime "%m/%d"
+      - title = pln.practice_mode.name + ' ' + (pln.begining / 100).floor.to_s + ':' + pln.begining.to_s[-2, 2] + '〜' + (pln.ending / 100).floor.to_s + ':' + pln.ending.to_s[-2, 2]
+      = pln.practice_mode.name + "@" + pln.practice_place.place_name
+    .bs-callout.bs-callout-default
+      
+      - tmpPartId = 0
+      - if pln.nontans.length == 0
+        %tr
+          %td
+            .col-md-12
+              = "全員出席" 
+      - else
+        - parts.each do |part|
+          - nontans = Nontan.where(:practice_pln_id => pln.id).where(:part_id => part.id).where('user_id is not null')
+          - if nontans.length > 0
+            .inst-bg{:style => "background: url('/assets/" + part.abbr + ".png')"}
+              %h4= part.name
+              - nontans.each do |nontan|
+              
+                -# if
+                %table.table.col-md-12
+                  %tr
+                    %td
+                  
+                      - if nontan.created_at > notifTime
+                        .col-md-12.bg-danger
+                          %h4 お知らせ後新規登録
+                      - elsif nontan.updated_at > notifTime
+                        .col-md-12.bg-warning
+                          %h4 お知らせ後変更あり
+                      .col-md-3.col-xs-12.col-sm-4
+                        - unless nontan.user.nil?
+                          - longname = nontan.user.family_name + ' ' + nontan.user.name + "さん"
+                        - else
+                          - longname = nontan.user_name + "さん"
+                        = longname
+                        = nontan.subs_user_id.nil? ? "　" : "⇒ " + nontan.subs_user.family_name + ' ' + nontan.subs_user.name + "さん"
+                      - case nontan.nontan_class_id
+                        - when 2
+                          - time = nontan.time.strftime('%H:%M') + '～'
+                        - when 3
+                          - time = nontan.time.strftime('%H:%M')
+                        
+                      .col-md-2.hidden-xs.col-sm-3
+                        = nontan.nontan_class.name
+                        = time
+    
+                      .col-xs-3.visible-xs
+                        = nontan.nontan_class.name
+                        %div{:style => "font-size: 80%; color: #999999"}
+                          = time
+                      
+
+    
+                      .col-md-6.col-xs-9.col-sm-12
+                        = nontan.reason
+
+                .clearfix
+    - if pln.mode == 20
+      .bs-callout.bs-callout-warning
+        %h4
+          ここより次期
+        %p
+          ここから下は次期以降の練習予定です。
+          %br
+          もちろん、登録することも可能です。
