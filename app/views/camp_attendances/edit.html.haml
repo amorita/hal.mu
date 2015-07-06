@@ -39,7 +39,7 @@
                   %input{:checked => (btn_d.length > 0),:type => 'radio', :name => 'sec[' + sec.id.to_s + '][0]', :id => 'option1', :autocomplete => 'off'}  ×     
             .visible-xs-block
               - if sec.amount > 0
-                = number_to_currency(amount, :format => "%n%u", :unit => "円", :precision => 0)
+                = number_to_currency(sec.amount, :format => "%n%u", :unit => "円", :precision => 0)
             .col-sm-2.col-xs-4
               - unless sec.start_at.nil?
                 = sec.start_at.hour.to_s + ':' + format("%02d", sec.start_at.min)
@@ -49,7 +49,7 @@
               = sec.memo
             .col-sm-1.hidden-xs
               - if sec.amount > 0
-                = number_to_currency(amount, :format => "%n%u", :unit => "円", :precision => 0)
+                = number_to_currency(sec.amount, :format => "%n%u", :unit => "円", :precision => 0)
     .form-group
       %label.col-sm-2.control-label  駐車場の使用
       .col-sm-10

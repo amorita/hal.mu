@@ -14,6 +14,18 @@ class NontansController < ApplicationController
     @plns = PracticePln.where('pln_date > now()').order(:pln_date)
   end
 
+  def history
+    @start_date = params[:start_date]
+    @end_date = params[:end_date]
+    if @end_date.nil? 
+      @end_date = Date.today
+    end
+    if @start_date.nil? 
+      @start_date = @end_date - 30
+    end
+    @plns = PracticePln.where("'#{@start_date}' <= pln_date and pln_date <= '#{@end_date}'").order(:pln_date)    
+  end
+
   def mail_notif
   end
   # GET /nontans/1
