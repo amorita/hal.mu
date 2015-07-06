@@ -22,6 +22,8 @@ end
     collection do
       get 'intro'
       get 'index2'
+      post 'history'
+      get 'history'
     end
   end
 

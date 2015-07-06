@@ -14,6 +14,7 @@
     - total << 0
     - total << 0
     %th 参加費
+  - pre_part = 1
   - @users.each do |user|
     - unless user.valid? next
     - if user.absent_on? camp.start_date
@@ -23,7 +24,6 @@
       %tr.bg-info
         %td{:colspan => 4 + sections.count}
     - att = CampAttendance.where(:user_id => user.id).first
-    -# att += 3600 * 9
     - if att.nil?
       - bg = 'bg-danger'
     - elsif att.updated_at < camp.final_poll_start_at
@@ -32,7 +32,7 @@
       - bg = 'bg-success'
     %tr{:class => bg}
       %td= user.part.abbr
-      %td= user.formal_name
+      %td{:nowrap => true}= user.formal_name
       %td
         - if att.nil?
           %i.fa.fa-exclamation.text-danger
@@ -42,7 +42,7 @@
           %span.glyphicon.glyphicon-ok.text-success
       - amount = 0
       - sections.each do |sec|
-        %td
+        %td{:width => '30px'}
           - if att.nil?
             = ""
           - else
