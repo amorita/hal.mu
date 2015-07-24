@@ -6,7 +6,7 @@ before_filter :authenticate_user!
 layout 'priv'
 
   def index
-    @personal_data = nil    
+    @personal_data = PersonalData.all.order([:part_id, :family_name_pron])  
   end
 
 # GET /tests/1/edit
