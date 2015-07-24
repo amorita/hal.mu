@@ -90,6 +90,7 @@ end
     collection do
       get 'join'
       patch 'join_process'
+      get 'index'
     end
   end
 

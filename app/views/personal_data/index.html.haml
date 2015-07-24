@@ -1,0 +1,30 @@
+%h1 団員一覧
+- if is_granted :somu
+  %table.table
+    %tr
+      %th パート  
+      %th 団員番号
+      %th 氏名
+      %th よみ
+      %th 所属
+      %th メールアドレス
+      %th 電話番号
+      %th 郵便番号
+      %th 住所
+    - @personal_data.each do |data|
+      %tr
+        %td= data.part.abbr
+        %td= data.id.to_s
+        %td= data.family_name + " " + data.name
+        %td= data.family_name_pron + " " + data.name_pron
+        %td
+          - fee = MonthlyFee.where(:year => Date.today.year, :month => Date.today.month, :user_id => data.id).first
+          = fee.is_student ? "学生" : "社会人"
+          = fee.is_absent ? "(休団)" : ""
+        %td= data.email
+        %td= data.phone
+        %td= data.zip_code
+        %td
+          = getAddress(data.zip_code)
+          = data.address
+          = data.building
