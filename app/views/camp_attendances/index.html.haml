@@ -6,7 +6,7 @@
   %tr
     %th パート
     %th 名前
-    %th 最終確認
+    %th{:style => 'width: 1.5em;'} 最終確認
     - sections = CampSection.all.order :id
     - sections.each do |sec|
       %th{:style => 'width: 1.5em;'}= sec.title
@@ -16,7 +16,9 @@
     %th 参加費
   - pre_part = 1
   - @users.each do |user|
-    - unless user.valid? next
+    - p user.long_name
+    - unless user.valid_on? camp.start_date 
+      - next
     - if user.absent_on? camp.start_date
       - next
     - if pre_part != user.part.id
