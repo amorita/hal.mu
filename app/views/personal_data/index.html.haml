@@ -1,5 +1,16 @@
 %h1 団員一覧
-- if is_granted :somu
+.bs-callout.bs-callout-info
+  %h4 表示対象選択
+  .text-nowrap
+    = form_tag '/personal_data/index', :mothod => :post, :class => "form-inline" do
+      = collection_select :part, :id, Part.all, :id, :name
+      = submit_tag '照会'
+    = form_tag '/personal_data/index', :mothod => :post, :class => "form-inline" do
+      %input{:id => 'part_id', :name => 'part[id]', :value => '1000', :type => 'hidden'}
+      = submit_tag '全パート照会'
+
+-# if is_granted :somu
+- if true
   %table.table
     %tr
       %th パート  
@@ -13,18 +24,18 @@
       %th 住所
     - @personal_data.each do |data|
       %tr
-        %td= data.part.abbr
-        %td= data.id.to_s
-        %td= data.family_name + " " + data.name
-        %td= data.family_name_pron + " " + data.name_pron
-        %td
+        %td.text-nowrap= data.part.abbr
+        %td.text-nowrap= data.id.to_s
+        %td.text-nowrap= data.family_name + " " + data.name
+        %td.text-nowrap= data.family_name_pron + " " + data.name_pron
+        %td.text-nowrap
           - fee = MonthlyFee.where(:year => Date.today.year, :month => Date.today.month, :user_id => data.id).first
           = fee.is_student ? "学生" : "社会人"
           = fee.is_absent ? "(休団)" : ""
-        %td= data.email
-        %td= data.phone
-        %td= data.zip_code
-        %td
+        %td.text-nowrap= data.email
+        %td.text-nowrap= data.phone
+        %td.text-nowrap= data.zip_code
+        %td.text-nowrap
           = getAddress(data.zip_code)
           = data.address
           = data.building
