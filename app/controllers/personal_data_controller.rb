@@ -1,12 +1,23 @@
 # -*- coding: utf-8 -*-
 class PersonalDataController < ApplicationController
 
-before_filter :authenticate_user!
+protect_from_forgery :except => [:index] 
+#before_filter :authenticate_user!
 
 layout 'priv'
 
   def index
-    @personal_data = PersonalData.all.order([:part_id, :family_name_pron])  
+    if params[:part].nil?
+      part = 999
+    else
+      part = params[:part][:id].to_i
+    end
+
+    if part == 1000
+      @personal_data = User.all.order(:part_id, :family_name_pron)
+    else
+      @personal_data = User.where(:part_id => part).order(:part_id, :family_name_pron)  
+    end
   end
 
 # GET /tests/1/edit

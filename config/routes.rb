@@ -91,6 +91,7 @@ end
       get 'join'
       patch 'join_process'
       get 'index'
+      post 'index'
     end
   end
 
