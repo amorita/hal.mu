@@ -92,6 +92,7 @@ end
       patch 'join_process'
       get 'index'
       post 'index'
+      get 'members'
     end
   end
 

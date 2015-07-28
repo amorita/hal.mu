@@ -2,7 +2,7 @@
 class PersonalDataController < ApplicationController
 
 protect_from_forgery :except => [:index] 
-#before_filter :authenticate_user!
+before_filter :authenticate_user!
 
 layout 'priv'
 
@@ -18,6 +18,11 @@ layout 'priv'
     else
       @personal_data = User.where(:part_id => part).order(:part_id, :family_name_pron)  
     end
+  end
+
+  def members
+    @users = User.all.order(:part_id, :family_name_pron)
+    render 'members', :layout => false
   end
 
 # GET /tests/1/edit
