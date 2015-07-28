@@ -44,6 +44,7 @@ config/environments
 config/secrets.yml
 
 public/assets
+public/members
 
 **.lock
 **~

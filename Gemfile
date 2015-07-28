@@ -72,3 +72,5 @@ gem 'active_attr'
 
 gem 'ofx'
 gem 'kaminari'
+
+
