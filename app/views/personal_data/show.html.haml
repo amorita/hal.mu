@@ -15,6 +15,17 @@
       = @personal_data.family_name_pron + ' ' + @personal_data.name_pron
 
   .row
+    %label.col-sm-2.col-xs-12.control-label  区分
+    .col-sm-10
+      = @personal_data.worker ? '社会人' : '学生'
+
+  - unless @personal_data.worker
+    .row
+      %label.col-sm-2.col-xs-12.control-label  学校名
+      .col-sm-10
+        = @personal_data.school
+
+  .row
     %label.col-sm-2.control-label パート
     .col-sm-10
       = @personal_data.part.name
