@@ -35,7 +35,7 @@
     .form-group
       %label.col-sm-2.control-label 区分
       .col-sm-10
-        = f.select :worker, [['社会人',1],['学生',0]], {}, :class => "form-control part_select"
+        = f.select :worker, [['社会人','true'],['学生','false']], {}, :class => "form-control part_select"
 
     .form-group
       %label.col-sm-2.control-label 学校名
