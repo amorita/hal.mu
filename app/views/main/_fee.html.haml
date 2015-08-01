@@ -1,0 +1,37 @@
+- @fee_calcs = VFeeCalc.all
+- last_cutoff = FeeCutoff.order('cutoff_date DESC').first
+- year = last_cutoff.cutoff_date.year
+- month = last_cutoff.cutoff_date.month
+- @terms = []
+- 10.times do |i|
+  - term = {}
+  - m = month + i
+  - unless m > 12
+    - term[:month] = m
+    - term[:year] = year
+  - else
+    - term[:month] = m - 12
+    - term[:year] = year + 1
+  - @terms << term
+
+%h4 団費納入状況(試験運用中)
+%p
+  = AccountTransaction.maximum(:posted_at).strftime('%Y年%m月%d日現在')
+
+-# 計算
+- debt = 0
+- @terms.each do |term|
+  - if Date.today.month <= term[:month] && Date.today.year <= term[:year]
+    - break
+  - fee = MonthlyFee.where(:user_id => calc.user.id, :year => term[:year], :month => term[:month]).first
+  - if fee.nil?
+    - debt += 0
+  - else
+    - debt += fee.amount
+- diff = calc.amount - debt
+%p
+  = (Date.today.month - 1).to_s + 月分まで
+- if diff < 0
+  %p.text-danger= number_to_currency(diff, :format => "%n%u", :unit => "", :precision => 0)
+- else
+  %p.text-success= number_to_currency(diff, :format => "%n%u", :unit => "", :precision => 0)
