@@ -99,6 +99,9 @@
          $(document).resize(function(){
           vg.vgrefresh(null, null, null);
         });
+        document.addEventListener('DOMNodeInserted', function(e) {
+          vg.vgrefresh(null, null, null);
+        });
         
       });
       
