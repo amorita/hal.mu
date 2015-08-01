@@ -128,6 +128,8 @@
                       = current_user.nickname.nil? ? current_user.family_name + ' ' + current_user.name : current_user.nickname
                       さん！
                     %p このページは団員専用です。各種申請やファイルのダウンロード、練習の録音などを聴いたりできます。
+                    %p &nbsp;
+                    = render 'fee'
                 .clear_box
 
           = render 'camp' 
