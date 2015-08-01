@@ -84,8 +84,8 @@ config.action_mailer.smtp_settings = {
   :port => 587,
   :domain => "gmail.com",
   :authentication => :login,
-  :user_name => "pln@hal.mu",
-  :password => "halokepln"
+  :user_name => "info@hal.mu",
+  :password => "infohaloke"
 }
 
 config.action_mailer.default_url_options = { :host => 'r.hal.mu' }

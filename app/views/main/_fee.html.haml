@@ -1,4 +1,4 @@
-- @fee_calcs = VFeeCalc.all
+- calc = VFeeCalc.where(:user_id => current_user.id).first
 - last_cutoff = FeeCutoff.order('cutoff_date DESC').first
 - year = last_cutoff.cutoff_date.year
 - month = last_cutoff.cutoff_date.month
@@ -30,7 +30,7 @@
     - debt += fee.amount
 - diff = calc.amount - debt
 %p
-  = (Date.today.month - 1).to_s + 月分まで
+  = (Date.today.month - 1).to_s + '月分まで'
 - if diff < 0
   %p.text-danger= number_to_currency(diff, :format => "%n%u", :unit => "", :precision => 0)
 - else
