@@ -13,8 +13,9 @@
       %td{:width => 20} &nbsp;
       %td{:width => 300, :colspan => 2}= file.name
       %td{:width => 150}
-        %i.fa.fa-download
-        ダウンロード
+        %a{:href => '/shared_files/' + file.filepath}
+          %i.fa.fa-download
+          ダウンロード
       %td{:width => 50}
         - if file.user == current_user
           = button_tag '削除', :type => 'button', :onclick => "javascript: alert('削除します。よろしいですか？');$('#sharedfile').load('/sharedfiles/#{file.id};", :class => 'btn btn-xs btn-danger', :method => :delete
