@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150624155507) do
+ActiveRecord::Schema.define(version: 20150829030650) do
 
   create_table "ab_list", force: true do |t|
     t.string "part", limit: 5
@@ -249,8 +249,8 @@ ActiveRecord::Schema.define(version: 20150624155507) do
     t.integer  "amount"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "is_absent"
-    t.boolean  "is_student"
+    t.boolean  "is_absent",  default: false, null: false
+    t.boolean  "is_student", default: false, null: false
   end
 
   create_table "nontan_classes", force: true do |t|
@@ -371,6 +371,40 @@ ActiveRecord::Schema.define(version: 20150624155507) do
 
   add_index "social_profiles", ["user_id"], name: "index_social_profiles_on_user_id", using: :btree
 
+  create_table "ticket_reservation_collections", force: true do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "ticket_reservations", force: true do |t|
+    t.integer  "user_id"
+    t.string   "esp_name"
+    t.string   "name"
+    t.string   "fname"
+    t.string   "name_pron"
+    t.string   "fname_pron"
+    t.integer  "num_of_ticket"
+    t.boolean  "received"
+    t.integer  "concert_id"
+    t.integer  "ticket_reservation_collection_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "tiket_reservations", force: true do |t|
+    t.integer  "user_id"
+    t.string   "esp_name"
+    t.string   "name"
+    t.string   "fname"
+    t.string   "name_pron"
+    t.string   "fname_pron"
+    t.integer  "num_of_ticket"
+    t.boolean  "received"
+    t.integer  "cncert_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "topics", force: true do |t|
     t.string    "title"
     t.string    "link"
@@ -412,29 +446,3 @@ ActiveRecord::Schema.define(version: 20150624155507) do
     t.string   "bank_name"
   end
 
-  create_table "v_fee_calcs", id: false, force: true do |t|
-    t.integer "user_id",                                         default: 0, null: false
-    t.string  "family_name", limit: 50
-    t.string  "name",        limit: 50
-    t.decimal "amount",                 precision: 32, scale: 0, default: 0, null: false
-  end
-
-  create_table "views", force: true do |t|
-    t.string   "email",                  default: "", null: false
-    t.string   "encrypted_password",     default: "", null: false
-    t.string   "reset_password_token"
-    t.datetime "reset_password_sent_at"
-    t.datetime "remember_created_at"
-    t.integer  "sign_in_count",          default: 0,  null: false
-    t.datetime "current_sign_in_at"
-    t.datetime "last_sign_in_at"
-    t.string   "current_sign_in_ip"
-    t.string   "last_sign_in_ip"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "views", ["email"], name: "index_views_on_email", unique: true, using: :btree
-  add_index "views", ["reset_password_token"], name: "index_views_on_reset_password_token", unique: true, using: :btree
-
-end

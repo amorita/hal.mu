@@ -1,0 +1,25 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  user_id: 1
+  esp_name: MyString
+  name: MyString
+  fname: MyString
+  name_pron: MyString
+  fname_pron: MyString
+  num_of_ticket: 1
+  received: false
+  concert_id: 1
+  ticket_reservation_collection_id: 1
+
+two:
+  user_id: 1
+  esp_name: MyString
+  name: MyString
+  fname: MyString
+  name_pron: MyString
+  fname_pron: MyString
+  num_of_ticket: 1
+  received: false
+  concert_id: 1
+  ticket_reservation_collection_id: 1
