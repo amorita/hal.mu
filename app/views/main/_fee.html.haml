@@ -37,12 +37,13 @@
   %p.text-success= number_to_currency(diff, :format => "%n%u", :unit => "円", :precision => 0)
 
 - this_month = MonthlyFee.where(:user_id => current_user.id, :month => Date.today.month, :year => Date.today.year).first
-= Date.today.month.to_s + '月末までに'
-- diff = diff - this_month.amount
-- if diff >= 0
-  お支払いいただく必要はありません。
-- else
-  %span.text-danger= number_to_currency(diff, :format => "%n%u", :unit => "円", :precision => 0)
-  お支払いください！
+%p
+  = Date.today.month.to_s + '月末までに'
+  - diff = diff - this_month.amount
+  - if diff >= 0
+    お支払いいただく必要はありません。
+  - else
+    %span.text-danger= number_to_currency(diff * -1, :format => "%n%u", :unit => "円", :precision => 0)
+    お支払いください！
 .text-right
   = link_to '>>全体の団費納入状況', '/fees', {:target => '_blank'}

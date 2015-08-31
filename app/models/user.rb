@@ -46,4 +46,8 @@ class User < ActiveRecord::Base
     return !fee.nil?
   end
 
+  def self.all
+    records = super
+    records.where(:retired => false)
+  end
 end
