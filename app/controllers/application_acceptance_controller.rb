@@ -67,12 +67,13 @@ def somu_accept
 	@app = Application.find params[:id]
 	@app.assign_attributes(app_params)
 	@app.somu_accepted_at = Date.today
-
 	if @app.save
-	    redirect_to :action => 'somu_index', notice: 'successfully updated.'
-  	else
-    	render action: 'edit'
-  	end
+    create_monthly_fees(@app)
+    proc_apps(@app)
+    redirect_to :action => 'somu_index', notice: 'successfully updated.'
+	else
+  	render action: 'edit'
+	end
 end
 
   def absence_new
@@ -178,6 +179,21 @@ end
   end
 
 
+  def proc_apps(app)
+    if app.application_type == 'retire'
+      proc_retire(app)
+    end
+  end
+
+  def proc_retire(app)
+    #退団処理
+    user = User.find app.user_id
+    user.retire = true
+    user.save!
+    #団費予定
+    monthly_fee.where(:user_id => app.user_id, :year => Date.today.year, 'month > #{Date.today.month}').destroy!
+
+  end
 
   private
 
