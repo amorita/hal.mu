@@ -191,7 +191,11 @@ end
     user.retire = true
     user.save!
     #団費予定
-    monthly_fee.where(:user_id => app.user_id, :year => Date.today.year, 'month > #{Date.today.month}').destroy!
+    fees = MonthlyFee.where(:user_id => app.user_id, :year => Date.today.year).where('month > #{Date.today.month}')
+    fees << MonthlyFee.where(:user_id => app.user_id, :year => Date.today.year + 1)
+    fees.each do |fee|
+      fee.destroy!
+    end
 
   end
 
