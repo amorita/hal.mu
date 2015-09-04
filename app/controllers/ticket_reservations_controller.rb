@@ -25,9 +25,11 @@ def update
     rev.user_id = current_user.id
 
     if !rev.num_of_ticket.nil? && rev.num_of_ticket > 0
-      r = TicketReservation.find rev.id
-      unless r.nil?
-        r.destroy!
+      unless rev.id.nil?
+        r = TicketReservation.find rev.id
+        unless r.nil?
+          r.destroy!
+        end
       end
       rev.save!
     else
