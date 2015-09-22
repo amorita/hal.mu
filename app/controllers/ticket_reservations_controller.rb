@@ -45,4 +45,16 @@ def update
   redirect_to '/ticket_reservations/edit'
 end
 
+def list
+  @tickets = TicketReservation.where(:received => false).order(:fname_pron)
+end
+
+def receive
+  id = params[:id]
+  ticket = TicketReservation.find id
+  ticket.received = true
+  ticket.save!
+  redirect_to '/ticket_reservations/list'
+end
+
 end

@@ -110,6 +110,8 @@ end
 
   get 'ticket_reservations/edit' => 'ticket_reservations#edit'
   post 'ticket_reservations/update' => 'ticket_reservations#update'
+  get 'ticket_reservations/list' => 'ticket_reservations#list'
+  get 'ticket_reservations/receive' => 'ticket_reservations#receive'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

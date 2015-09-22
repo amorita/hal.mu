@@ -1,0 +1,23 @@
+%h1 取り置きチケット一覧
+
+- initials = []
+- initial = ''
+- @tickets.each do |ticket|
+  - if initial != ticket.fname_pron[0]
+    - initial = ticket.fname_pron[0]
+    - initials << initial
+.block
+  - initials.each do |ini|
+    = link_to ini, '#' + ini
+- initials.each do |ini|
+  %h1{:id => ini}= ini
+  - list = TicketReservation.where("fname_pron like '#{ini}%'").where(:received => false).order(:fname_pron, :name_pron)
+  %table.table
+    - list.each do |item|
+      %tr
+        %td.col-xs-3= item.fname_pron + ' ' + item.name_pron
+        %td.col-xs-3= item.fname + ' ' + item.name
+        %td.col-xs-3= 'by ' + item.user.normal_name
+        %td.col-xs-1.bold= item.num_of_ticket.to_s
+        %td.col-xs-1
+          = link_to '受渡', '/ticket_reservations/receive/?id=' + item.id.to_s
