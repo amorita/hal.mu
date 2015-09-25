@@ -1,5 +1,12 @@
 %h1 取り置きチケット一覧
 
+- nums = TicketReservation.find_by_sql("select num_of_ticket from ticket_reservations where received = 0 group by num_of_ticket order by 1")
+- summary = []
+- nums.each do |num|
+  - summary << num.num_of_ticket.to_s + ': ' + TicketReservation.where(:num_of_ticket => num.num_of_ticket).count.to_s
+%p.text-info
+  = summary.join ', '
+
 - initials = []
 - initial = ''
 - @tickets.each do |ticket|
