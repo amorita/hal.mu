@@ -45,9 +45,9 @@
                           %h4 お知らせ後変更あり
                       .col-md-3.col-xs-12.col-sm-4
                         - unless nontan.user.nil?
-                          - longname = nontan.user.family_name + ' ' + nontan.user.name + "さん"
+                          - longname = nontan.user.normal_name + "さん"
                         - else
-                          - longname = nontan.user_name + "さん"
+                          - longname = User.find(nontan.user_id).normal_name + "さん"
                         = longname
                         = nontan.subs_user_id.nil? ? "　" : "⇒ " + nontan.subs_user.family_name + ' ' + nontan.subs_user.name + "さん"
                       - case nontan.nontan_class_id
