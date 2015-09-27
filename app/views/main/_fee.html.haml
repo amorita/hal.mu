@@ -14,7 +14,7 @@
     - term[:year] = year + 1
   - @terms << term
 
-%h4 団費納入状況(試験運用中)
+%h4 団費納入状況
 %p
   = AccountTransaction.maximum(:posted_at).strftime('%Y年%m月%d日現在')
 
