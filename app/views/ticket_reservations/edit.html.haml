@@ -12,7 +12,7 @@
       - label = 'ticket_reservations[' + ind.to_s + ']'
       = fields_for label, rev do |f|
         = f.hidden_field :id
-        .form-group{:class => bgclass}
+        .form-group
           %label.col-sm-2.col-xs-12.control-label  名前
           .col-xs-6.col-sm-5
             = f.text_field :fname, :placeholder => "姓",:class => "form-control"
@@ -30,8 +30,8 @@
           %label.col-sm-2.control-label 枚数
           .col-sm-10
             = f.number_field :num_of_ticket, :min => 0, :max => 20
-          - if rev.num_of_ticket > 0
-            %span.glyphicon.glyphicon-ok.text-success{:"aria-hidden" => true}
+            - if !rev.num_of_ticket.nil? && rev.num_of_ticket > 0
+              %span.glyphicon.glyphicon-ok.text-success{:"aria-hidden" => 'true'}
             
         %hr
     .actions

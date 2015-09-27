@@ -47,7 +47,7 @@
                         - unless nontan.user.nil?
                           - longname = nontan.user.normal_name + "さん"
                         - else
-                          - longname = User.find(nontan.user_id).normal_name + "さん"
+                          - longname = "退団利用者"
                         = longname
                         = nontan.subs_user_id.nil? ? "　" : "⇒ " + nontan.subs_user.family_name + ' ' + nontan.subs_user.name + "さん"
                       - case nontan.nontan_class_id
