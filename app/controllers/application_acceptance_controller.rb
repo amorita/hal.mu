@@ -68,7 +68,6 @@ def somu_accept
 	@app.assign_attributes(app_params)
 	@app.somu_accepted_at = Date.today
 	if @app.save
-    create_monthly_fees(@app)
     proc_apps(@app)
     redirect_to :action => 'somu_index', notice: 'successfully updated.'
 	else
@@ -182,6 +181,8 @@ end
   def proc_apps(app)
     if app.application_type == 'retire'
       proc_retire(app)
+    else
+      create_monthly_fees(@app)
     end
   end
 
