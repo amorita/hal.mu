@@ -132,7 +132,7 @@ end
     when 'absence'
       range = (last_rehearsal.pln_date.month + 1)..(end_next_rehearsal.pln_date.month - 1)
       start_year = last_rehearsal.pln_date.year
-    when 'return'
+    when 'return', 'join'
       range = next_rehearsal.pln_date.month..(next_rehearsal.pln_date.month + 12)
       start_year = next_rehearsal.pln_date.year
     end
@@ -161,7 +161,7 @@ end
         when 'absence'
           monthly_fee.amount = fee.workers / 2
           monthly_fee.is_absent = true
-        when 'return'
+        when 'return', 'join'
           monthly_fee.amount = fee.workers
         end
       else
@@ -169,7 +169,7 @@ end
         when 'absence'
           monthly_fee.amount = fee.students / 2
           monthly_fee.is_absent = true
-        when 'return'
+        when 'return', 'join'
           monthly_fee.amount = fee.students
         end
       end
