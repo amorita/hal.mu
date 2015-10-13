@@ -18,7 +18,7 @@
   -# 計算
   - debt = 0
   - @terms.each do |term|
-    - if Date.today.month <= term[:month] && Date.today.year <= term[:year]
+    - if Date.today.month < term[:month] && Date.today.year <= term[:year]
       - break
     - fee = MonthlyFee.where(:user_id => calc.user.id, :year => term[:year], :month => term[:month]).first
     - if fee.nil?
@@ -103,11 +103,12 @@
               - absence_month_count = c.date.month > Date.today.month ? (c.date.month - Date.today.month) : (c.date.month - Date.today.month + 12)
               - absence_fee = current_user.worker ? (fee.workers/2 * absence_month_count) : (fee.students/2 * absence_month_count)
               - absence_diff = diff - absence_fee
-              - absence_diff < 0
+              - if absence_diff < 0
                 %p
                   休団費と合計した団費納入が
                   = number_to_currency(absence_diff * -1, :format => "%n%u", :unit => "円", :precision => 0)
                   不足しています。納入後、休団申請が可能となります。
+                  = AccountTransaction.maximum(:posted_at).strftime('%Y年%m月%d日現在')
                 - valid = false
           
       - when 'retire'
@@ -135,11 +136,12 @@
               %label{:for => 'agree'}
                 上記に同意する
 
-            - diff < 0
+            - if diff < 0
               %p
                 これまでの団費納入が
                 = number_to_currency(diff * -1, :format => "%n%u", :unit => "円", :precision => 0)
                 不足しています。納入後、退団申請が可能となります。
+                = AccountTransaction.maximum(:posted_at).strftime('%Y年%m月%d日現在')
               - valid = false
 
     .form-group
