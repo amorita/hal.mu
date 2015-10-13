@@ -22,7 +22,10 @@
           = number_to_currency(trans.amount * -1, :format => "%n%u", :unit => "円", :precision => 0)
       %td
         - unless trans.user_id.nil?
-          = trans.user.long_name
+          - unless trans.user.nil?
+            = trans.user.long_name
+          - else
+            retired
       %td
         - if trans.transaction_type == 'dep' && trans.user_id.nil? && !trans.name.include?('利息')
           = button_to '編集', '/account_transactions/' + trans.id.to_s + '/edit', :method => 'get', :class => 'btn btn-xs btn-danger'

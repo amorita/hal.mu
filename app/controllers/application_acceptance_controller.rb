@@ -189,15 +189,11 @@ end
   def proc_retire(app)
     #退団処理
     user = User.find app.user_id
-    user.retire = true
+    user.retired = true
     user.save!
     #団費予定
-    fees = MonthlyFee.where(:user_id => app.user_id, :year => Date.today.year).where('month > #{Date.today.month}')
-    fees << MonthlyFee.where(:user_id => app.user_id, :year => Date.today.year + 1)
-    fees.each do |fee|
-      fee.destroy!
-    end
-
+    MonthlyFee.destroy_all('user_id = ' + app.user_id.to_s + ' and year >= ' + Date.today.year.to_s + ' and month > ' + Date.today.month.to_s)
+    return 0
   end
 
   private
