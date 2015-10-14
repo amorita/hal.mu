@@ -13,5 +13,9 @@
       %td= app.user.long_name
       %td= app.application_name
       %td= app.created_at.strftime("%m月%d日")
-      %td= button_to '確認', '/application_acceptance/' + app.id.to_s + '/somu_edit', :method => 'get', :class => 'btn btn-sm btn-primary'
-      
+      %td
+        - if app.somu_acceptance.nil?
+          = button_to '承認', '/application_acceptance/' + app.id.to_s + '/somu_edit', :method => 'get', :class => 'btn btn-sm btn-primary'
+        - else
+          = button_to '確認', '/application_acceptance/' + app.id.to_s + '/somu_edit', :method => 'get', :class => 'btn btn-sm btn-warning'
+        

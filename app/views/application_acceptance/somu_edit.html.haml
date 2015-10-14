@@ -99,4 +99,5 @@
     
     .actions
       %p.text-right
-        = f.submit '承認', :class => "btn btn-primary"
+        - if @app.somu_acceptance.nil?
+          = f.submit '承認', :class => "btn btn-primary"
