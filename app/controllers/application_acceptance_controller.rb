@@ -55,7 +55,7 @@ def president_accept
 end
 
 def somu_index
-	@apps = Application.where('somu_accepted_at is null and president_accepted_at is not null')
+	@apps = Application.where('president_accepted_at is not null').order('id DESC')
 end
 
 def somu_edit
