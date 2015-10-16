@@ -18,7 +18,9 @@
   -# 計算
   - debt = 0
   - @terms.each do |term|
-    - if Date.today.month < term[:month] && Date.today.year <= term[:year]
+    -# TODO 今月を含まないに変更
+    -# if Date.today.month < term[:month] && Date.today.year <= term[:year]
+    - if Date.today.month <= term[:month] && Date.today.year <= term[:year]
       - break
     - fee = MonthlyFee.where(:user_id => calc.user.id, :year => term[:year], :month => term[:month]).first
     - if fee.nil?
