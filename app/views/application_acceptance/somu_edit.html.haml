@@ -1,4 +1,8 @@
-%h1 届出の承認
+%h1 
+  - if @app.somu_accepted_at.nil?
+    届出の承認
+  - else
+    届出内容の確認
 %p
   - p @app
   = form_for @app, :url => '/application_acceptance/somu_accept', :html => {:class => "form-horizontal"} do |f|
@@ -99,5 +103,5 @@
     
     .actions
       %p.text-right
-        - if @app.somu_acceptance.nil?
+        - if @app.somu_accepted_at.nil?
           = f.submit '承認', :class => "btn btn-primary"
