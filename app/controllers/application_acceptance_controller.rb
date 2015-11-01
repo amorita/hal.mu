@@ -137,6 +137,16 @@ end
       start_year = next_rehearsal.pln_date.year
     end
 
+    if app.application_type == 'join'
+      # 繰越情報の作成
+      trans = AccountTransaction.new
+      trans.user_id = app.user_id
+      trans.amount = 0
+      trans.transaction_type = 'carryover'
+      trans.posted_at = FeeCutoff.all.order('cutoff_date desc').first.cutoff_date + 1
+      trans.save!
+    end
+
     for month in range do
       # 対象の年月を取得
       if month > 12
