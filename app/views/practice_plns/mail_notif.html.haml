@@ -46,12 +46,12 @@
   .form-group
     %label.col-sm-2.control-label ヘッダ（あいさつ）
     .col-sm-10
-      = text_area_tag 'header_text', "みなさま\n\nこんにちは、吉田＠インペクです。\n今週末の" + @practice_pln.practice_mode.name + "のお知らせです。", :class => 'form-control', :rows => 6
+      = text_area_tag 'header_text', "みなさま\n\nこんにちは、" + current_user.normal_name + "＠インペクです。\n今週末の" + @practice_pln.practice_mode.name + "のお知らせです。", :class => 'form-control', :rows => 6
 
   .form-group
     %label.col-sm-2.control-label フッタ（その他お知らせなど）
     .col-sm-10
-      = text_area_tag 'footer_text', "\n\n\n吉田 沙蘭", :class => 'form-control', :rows => 10     
+      = text_area_tag 'footer_text', "\n\n\n" + current_user.normal_name, :class => 'form-control', :rows => 10     
        
   .form-group
     %label.col-sm-2.control-label 
