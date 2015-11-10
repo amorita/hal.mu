@@ -48,6 +48,8 @@ layout 'priv'
     @personal_data = PersonalData.where(:id => current_user.id).first
     respond_to do |format|
       if @personal_data.update(personal_data_params)
+        @personal_data.updated_at = Date.today
+        @personal_data.save!
         create_monthly_fees @personal_data
         format.html { redirect_to @personal_data, notice: 'Test was successfully updated.' }
         format.json { head :no_content }
