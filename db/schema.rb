@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150831060850) do
+ActiveRecord::Schema.define(version: 20151113063657) do
 
   create_table "ab_list", force: true do |t|
     t.string "part", limit: 5
@@ -384,7 +384,7 @@ ActiveRecord::Schema.define(version: 20150831060850) do
     t.string   "name_pron"
     t.string   "fname_pron"
     t.integer  "num_of_ticket"
-    t.boolean  "received"
+    t.boolean  "received",                         default: false, null: false
     t.integer  "concert_id"
     t.integer  "ticket_reservation_collection_id"
     t.datetime "created_at"
@@ -431,14 +431,7 @@ ActiveRecord::Schema.define(version: 20150831060850) do
     t.string   "bank_branch"
     t.string   "bank_account"
     t.string   "bank_name"
-    t.boolean  "retired"
-  end
-
-  create_table "v_fee_calcs", id: false, force: true do |t|
-    t.integer "user_id",                                         default: 0, null: false
-    t.string  "family_name", limit: 50
-    t.string  "name",        limit: 50
-    t.decimal "amount",                 precision: 32, scale: 0, default: 0, null: false
+    t.boolean  "retired",                           default: false
   end
 
   create_table "views", force: true do |t|
