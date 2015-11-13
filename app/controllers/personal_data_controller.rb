@@ -145,7 +145,7 @@ layout 'priv'
 
   private
   def personal_data_params
-      params.require(:personal_data).permit(:family_name, :name, :family_name_pron, :name_pron, :nickname, :part_id, :email, :phone, :zip_code, :address, :building, :worker, :school);
+      params.require(:personal_data).permit(:family_name, :name, :family_name_pron, :name_pron, :nickname, :part_id, :email, :email2, :phone, :zip_code, :address, :building, :worker, :school);
   end
 
 end

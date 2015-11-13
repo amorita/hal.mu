@@ -434,6 +434,13 @@ ActiveRecord::Schema.define(version: 20151113063657) do
     t.boolean  "retired",                           default: false
   end
 
+  create_table "v_fee_calcs", id: false, force: true do |t|
+    t.integer "user_id",                                         default: 0, null: false
+    t.string  "family_name", limit: 50
+    t.string  "name",        limit: 50
+    t.decimal "amount",                 precision: 32, scale: 0, default: 0, null: false
+  end
+
   create_table "views", force: true do |t|
     t.string   "email",                  default: "", null: false
     t.string   "encrypted_password",     default: "", null: false

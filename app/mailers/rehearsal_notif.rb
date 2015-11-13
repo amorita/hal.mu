@@ -1,5 +1,6 @@
+# -*- coding: utf-8 -*-
 class RehearsalNotif < ActionMailer::Base
-  default from: '"Saran Yoshida" <pln@hal.mu>'
+  default from: '"Haruwo" <pln@hal.mu>'
   def notif(pln, params)
     @pln = pln
     @header = params[:header_text]
