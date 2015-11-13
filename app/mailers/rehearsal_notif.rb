@@ -6,7 +6,6 @@ class RehearsalNotif < ActionMailer::Base
     @header = params[:header_text]
     @footer = params[:footer_text]
     subject = @pln.pln_date.month.to_s + '/' + @pln.pln_date.day.to_s + 'の' + @pln.practice_mode.name + 'について'
-    mail to: "orchestra-hal@freeml.com", subject: subject
-#    mail to: "y@inou.eu", subject: subject
+    mail to: "ml@hal.mu", subject: subject
   end
 end
