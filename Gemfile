@@ -45,10 +45,9 @@ end
 # Use debugger
 # gem 'debugger', group: [:development, :test]
  gem 'grackle'
-gem 'mysql2'
+gem 'mysql2', '0.3.18'
 gem 'haml'
 gem 'haml-rails'
-gem 'google-api-client'
 gem 'bootstrap-sass'
 gem 'sinatra'
 gem 'rails-erd'
@@ -73,4 +72,4 @@ gem 'active_attr'
 gem 'ofx'
 gem 'kaminari'
 
-
+gem 'google-api-client', require: 'google/api_client'
