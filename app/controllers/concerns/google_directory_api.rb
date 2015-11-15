@@ -79,6 +79,9 @@ module GoogleDirectoryApi
       part = Part.where(:abbr => id).first
       users = User.where(:part_id => part.id)
     end
+    info = User.new
+    info.email = 'info@hal.mu'
+    users << info
     users.each do |user|
       add_member(id, user.email)
       unless user.email2.nil?
