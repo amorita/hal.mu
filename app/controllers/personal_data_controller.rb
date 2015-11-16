@@ -68,37 +68,6 @@ layout 'priv'
     end
   end
 
-  def proc_ml(old_email, old_email2, personal_data)
-    update_ml('ml', old_email, old_email2, personal_data)
-    #パートに従った処理
-    update_ml(personal_data.part.abbr, old_email, old_email2, personal_data)
-    case personal_data.part_id
-    when 1,2,3,4 then
-      update_ml('strings', old_email, old_email2, personal_data)
-    when 105, 106, 107, 108
-      update_ml('woods', old_email, old_email2, personal_data)
-      update_ml('winds', old_email, old_email2, personal_data)
-    when 109, 110, 111, 112, 113
-      update_ml('brasses', old_email, old_email2, personal_data)
-      update_ml('winds', old_email, old_email2, personal_data)
-    end
-
-    if personal_data.admin_member
-      update_ml('admins', old_email, old_email2, personal_data)
-    end
-
-  end
-
-  def update_ml(mlId, old_email, old_email2, personal_data)
-    unless old_email == personal_data.email then
-      update_member(mlId, old_email, personal_data.email)
-    end
-    unless old_email2 == personal_data.email2 then
-      update_member(mlId, old_email2, personal_data.email2)
-    end
-  end
-
-
   def join_process
     @personal_data = PersonalData.where(:id => current_user.id).first
     @personal_data.assign_attributes(personal_data_params)
