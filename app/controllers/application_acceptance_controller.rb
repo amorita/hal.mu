@@ -192,8 +192,9 @@ end
     if app.application_type == 'retire'
       proc_retire(app)
     else
-      create_monthly_fees(@app)
+      create_monthly_fees(app)
     end
+    proc_ml(nil, nil, app.user) if app.application_type == 'join'
   end
 
   def proc_retire(app)
