@@ -40,11 +40,12 @@ module GoogleGmailApi
     auth
   end
 
-  def get_message_list(id)
+  def get_message_list(id, page_token)
+    page_token = '' if page_token.nil?
     client = Google::APIClient.new(:application_name => APPLICATION_NAME)
     client.authorization = authorize
     api = client.discovered_api('gmail', 'v1')
-    p = {:userId => 'me', :includeSpamTrash => true, :labelIds => ['Label_14'], :q => 'to:' + id + '*'}
+    p = {:userId => 'me', :includeSpamTrash => true, :labelIds => ['Label_14'], :q => 'to:' + id + '*', :pageToken => page_token, :maxResults => 10}
     m = api.users.messages.list
     list = client.execute(:api_method => m, 
       :parameters => p,
@@ -64,14 +65,39 @@ module GoogleGmailApi
     m = message.data.to_hash
 
     mail = {}
-    mail['body'] = Base64.urlsafe_decode64(m['payload']['parts'][0]['body']['data']).force_encoding('UTF-8').encode
+    p '--------------------------------'
+    p 'ID: ' + id
+    p '--------------------------------'
+    p m['payload']
+    p '--------------------------------'
+
+    mail['body'] = Base64.urlsafe_decode64(extract_body(m['payload'])).force_encoding('UTF-8').encode
     headers = m['payload']['headers']
 
     mail['subject'] = filterTag headers, 'Subject'
     mail['date'] = filterTag headers, 'Date'
-    mail['from'] = filterTag headers, 'From'
+    from = filterTag(headers, 'From')
+    if from.include?('<')
+      mail['from'] = from.match(/<[^<>]+>/)[0].gsub(/<|>/, '')
+    else
+      mail['from'] = from
+    end
 
     return mail
+  end
+
+  def extract_body(payload)
+    if payload['mimeType'] == 'text/plain'
+      return payload['body']['data']
+    else
+      payload['parts'].each do |part|
+        data = extract_body part
+        if !data.empty?
+          return data
+        end
+      end
+    end
+    return ''
   end
 
   def filterTag(array, tag)
