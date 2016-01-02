@@ -104,6 +104,23 @@ module GoogleDirectoryApi
     list.data.to_hash['members']
   end
 
+  def get_ml_list(list)
+    client = Google::APIClient.new(:application_name => APPLICATION_NAME)
+    client.authorization = authorize
+    api = client.discovered_api('admin', 'directory_v1')
+    result = [ ]
+    list.each do |l|
+      p = {:domain => 'hal.mu', :groupKey => l + '@hal.mu'}
+      b = {}
+      m = api.groups.get
+      res = client.execute(:api_method => m, :parameters => p)
+      hash = res.data.to_hash
+      hash['id'] = l
+      result << hash
+    end
+    result
+  end
+
   def delete_member(id, email)
     client = Google::APIClient.new(:application_name => APPLICATION_NAME)
     client.authorization = authorize

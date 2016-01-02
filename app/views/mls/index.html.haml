@@ -1,0 +1,7 @@
+%h4
+  参加ML一覧
+%ul
+  - @ml_list.each do |ml|
+    %li
+      %a{:href => '/mls/' + ml.id + '?pages='、:target => '_blank'} ml.name
+

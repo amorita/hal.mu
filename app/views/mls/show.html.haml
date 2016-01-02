@@ -1,0 +1,37 @@
+%h4
+  = @ml.name
+
+%table.table
+  - @messages.each do |m|
+    %tr
+      %td
+        subject
+      %td
+        = m['subject']
+    %tr
+      %td
+        date
+      %td
+        = m['date']
+    %tr
+      %td
+        from
+      %td
+        - from = m['from']
+        - if from == 'info@hal.mu'
+          システム
+        - else
+          - user = []
+          - user << User.where(:email => from)
+          - user << User.where(:email2 => from)
+          = user[0].normal_name + 'さん'
+    %tr
+      %td
+        body
+      %td
+        = m['body']
+
+- if !@is_first
+    前の10件
+- if !@ml['nextPageToken'].nil?
+  %a{:href => '/mls/' + @ml['id'] + '?pages=' + @ml['nextPageToken']} 次の10件
