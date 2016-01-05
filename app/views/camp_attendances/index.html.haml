@@ -13,7 +13,8 @@
       - total << 0
     - total << 0
     - total << 0
-    %th 参加費
+    - if is_granted :camping_coordinator
+      %th 参加費
   - pre_part = 1
   - @users.each do |user|
     - p user.long_name
@@ -57,21 +58,23 @@
               = button_tag '◯', :class => 'btn btn-xs btn-primary campradio active', :title => sec.title
               - amount += sec.amount
               - total[sec.id] += 1
-      %td.text-right
-        = number_to_currency(amount, :format => "%n%u", :unit => "", :precision => 0)
-        - total[(sections.count) + 1] += amount
+      - if is_granted :camping_coordinator
+        %td.text-right
+          = number_to_currency(amount, :format => "%n%u", :unit => "", :precision => 0)
+          - total[(sections.count) + 1] += amount
   %tr.bg-info
     %td{:colspan => 3} 合計
     - sections.each do |sec|
       %td.text-right= total[sec.id].to_s
     %td.text-right
       = number_to_currency(total[(sections.count) + 1].to_s, :format => "%n%u", :unit => "", :precision => 0)
-  %tr
-    %th{:colspan => 3} &nbsp;
-    - sections = CampSection.all.order :id
-    - sections.each do |sec|
-      %th= sec.title
-    %th 参加費
+  - if is_granted :camping_coordinator
+    %tr
+      %th{:colspan => 3} &nbsp;
+      - sections = CampSection.all.order :id
+      - sections.each do |sec|
+        %th= sec.title
+      %th 参加費
 
 
 
