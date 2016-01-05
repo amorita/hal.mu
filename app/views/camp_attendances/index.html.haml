@@ -25,7 +25,10 @@
     - if pre_part != user.part.id
       - pre_part = user.part.id
       %tr.bg-info
-        %td{:colspan => 4 + sections.count}
+        - if is_granted :camping_coordinator
+          %td{:colspan => 4 + sections.count}
+        - else
+          %td{:colspan => 3 + sections.count}
     - att = CampAttendance.where(:user_id => user.id).first
     - if att.nil?
       - bg = 'bg-danger'
@@ -66,8 +69,9 @@
     %td{:colspan => 3} 合計
     - sections.each do |sec|
       %td.text-right= total[sec.id].to_s
-    %td.text-right
-      = number_to_currency(total[(sections.count) + 1].to_s, :format => "%n%u", :unit => "", :precision => 0)
+    - if is_granted :camping_coordinator
+      %td.text-right
+        = number_to_currency(total[(sections.count) + 1].to_s, :format => "%n%u", :unit => "", :precision => 0)
   - if is_granted :camping_coordinator
     %tr
       %th{:colspan => 3} &nbsp;
