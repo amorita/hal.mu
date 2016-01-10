@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 module GoogleDirectoryApi
   require 'google/api_client'
   require 'google/api_client/client_secrets'
@@ -10,8 +11,7 @@ module GoogleDirectoryApi
   CLIENT_SECRETS_PATH = File.join(Dir.home, 'client_secret.json')
   CREDENTIALS_PATH = File.join(Dir.home, 
                                "credenrial.json")
-  SCOPE = 'https://www.googleapis.com/auth/apps.groups.settings',
-          'https://www.googleapis.com/auth/admin.directory.group'
+  SCOPE = ['https://www.googleapis.com/auth/apps.groups.settings','https://www.googleapis.com/auth/admin.directory.group.readonly','https://www.googleapis.com/auth/admin.directory.group']
 
   ##
   # Ensure valid credentials, either by restoring from the saved credentials

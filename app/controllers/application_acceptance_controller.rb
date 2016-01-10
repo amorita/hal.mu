@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 class ApplicationAcceptanceController < ApplicationController
 
+include GoogleDirectoryApi
 before_filter :authenticate_user!
 layout 'priv'
 

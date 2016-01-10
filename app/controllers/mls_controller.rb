@@ -21,7 +21,7 @@ class MlsController < ApplicationController
       @messages << get_message(m['id']) unless m.nil?
     end
     @is_first = true
-    if page_token.empty?
+    if !page_token.nil? && !page_token.empty?
       @is_first = false
     end
   end

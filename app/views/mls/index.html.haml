@@ -3,5 +3,5 @@
 %ul
   - @ml_list.each do |ml|
     %li
-      %a{:href => '/mls/' + ml.id + '?pages='、:target => '_blank'} ml.name
+      %a{:href => '/mls/' + ml['id'] + '?pages=', :target => '_blank'}= ml['name']
 
