@@ -1,5 +1,5 @@
 %h4
-  = @ml.name
+  = @ml['name']
 
 %table.table
   - @messages.each do |m|
@@ -21,17 +21,18 @@
         - if from == 'info@hal.mu'
           システム
         - else
-          - user = []
-          - user << User.where(:email => from)
-          - user << User.where(:email2 => from)
-          = user[0].normal_name + 'さん'
+          - user = User.where(:email => from).first
+          - if user.nil?
+            = User.where(:email2 => from).first.normal_name + 'さん'
+          - else
+            = user.normal_name + 'さん'
     %tr
       %td
         body
       %td
-        = m['body']
+        = simple_format m['body']
 
 - if !@is_first
-    前の10件
+  前の10件
 - if !@ml['nextPageToken'].nil?
   %a{:href => '/mls/' + @ml['id'] + '?pages=' + @ml['nextPageToken']} 次の10件
