@@ -65,12 +65,6 @@ module GoogleGmailApi
     m = message.data.to_hash
 
     mail = {}
-    p '--------------------------------'
-    p 'ID: ' + id
-    p '--------------------------------'
-    p m['payload']
-    p '--------------------------------'
-
     mail['body'] = Base64.urlsafe_decode64(extract_body(m['payload'])).force_encoding('UTF-8').encode
     headers = m['payload']['headers']
 
