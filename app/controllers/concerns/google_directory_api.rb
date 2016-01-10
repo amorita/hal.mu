@@ -11,7 +11,7 @@ module GoogleDirectoryApi
   CREDENTIALS_PATH = File.join(Dir.home, 
                                "credenrial.json")
   SCOPE = 'https://www.googleapis.com/auth/apps.groups.settings',
-          'https://www.googleapis.com/auth/admin.directory.group'
+          'https://www.googleapis.com/auth/admin.directory.group','https://www.googleapis.com/auth/admin.directory.group.readonly'
 
   ##
   # Ensure valid credentials, either by restoring from the saved credentials
