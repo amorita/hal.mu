@@ -1,0 +1,23 @@
+%h1 Listing slips
+
+%table
+  %tr
+    %th User
+    %th Amount
+    %th Slip dtl
+    %th
+    %th
+    %th
+
+  - @slips.each do |slip|
+    %tr
+      %td= slip.user_id
+      %td= slip.amount
+      %td= slip.slip_dtl_id
+      %td= link_to 'Show', slip
+      %td= link_to 'Edit', edit_slip_path(slip)
+      %td= link_to 'Destroy', slip, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+%br
+
+= link_to 'New Slip', new_slip_path

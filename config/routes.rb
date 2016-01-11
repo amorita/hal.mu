@@ -1,6 +1,8 @@
 Hal::Application.routes.draw do
 
 
+  resources :slips
+
 devise_for :user, :controllers => { :omniauth_callbacks => "user/omniauth_callbacks" }
 
 devise_scope :user do

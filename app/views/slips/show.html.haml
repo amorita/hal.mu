@@ -1,0 +1,15 @@
+%p#notice= notice
+
+%p
+  %b User:
+  = @slip.user_id
+%p
+  %b Amount:
+  = @slip.amount
+%p
+  %b Slip dtl:
+  = @slip.slip_dtl_id
+
+= link_to 'Edit', edit_slip_path(@slip)
+\|
+= link_to 'Back', slips_path

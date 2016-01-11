@@ -1,0 +1,39 @@
+= form_for @slip do |f|
+  - if @slip.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@slip.errors.count, "error")} prohibited this slip from being saved:"
+      %ul
+        - @slip.errors.full_messages.each do |msg|
+          %li= msg
+
+  .form-group
+    %label.col-sm-2.control-label 起票日
+    .col-sm-10
+      = f.date_field :created_at, :class => "form-control", :disabled => true
+      
+  .form-group
+    %label.col-sm-2.control-label 起票者
+    .col-sm-10
+      = text_field_tag "dummy", @slip.user.formal_name, :class => "form-control", :disabled => true
+      = f.hidden_field :user_id
+
+  .form-group
+    .col_sm_12
+      = f.fields_for :slip_dtls do |builder|
+        = render "slip_dtl_fields", f: builder
+    .col_sm_12
+      = link_to_add_fields "明細追加", f, :slip_dtls
+
+  .form-group
+    %label.col-sm-2.control-label 証憑
+    .col-sm-10
+      = f.fields_for :vouchers do |builder|
+        = render "voucher_fields", f: builder
+    .col_sm_12
+      = link_to_add_fields "証憑追加", f, :vouchers
+
+
+  .actions
+    %p.text-right
+      = f.submit '登録', :class => "btn btn-primary"
+    
