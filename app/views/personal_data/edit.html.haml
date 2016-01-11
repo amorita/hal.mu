@@ -66,6 +66,8 @@
       %label.col-sm-2.control-label  住所
       .col-sm-10
         - address = getAddress(@personal_data.zip_code)
+        %small
+          住所は自動入力されます。郵便番号を入力していれば問題ありません。
         = text_field_tag '', address, :class => 'form-control disable', :disabled => 'disabled'
         
 
