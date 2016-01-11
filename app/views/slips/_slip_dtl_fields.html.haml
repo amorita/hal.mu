@@ -1,0 +1,27 @@
+%fieldset
+  .bs-callout.bs-callout-info
+    %h4 伝票明細
+
+    .form-group
+      %label.col-sm-2.control-label 発生日
+        .col-sm-10
+          = f.date_field :trans_date, :class => "form-control", :required => true
+
+    .form-group
+      %label.col-sm-2.control-label 勘定科目
+        .col-sm-10
+          = f.collection_select :accounting_item_id, AccountingItem.where(:is_debit => true).order(:code), :id, :name, {:prompt => "勘定科目を選択"}, {:class => "form-control"}
+
+    .form-group
+      %label.col-sm-2.control-label 金額
+        .col-sm-10
+          = f.number_field :amount, :class => "form-control", :required => true
+
+    .form-group
+      %label.col-sm-2.control-label 摘要
+        .col-sm-10
+          = f.text_field :memo, :class => "form-control", :required => true
+    = f.hidden_field :_destroy
+    %p.align-right
+      = link_to "削除", "#", :class => "remove_field text-danger"
+

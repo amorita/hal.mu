@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151113063657) do
+ActiveRecord::Schema.define(version: 20160111120714) do
 
   create_table "ab_list", force: true do |t|
     t.string "part", limit: 5
@@ -27,6 +27,14 @@ ActiveRecord::Schema.define(version: 20151113063657) do
     t.datetime "posted_at"
     t.string   "transaction_type"
     t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "accounting_items", force: true do |t|
+    t.string   "code"
+    t.string   "name"
+    t.boolean  "is_dept"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -350,6 +358,22 @@ ActiveRecord::Schema.define(version: 20151113063657) do
     t.datetime "updated_at"
   end
 
+  create_table "slip_dtls", force: true do |t|
+    t.integer  "item_id"
+    t.string   "memo"
+    t.integer  "amount"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "slips", force: true do |t|
+    t.integer  "user_id"
+    t.integer  "amount"
+    t.integer  "slip_dtl_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "social_profiles", force: true do |t|
     t.integer  "user_id"
     t.string   "provider"
@@ -432,10 +456,11 @@ ActiveRecord::Schema.define(version: 20151113063657) do
     t.string   "bank_account"
     t.string   "bank_name"
     t.boolean  "retired",                           default: false
+    t.string   "email2"
   end
 
   create_table "v_fee_calcs", id: false, force: true do |t|
-    t.integer "user_id",                                         default: 0, null: false
+    t.integer "auser_id",                                        default: 0, null: false
     t.string  "family_name", limit: 50
     t.string  "name",        limit: 50
     t.decimal "amount",                 precision: 32, scale: 0, default: 0, null: false
@@ -458,5 +483,12 @@ ActiveRecord::Schema.define(version: 20151113063657) do
 
   add_index "views", ["email"], name: "index_views_on_email", unique: true, using: :btree
   add_index "views", ["reset_password_token"], name: "index_views_on_reset_password_token", unique: true, using: :btree
+
+  create_table "vouchers", force: true do |t|
+    t.integer  "slip_id"
+    t.string   "file_path"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
 end
