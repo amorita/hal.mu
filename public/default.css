@@ -37,6 +37,11 @@
 	background-repeat:no-repeat;
 	text-align:right;
 }
+
+.heading_upper_xs{
+	height: 150px !important;
+}
+
 #heading_upper_left{
 	background:url(img/top_01.png);
 	background-size:281px;
