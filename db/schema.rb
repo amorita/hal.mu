@@ -34,7 +34,7 @@ ActiveRecord::Schema.define(version: 20160111120714) do
   create_table "accounting_items", force: true do |t|
     t.string   "code"
     t.string   "name"
-    t.boolean  "is_dept"
+    t.boolean  "is_debit"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -255,6 +255,7 @@ ActiveRecord::Schema.define(version: 20160111120714) do
     t.integer  "year"
     t.integer  "month"
     t.integer  "amount"
+    t.date     "fee_date"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "is_absent",  default: false
@@ -359,7 +360,8 @@ ActiveRecord::Schema.define(version: 20160111120714) do
   end
 
   create_table "slip_dtls", force: true do |t|
-    t.integer  "item_id"
+    t.date     "trans_date"
+    t.integer  "accounting_item_id"
     t.string   "memo"
     t.integer  "amount"
     t.datetime "created_at"
@@ -432,6 +434,7 @@ ActiveRecord::Schema.define(version: 20160111120714) do
     t.integer  "part_id"
     t.boolean  "admin_member",                      default: false
     t.string   "email",                             default: "",                                                       null: false
+    t.string   "email2"
     t.string   "phone",                  limit: 50
     t.string   "zip_code",               limit: 50
     t.string   "address",                limit: 50
@@ -456,11 +459,10 @@ ActiveRecord::Schema.define(version: 20160111120714) do
     t.string   "bank_account"
     t.string   "bank_name"
     t.boolean  "retired",                           default: false
-    t.string   "email2"
   end
 
   create_table "v_fee_calcs", id: false, force: true do |t|
-    t.integer "auser_id",                                        default: 0, null: false
+    t.integer "user_id",                                         default: 0, null: false
     t.string  "family_name", limit: 50
     t.string  "name",        limit: 50
     t.decimal "amount",                 precision: 32, scale: 0, default: 0, null: false
