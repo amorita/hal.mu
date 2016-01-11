@@ -109,8 +109,10 @@
     .container
       .row
         .heading-container.col-md-12.col-sm-12
-          #heading_upper
-            %img{:height => "220", :src => "/img/top_right.png", :width => "280"}/
+          #heading_upper.hidden-xs
+            %img{:height => "220", :src => "/img/top_members.png", :width => "280"}/
+          #heading_upper.visible-xs.heading_upper_xs
+            %img{:height => "150", :src => "/img/top_members.png"}/
           .clear_box
 
       .row
@@ -120,8 +122,8 @@
               .borders
                 .grid_content
                   .pad
-                    .col-xs-6.nopadding{:style => "position: absolute; z-index: 1;"}
-                      = user.part.abbr
+                    .nopadding{:style => "position: absolute; z-index: 1;"}
+                      %img{:src => "/img/members_" + user.part.abbr + ".png", :style => "height:50%; width:50%;z-index: 10;"}
                     %img.img-responsive.img-circle{:src => '/members/' + user.id.to_s + '.jpg', :onerror => 'this.src="/img/unavailable.png"'}
                     %p &nbsp;
                     - unless user.nickname.nil?
@@ -137,6 +139,8 @@
                         = user.name
                         %rt
                           = user.name_pron
+                    .clearfix
                   .clearfix
                 .clearfix
+              .clearfix
 
