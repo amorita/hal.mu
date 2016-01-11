@@ -17,19 +17,19 @@
       = text_field_tag "dummy", @slip.user.formal_name, :class => "form-control", :disabled => true
       = f.hidden_field :user_id
   .clearfix
-  .form-group
+  .form-group{:style => "padding: 12px;"}
     .col_sm_12
       = f.fields_for :slip_dtls do |builder|
         = render "slip_dtl_fields", f: builder
-    .col_sm_12
+    .col_sm_2.text-right
       = link_to_add_fields "明細追加", f, :slip_dtls
 
-  .form-group
+  .form-group{:style => "padding: 12px;"}
     %label.col-sm-2.control-label 証憑
     .col-sm-10
       = f.fields_for :vouchers do |builder|
         = render "voucher_fields", f: builder
-    .col_sm_12
+    .col_sm_2.text-right
       = link_to_add_fields "証憑追加", f, :vouchers
 
 
