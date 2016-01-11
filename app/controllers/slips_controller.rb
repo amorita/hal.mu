@@ -1,6 +1,6 @@
 class SlipsController < ApplicationController
   before_action :set_slip, only: [:show, :edit, :update, :destroy]
-
+  layout 'priv'
   respond_to :html
 
   def index
