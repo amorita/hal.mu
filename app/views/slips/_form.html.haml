@@ -21,7 +21,7 @@
     .col_sm_12
       = f.fields_for :slip_dtls do |builder|
         = render "slip_dtl_fields", f: builder
-    .col_sm_2
+    .col-sm-2
       %p.test-right
         = link_to_add_fields "明細追加", f, :slip_dtls
     .col-sm-10
@@ -32,7 +32,7 @@
     .col-sm-10
       = f.fields_for :vouchers do |builder|
         = render "voucher_fields", f: builder
-    .col_sm_2
+    .col-sm-2
       %p.text-right
         = link_to_add_fields "証憑追加", f, :vouchers
     .col-sm-10
