@@ -26,6 +26,19 @@ class SlipsController < ApplicationController
 
   def create
     @slip = Slip.new(slip_params)
+
+    files = params[:vouchers]
+    files.each_with_index do |file, idx|
+      ext = File.extname(file.original_filename)
+      filename = Date.today().day.to_s + '-' + SecureRandom.hex(16) + ext
+      dir = Date.today().year.to_s + '/' + Date.today().month.to_s
+      `mkdir /home/yu/rails/hal.mu/public/vouchers/#{dir}`
+      File.open("/home/yu/rails/hal.mu/public/vouchers/#{dir}/#{filename}", 'wb') { |f|
+        f.write(file.read)
+      }
+      @slip.vouchers[idx].file_path = "#{dir}/#{filename}"
+    end
+
     @slip.save
     respond_with(@slip)
   end
@@ -48,7 +61,7 @@ class SlipsController < ApplicationController
     def slip_params
       params.require(:slip).permit(:user_id, :amount, :slip_dtl_id,
         slip_dtls_attributes: [:id, :amount, :accounting_item_id, :memo],
-        vouchers_attributes: [:id, :slip_id, :file_path]
+        vouchers_attributes: [:id, :slip_id, :file_path, :file]
       )
     end
 end
