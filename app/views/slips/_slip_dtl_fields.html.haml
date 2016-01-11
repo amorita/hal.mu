@@ -10,7 +10,7 @@
     .form-group
       %label.col-sm-2.control-label 勘定科目
       .col-sm-10
-        = f.collection_select :accounting_item_id, AccountingItem.where(:is_debit => true).order(:code), :id, :name, {:prompt => "勘定科目を選択"}, {:class => "form-control"}
+        = f.collection_select :accounting_item_id, AccountingItem.where(:is_debit => true).order(:code), :id, :fullname, {:prompt => "勘定科目を選択"}, {:class => "form-control"}
 
     .form-group
       %label.col-sm-2.control-label 金額
