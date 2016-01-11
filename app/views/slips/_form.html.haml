@@ -1,4 +1,4 @@
-= form_for @slip do |f|
+= form_for @slip, :html => {:class => "form-horizontal"} do |f|
   - if @slip.errors.any?
     #error_explanation
       %h2= "#{pluralize(@slip.errors.count, "error")} prohibited this slip from being saved:"
@@ -16,7 +16,7 @@
     .col-sm-10
       = text_field_tag "dummy", @slip.user.formal_name, :class => "form-control", :disabled => true
       = f.hidden_field :user_id
-
+  .clearfix
   .form-group
     .col_sm_12
       = f.fields_for :slip_dtls do |builder|
