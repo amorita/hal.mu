@@ -3,7 +3,7 @@ class PersonalDataController < ApplicationController
 include GoogleDirectoryApi
 
 protect_from_forgery :except => [:index] 
-#before_filter :authenticate_user!
+before_filter :authenticate_user!
 
 layout 'priv'
 
@@ -22,8 +22,7 @@ layout 'priv'
   end
 
   def members
-    #@users = User.where.not(:id => current_user.id).order(:part_id, :family_name_pron)
-    @users = User.all.order(:part_id, :family_name_pron)
+    @users = User.where.not(:id => current_user.id).order(:part_id, :family_name_pron)
     render 'members', :layout => false
   end
 
