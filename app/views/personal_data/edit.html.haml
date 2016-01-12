@@ -81,6 +81,24 @@
       .col-sm-10
         = f.text_field :building, :placeholder => "任意",:class => "form-control"
 
+    .form-group
+      %label.col-sm-2.control-label  銀行名
+      .col-sm-10
+        %small
+          立替金等の返金に使用する口座情報を入力してください
+        = f.text_field :bank, :placeholder => "三井住友銀行",:class => "form-control"
+        
+
+    .form-group
+      %label.col-sm-2.control-label  支店名
+      .col-sm-10
+        = f.text_field :bank_branch, :placeholder => "本店",:class => "form-control", :required => 'true'
+
+    .form-group
+      %label.col-sm-2.control-label  口座番号
+      .col-sm-10
+        = f.text_field :bank_account, :placeholder => "12345678",:class => "form-control"
+
     .actions
       %p.text-right
         = f.submit '登録', :class => "btn btn-primary"
