@@ -2,6 +2,7 @@ class SlipsController < ApplicationController
   before_action :set_slip, only: [:show, :edit, :update, :destroy]
   layout 'priv'
   respond_to :html
+  before_filter :authenticate_user!
 
   def index
     @slips = Slip.all
@@ -27,16 +28,20 @@ class SlipsController < ApplicationController
   def create
     @slip = Slip.new(slip_params)
 
-    files = params[:vouchers]
-    files.each_with_index do |file, idx|
+    n = 0
+#    p slip_params[:vouchers][n.to_s.to_sym]
+    @slip.vouchers.each_with_index do |v, idx|
+      file = slip_params[:vouchers_attributes][idx.to_s.to_sym][:file_path]
+      p file.class
+      p file
       ext = File.extname(file.original_filename)
       filename = Date.today().day.to_s + '-' + SecureRandom.hex(16) + ext
       dir = Date.today().year.to_s + '/' + Date.today().month.to_s
-      `mkdir /home/yu/rails/hal.mu/public/vouchers/#{dir}`
+      `mkdir /home/yu/rails/hal.mu/public/vouchers/#{dir} -p`
       File.open("/home/yu/rails/hal.mu/public/vouchers/#{dir}/#{filename}", 'wb') { |f|
         f.write(file.read)
       }
-      @slip.vouchers[idx].file_path = "#{dir}/#{filename}"
+      v.file_path = "#{dir}/#{filename}"
     end
 
     @slip.save
@@ -60,7 +65,7 @@ class SlipsController < ApplicationController
 
     def slip_params
       params.require(:slip).permit(:user_id, :amount, :slip_dtl_id,
-        slip_dtls_attributes: [:id, :amount, :accounting_item_id, :memo],
+        slip_dtls_attributes: [:id, :slip_id, :amount, :accounting_item_id, :memo, :trans_date, :_destroy],
         vouchers_attributes: [:id, :slip_id, :file_path, :file]
       )
     end
