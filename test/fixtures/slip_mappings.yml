@@ -1,0 +1,9 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  slip_id: 1
+  account_transaction_id: 1
+
+two:
+  slip_id: 1
+  account_transaction_id: 1

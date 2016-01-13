@@ -1,4 +1,11 @@
 %h1 出金伝票の入力
+- if current_user.bank.nil? || current_user.bank_branch.nil? || current_user.bank_account.nil?
+  %p
+  .alert.alert-danger{:role => "alert"}
+    振込先の受取銀行口座情報が登録されていません。
+    %a{:href => "/personal_data/0/edit", :target => '_blank'}
+      こちら
+    から登録してください。
 %p
   = render 'form'
 
