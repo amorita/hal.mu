@@ -5,7 +5,11 @@ class SlipsController < ApplicationController
   before_filter :authenticate_user!
 
   def index
-    @slips = Slip.all
+    if view_context.is_granted :accountant
+      @slips = Slip.all.order("id DESC")
+    else
+      @slips = Slip.where(:user_id => current_user).order("id DESC")
+    end
     respond_with(@slips)
   end
 
@@ -27,13 +31,8 @@ class SlipsController < ApplicationController
 
   def create
     @slip = Slip.new(slip_params)
-
-    n = 0
-#    p slip_params[:vouchers][n.to_s.to_sym]
     @slip.vouchers.each_with_index do |v, idx|
       file = slip_params[:vouchers_attributes][idx.to_s.to_sym][:file_path]
-      p file.class
-      p file
       ext = File.extname(file.original_filename)
       filename = Date.today().day.to_s + '-' + SecureRandom.hex(16) + ext
       dir = Date.today().year.to_s + '/' + Date.today().month.to_s
@@ -43,7 +42,6 @@ class SlipsController < ApplicationController
       }
       v.file_path = "#{dir}/#{filename}"
     end
-
     @slip.save
     respond_with(@slip)
   end
