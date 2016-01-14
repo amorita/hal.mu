@@ -1,23 +1,38 @@
-%h1 Listing slips
+%h1 伝票一覧
 
-%table
+%table.table
   %tr
-    %th User
-    %th Amount
-    %th Slip dtl
-    %th
-    %th
+    %th #
+    %th 申請者
+    %th 起票日
+    %th 明細数
+    %th 金額
+    %th 振込
+    %th 消込
     %th
 
   - @slips.each do |slip|
     %tr
-      %td= slip.user_id
+      %td= slip.id
+      %td= slip.user.full_name
+      %td= slip.created_at.strftime('%m月%d日')
+      %td= slip.slip_dtls.count
       %td= slip.amount
-      %td= slip.slip_dtl_id
-      %td= link_to 'Show', slip
-      %td= link_to 'Edit', edit_slip_path(slip)
-      %td= link_to 'Destroy', slip, :method => :delete, :data => { :confirm => 'Are you sure?' }
+      %td
+        - if slip.transferred
+          %span.glyphicon.glyphicon-ok.text-success
+        - else
+          %span.glyphicon.glyphicon-remove.text-warning
+      %td
+        - if slip.slip_mappings.count > 0
+          %span.glyphicon.glyphicon-ok.text-success
+        - else
+          %span.glyphicon.glyphicon-remove.text-warning
 
+      %td= 
+        = button_to '編集', '/account_transactions/' + trans.id.to_s + '/edit', :method => 'get', :class => 'btn btn-xs btn-primary'
+        = button_to '消込', '/account_transactions/' + trans.id.to_s + '/edit', :method => 'get', :class => 'btn btn-xs btn-info'
+        = button_to '削除', '/account_transactions/' + trans.id.to_s + '/edit', :method => 'get', :class => 'btn btn-xs btn-danger'
 %br
 
 = link_to 'New Slip', new_slip_path
