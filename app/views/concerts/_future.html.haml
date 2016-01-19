@@ -35,3 +35,10 @@
         = program.name
         %span.small
           = program.sub_title.nil? ? "" : program.sub_title
+  %p
+  - unless @concert.ticket_url.nil?
+    %p.text-right
+      %1.fa.fa-ticket
+      %a{:href => @concert.ticket_url, :target => '_blank'}
+        チケットの購入はこちら
+        %i.fa.fa-external-link  
