@@ -20,6 +20,14 @@
     %p= "指揮: " + concert.conductor
     - unless concert.supporter.nil?
       %p= "後援: " + concert.supporter
+    %p 全席自由 1,000円
+    - unless concert.ticket_url.nil?
+      %p.text-right
+        %i.fa.fa-ticket
+        %a{:href => concert.ticket_url, :target => '_blank'}
+          チケットの購入はこちら
+          %i.fa.fa-external-link  
+
   .row  
     .col-xs-12.col-md-6
       %img.img-responsive{:src => '/history/' + concert.id.to_s + 'a.png', :onerror => 'this.src="/img/unavailable.png"'}
@@ -36,9 +44,9 @@
         %span.small
           = program.sub_title.nil? ? "" : program.sub_title
   %p
-  - unless @concert.ticket_url.nil?
+  - unless concert.ticket_url.nil?
     %p.text-right
-      %1.fa.fa-ticket
-      %a{:href => @concert.ticket_url, :target => '_blank'}
+      %i.fa.fa-ticket
+      %a{:href => concert.ticket_url, :target => '_blank'}
         チケットの購入はこちら
         %i.fa.fa-external-link  
