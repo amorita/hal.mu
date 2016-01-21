@@ -27,8 +27,12 @@
   .form-group{:style => "padding: 12px;"}
     %label.col-sm-2.control-label 証憑
     .col-sm-10
-      = f.fields_for :vouchers do |builder|
-        = render "voucher_fields", f: builder
+      - if @is_new
+        = f.fields_for :vouchers do |builder|
+          = render "voucher_fields", f: builder
+      - else
+        - @silp.vauchers.each do |v|
+          = render "show_vouchers", f: builder, locals: {vouchers: v}
       = link_to_add_fields "証憑追加", f, :vouchers
 
 
