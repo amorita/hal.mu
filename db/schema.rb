@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160111120714) do
+ActiveRecord::Schema.define(version: 20160113170945) do
 
   create_table "ab_list", force: true do |t|
     t.string "part", limit: 5
@@ -360,6 +360,7 @@ ActiveRecord::Schema.define(version: 20160111120714) do
   end
 
   create_table "slip_dtls", force: true do |t|
+    t.integer  "slip_id"
     t.date     "trans_date"
     t.integer  "accounting_item_id"
     t.string   "memo"
@@ -368,10 +369,16 @@ ActiveRecord::Schema.define(version: 20160111120714) do
     t.datetime "updated_at"
   end
 
+  create_table "slip_mappings", force: true do |t|
+    t.integer  "slip_id"
+    t.integer  "account_transaction_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "slips", force: true do |t|
     t.integer  "user_id"
     t.integer  "amount"
-    t.integer  "slip_dtl_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

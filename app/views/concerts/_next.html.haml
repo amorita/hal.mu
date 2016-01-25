@@ -20,3 +20,10 @@
           -if !p.sub_title.nil?
             %br
             = '　' + p.sub_title
+- unless @concert.ticket_url.nil?
+  %p.text-right
+    %i.fa.fa-ticket
+    %a{:href => @concert.ticket_url, :target => '_blank'}
+      チケットの購入はこちら
+      %i.fa.fa-external-link  
+  

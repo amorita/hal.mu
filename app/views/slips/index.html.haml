@@ -14,7 +14,7 @@
   - @slips.each do |slip|
     %tr
       %td= slip.id
-      %td= slip.user.full_name
+      %td= slip.user.formal_name
       %td= slip.created_at.strftime('%m月%d日')
       %td= slip.slip_dtls.count
       %td= slip.amount
@@ -29,10 +29,10 @@
         - else
           %span.glyphicon.glyphicon-remove.text-warning
 
-      %td= 
-        = button_to '編集', '/account_transactions/' + trans.id.to_s + '/edit', :method => 'get', :class => 'btn btn-xs btn-primary'
-        = button_to '消込', '/account_transactions/' + trans.id.to_s + '/edit', :method => 'get', :class => 'btn btn-xs btn-info'
-        = button_to '削除', '/account_transactions/' + trans.id.to_s + '/edit', :method => 'get', :class => 'btn btn-xs btn-danger'
+      %td
+        = button_to '編集', '/slips/' + slip.id.to_s + '/edit', :method => 'get', :class => 'btn btn-xs btn-primary'
+        = button_to '消込', '/slips/' + slip.id.to_s + '/edit', :method => 'get', :class => 'btn btn-xs btn-info'
+        = button_to '削除', '/slips/' + slip.id.to_s + '/edit', :method => 'get', :class => 'btn btn-xs btn-danger'
 %br
 
 = link_to 'New Slip', new_slip_path
