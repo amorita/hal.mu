@@ -18,6 +18,7 @@ class SlipsController < ApplicationController
   end
 
   def new
+    @is_new = true
     @slip = Slip.new
     @slip.slip_dtls.build
     @slip.vouchers.build
@@ -27,6 +28,7 @@ class SlipsController < ApplicationController
   end
 
   def edit
+    @is_new = false
   end
 
   def create

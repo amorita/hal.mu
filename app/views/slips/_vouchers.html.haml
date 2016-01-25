@@ -1,3 +1,4 @@
-= f.file_field :file_path
+%img{:src => v.file_path}
+= f.hidden_field :file_path
 %p.text-right
   = link_to "削除", "#", :class => "remove_fields text-danger"
