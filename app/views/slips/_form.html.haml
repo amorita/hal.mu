@@ -32,7 +32,9 @@
           = render "voucher_fields", f: builder
       - else
         - @slip.vouchers.each do |v|
-          = render "show_vouchers", locals: {v: v}
+          %img{:src => v.file_path}
+          %p.text-right
+            = link_to "削除", "#", :class => "remove_fields text-danger"
       = link_to_add_fields "証憑追加", f, :vouchers
 
 
