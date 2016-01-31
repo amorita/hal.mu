@@ -17,6 +17,10 @@ def import
   redirect_to '/account_transactions?pages=1'
 end
 
+def download_import
+  execute
+end
+
 def index
   @page = params[:page].to_i 
   @page = 1 if @page < 1
