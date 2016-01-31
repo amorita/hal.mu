@@ -2,6 +2,7 @@
 require "json"
 require "selenium-webdriver"
 require "ofx"
+require "headless"
 
 module DownloadOfx
 
