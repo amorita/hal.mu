@@ -24,6 +24,6 @@ set :environment, :development
    rake 'nontan_mail:send'
  end
 
- every 1.day, :at => '6:30 pm' do
-   rake 'DownloadOfx:execute'
+ every 1.day, :at => '8:05 pm' do
+   rake 'ofx_import:execute'
  end
