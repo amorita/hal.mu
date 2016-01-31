@@ -1,30 +1,20 @@
 # -*- coding: utf-8 -*-
 require "json"
 require "selenium-webdriver"
+require "ofx"
 
 module DownloadOfx
 
-  # before(:each) do
-  #   @driver = Selenium::WebDriver.for :firefox
-  #   @base_url = "https://direct.smbc.co.jp"
-  #   @accept_next_alert = true
-  #   @driver.manage.timeouts.implicit_wait = 30
-  #   @verification_errors = []
-  # end
-  
-  # after(:each) do
-  #   @driver.quit
-  #   @verification_errors.should == []
-  # end
-  
   def execute
+    dl_path = "/tmp/selenium-webdriver"
+
     @headless = Headless.new(dimensions: "1920x1080x24")
     @headless.start
     `export DISPLAY=:99`
     profile = Selenium::WebDriver::Firefox::Profile.new
     profile['intl.accept_languages'] = "ja"
     profile['general.useragent.locale'] = "ja-JP"
-    profile['browser.download.dir'] = "/tmp/selenium-webdriver"
+    profile['browser.download.dir'] = dl_path
     profile['browser.download.folderList'] = 2
     profile['browser.helperApps.neverAsk.saveToDisk'] = 'application/x-ofx'
     @driver = Selenium::WebDriver.for :firefox, :profile => profile
@@ -47,45 +37,36 @@ module DownloadOfx
     @driver.find_element(:id, "PASSWORD").send_keys bank_account_pin
     @driver.find_element(:name, "bLogon.y").click
     @driver.find_element(:link, bank_account_label).click
-#    @driver.get "https://direct3.smbc.co.jp/servlet/com.smbc.MoneyServlet?redirected=1"
     @driver.find_element(:id, "DownloadOFX").click
     @driver.find_element(:link, "ログアウト").click
     @driver.find_element(:css, "input.formButtonNavi2.leftButton").click
 
     @driver.quit
     @headless.destroy
+
+    files = `ls #{dl_path}/*.ofx -t`.split "\n"
+    files.each do |filepath|
+      file = File.stat filepath
+      data = OFX file
+      proc_ofx data
+      File.delete filepath
+    end
   end
-  
-  # def element_present?(how, what)
-  #   ${receiver}.find_element(how, what)
-  #   true
-  # rescue Selenium::WebDriver::Error::NoSuchElementError
-  #   false
-  # end
-  
-  # def alert_present?()
-  #   ${receiver}.switch_to.alert
-  #   true
-  # rescue Selenium::WebDriver::Error::NoAlertPresentError
-  #   false
-  # end
-  
-  # def verify(&blk)
-  #   yield
-  # rescue ExpectationNotMetError => ex
-  #   @verification_errors << ex
-  # end
-  
-  # def close_alert_and_get_its_text(how, what)
-  #   alert = ${receiver}.switch_to().alert()
-  #   alert_text = alert.text
-  #   if (@accept_next_alert) then
-  #     alert.accept()
-  #   else
-  #     alert.dismiss()
-  #   end
-  #   alert_text
-  # ensure
-  #   @accept_next_alert = true
-  # end
+
+  def proc_ofx
+    data.account.transactions.each do |trans|
+    if AccountTransaction.where(:fit_id => trans.fit_id).count == 0
+      account_transaction = AccountTransaction.new
+      account_transaction.amount = trans.amount_in_pennies / 100
+      account_transaction.fit_id = trans.fit_id
+      account_transaction.name = trans.name
+      account_transaction.posted_at = trans.posted_at + (9 / 24)
+      account_transaction.transaction_type = trans.type.to_s
+      user = User.where(:bank_name => trans.name).first if trans.type == :dep
+      unless user.nil?
+        account_transaction.user_id = user.id
+      end
+      account_transaction.save!
+    end
+  end
 end
