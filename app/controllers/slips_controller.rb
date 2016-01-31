@@ -28,6 +28,7 @@ class SlipsController < ApplicationController
   end
 
   def edit
+    @slip = Slip.find(params[:id])
     @is_new = false
   end
 

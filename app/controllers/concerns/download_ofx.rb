@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 require "json"
 require "selenium-webdriver"
 
@@ -17,7 +18,16 @@ module DownloadOfx
   # end
   
   def execute
-    @driver = Selenium::WebDriver.for :firefox
+    @headless = Headless.new(dimensions: "1920x1080x24")
+    @headless.start
+    `export DISPLAY=:99`
+    profile = Selenium::WebDriver::Firefox::Profile.new
+    profile['intl.accept_languages'] = "ja"
+    profile['general.useragent.locale'] = "ja-JP"
+    profile['browser.download.dir'] = "/tmp/selenium-webdriver"
+    profile['browser.download.folderList'] = 2
+    profile['browser.helperApps.neverAsk.saveToDisk'] = 'application/x-ofx'
+    @driver = Selenium::WebDriver.for :firefox, :profile => profile
     @base_url = "https://direct.smbc.co.jp"
     @accept_next_alert = true
     @driver.manage.timeouts.implicit_wait = 30
@@ -37,11 +47,13 @@ module DownloadOfx
     @driver.find_element(:id, "PASSWORD").send_keys bank_account_pin
     @driver.find_element(:name, "bLogon.y").click
     @driver.find_element(:link, bank_account_label).click
+#    @driver.get "https://direct3.smbc.co.jp/servlet/com.smbc.MoneyServlet?redirected=1"
     @driver.find_element(:id, "DownloadOFX").click
     @driver.find_element(:link, "ログアウト").click
     @driver.find_element(:css, "input.formButtonNavi2.leftButton").click
 
     @driver.quit
+    @headless.destroy
   end
   
   # def element_present?(how, what)
