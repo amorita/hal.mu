@@ -5,6 +5,7 @@ layout 'priv'
 before_filter :authenticate_user!
 skip_before_filter :verify_authenticity_token ,:only=>[:import, :update]
 require 'ofx'
+include DownloadOfx
 
 def new
 end
@@ -12,21 +13,7 @@ end
 def import
   file = params[:file]
   data = OFX file
-  data.account.transactions.each do |trans|
-    if AccountTransaction.where(:fit_id => trans.fit_id).count == 0
-      account_transaction = AccountTransaction.new
-      account_transaction.amount = trans.amount_in_pennies / 100
-      account_transaction.fit_id = trans.fit_id
-      account_transaction.name = trans.name
-      account_transaction.posted_at = trans.posted_at + (9 / 24)
-      account_transaction.transaction_type = trans.type.to_s
-      user = User.where(:bank_name => trans.name).first if trans.type == :dep
-      unless user.nil?
-        account_transaction.user_id = user.id
-      end
-      account_transaction.save!
-    end
-  end
+  proc_ofx (data)
   redirect_to '/account_transactions?pages=1'
 end
 
