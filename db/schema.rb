@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160113170945) do
+ActiveRecord::Schema.define(version: 20160131053310) do
 
   create_table "ab_list", force: true do |t|
     t.string "part", limit: 5
@@ -155,6 +155,13 @@ ActiveRecord::Schema.define(version: 20160113170945) do
     t.datetime "updated_at"
   end
 
+  create_table "constants", force: true do |t|
+    t.string   "key"
+    t.string   "value"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "enq_ages", force: true do |t|
     t.string   "title"
     t.datetime "created_at"
@@ -255,7 +262,6 @@ ActiveRecord::Schema.define(version: 20160113170945) do
     t.integer  "year"
     t.integer  "month"
     t.integer  "amount"
-    t.date     "fee_date"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "is_absent",  default: false
@@ -360,7 +366,6 @@ ActiveRecord::Schema.define(version: 20160113170945) do
   end
 
   create_table "slip_dtls", force: true do |t|
-    t.integer  "slip_id"
     t.date     "trans_date"
     t.integer  "accounting_item_id"
     t.string   "memo"
@@ -379,6 +384,7 @@ ActiveRecord::Schema.define(version: 20160113170945) do
   create_table "slips", force: true do |t|
     t.integer  "user_id"
     t.integer  "amount"
+    t.integer  "slip_dtl_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -441,7 +447,6 @@ ActiveRecord::Schema.define(version: 20160113170945) do
     t.integer  "part_id"
     t.boolean  "admin_member",                      default: false
     t.string   "email",                             default: "",                                                       null: false
-    t.string   "email2"
     t.string   "phone",                  limit: 50
     t.string   "zip_code",               limit: 50
     t.string   "address",                limit: 50
@@ -466,10 +471,11 @@ ActiveRecord::Schema.define(version: 20160113170945) do
     t.string   "bank_account"
     t.string   "bank_name"
     t.boolean  "retired",                           default: false
+    t.string   "email2"
   end
 
   create_table "v_fee_calcs", id: false, force: true do |t|
-    t.integer "user_id",                                         default: 0, null: false
+    t.integer "auser_id",                                        default: 0, null: false
     t.string  "family_name", limit: 50
     t.string  "name",        limit: 50
     t.decimal "amount",                 precision: 32, scale: 0, default: 0, null: false
