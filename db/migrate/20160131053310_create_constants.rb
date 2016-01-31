@@ -1,4 +1,4 @@
-class CreateConstantValue < ActiveRecord::Migration
+class CreateConstants < ActiveRecord::Migration
   def change
     create_table :constant_values do |t|
       t.string :key

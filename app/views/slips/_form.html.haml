@@ -31,8 +31,8 @@
         = f.fields_for :vouchers do |builder|
           = render "voucher_fields", f: builder
       - else
-        - @silp.vauchers.each do |v|
-          = render "show_vouchers", f: builder, locals: {vouchers: v}
+        - @slip.vouchers.each do |v|
+          = render "show_vouchers", locals: {v: v}
       = link_to_add_fields "証憑追加", f, :vouchers
 
 
