@@ -58,8 +58,7 @@ def download
   @headless.destroy
 
   files = `ls #{dl_path}/*.ofx -t`.split "\n"
-  files.each do |filepath|
-    file = File.stat filepath
+  files.each do |file|
     data = OFX file
     proc_ofx data
     File.delete filepath
