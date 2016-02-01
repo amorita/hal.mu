@@ -61,11 +61,11 @@ def download
   files.each do |file|
     data = OFX file
     proc_ofx data
-    File.delete filepath
+    File.delete file
   end
 end
 
-def proc_ofx
+def proc_ofx(data)
   data.account.transactions.each do |trans|
     if AccountTransaction.where(:fit_id => trans.fit_id).count == 0
       account_transaction = AccountTransaction.new
