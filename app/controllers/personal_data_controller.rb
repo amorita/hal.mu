@@ -69,7 +69,7 @@ layout 'priv'
   end
 
   def update_all_ml
-    reflesh_all_groups
+    refresh_all_groups
   end
 
   def join_process
