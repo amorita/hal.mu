@@ -68,6 +68,10 @@ layout 'priv'
     end
   end
 
+  def update_all_ml
+    refresh_all_groups
+  end
+
   def join_process
     @personal_data = PersonalData.where(:id => current_user.id).first
     @personal_data.assign_attributes(personal_data_params)
