@@ -147,7 +147,7 @@ module GoogleDirectoryApi
     list.data.to_hash['groups']
   end
 
-  def reflesh_all_groups
+  def refresh_all_groups
     list = get_grouplist
     list.each do |group|
       reflesh_members group['email'].sub(/@hal\.mu/, '') 
