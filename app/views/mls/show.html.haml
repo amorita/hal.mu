@@ -23,7 +23,11 @@
         - else
           - user = User.where(:email => from).first
           - if user.nil?
-            = User.where(:email2 => from).first.normal_name + 'さん'
+            - user = User.where(:email2 => from).first
+            - unless user.nil?
+              = user.normal_name + 'さん'
+            - else
+              = from[0,5]
           - else
             = user.normal_name + 'さん'
     %tr
