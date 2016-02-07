@@ -1,0 +1,15 @@
+.grid.col-md-4.col-sm-6
+  .borders
+    %row
+      .col-xs-12.nopadding
+        %img.img-responsive{:src => "/img/ml.png"}/
+      .grid_content.indent
+        .pad
+          %h4 購読ML一覧
+          %p 試験運用です。β版です。何かあっても許してね。
+
+          %ul
+            %li= link_to '団員ML', '/mls/ml', {:target => '_blank'}
+            - if current_user.admin_member
+              %li= link_to '運営ML', '/mls/admins', {:target => '_blank'}
+      .clear_box
