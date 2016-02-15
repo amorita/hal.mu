@@ -20,18 +20,19 @@
   - @terms.each do |term|
     -# TODO 今月を含まないに変更
     -# if Date.today.month < term[:month] && Date.today.year <= term[:year]
-    - if Date.today.month <= term[:month] && Date.today.year <= term[:year]
-      - break
-    - if @app.application_type == 'absent'
-      - if Date.today.month <= @start_date.month && Date.today.year <= @start_date.year
+    - if @app.application_type == 'absence'
+      - if @start_date.month <= term[:month] && @start_date.year <= term[:year]
         - break
+    - else
+      - if Date.today.month <= term[:month] && Date.today.year <= term[:year]
+        - break
+
     - fee = MonthlyFee.where(:user_id => calc.user.id, :year => term[:year], :month => term[:month]).first
     - if fee.nil?
       - debt += 0
     - else
       - debt += fee.amount
   - diff = calc.amount - debt
-
 %h1= @app.application_name
 - valid = true
 %p
@@ -101,11 +102,10 @@
                 上記に同意する
             %p
               休団期間は
-              - c = Concert.where("date >= #{@start_date}").first
-              = c.date.year.to_s + '年' + c.date.month.to_s + '月'
+              = @end_date.year.to_s + '年' + @end_date.month.to_s + '月'
               までです。
 
-              - absence_month_count = c.date.month > @end_date.month ? (c.date.month - @end_date.month) : (c.date.month - @end_date.month + 12)
+              - absence_month_count = @start_date.month <= @end_date.month ? (@end_date.month - @start_date.month + 1) : (@end_date.month - @start_date.month + 13)
               - absence_fee = current_user.worker ? (fee.workers/2 * absence_month_count) : (fee.students/2 * absence_month_count)
               - absence_diff = diff - absence_fee
               - if absence_diff < 0

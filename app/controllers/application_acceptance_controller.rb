@@ -3,8 +3,8 @@ class ApplicationAcceptanceController < ApplicationController
 
 include GoogleDirectoryApi
 
-protect_from_forgery except: :absence_new
-#before_filter :authenticate_user!
+#protect_from_forgery except: :absence_new
+before_filter :authenticate_user!
 layout 'priv'
 
 def index
@@ -113,7 +113,7 @@ end
       return
     end
 
-    @app.starts_at = date
+    @app.starts_at = @start_date
     @app.ends_at = c.date
     @app.user_id = current_user.id
     render 'new'
