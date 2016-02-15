@@ -37,20 +37,20 @@
             = link_to "削除", "#", :class => "remove_fields text-danger"
       = link_to_add_fields "証憑追加", f, :vouchers
 
-  - if is_granted :accountant
+  - if is_granted(:accountant) && !@is_new
     .form-group
       %label.col-sm-2.control-label 振込
       .col-sm-10
-        = f.checkbox :transferred, :class => "form-control"
+        = f.check_box :transferred, :class => "form-control"
     .form-group
       .bs-callout.bs-callout-default
         %h4 振込先情報
-        - if @silp.user.bank.nil?
+        - if @slip.user.bank.nil?
           %p.text-danger 振込先情報の登録がありません！
         - else
           %p= @slip.user.long_name
           %p
-            = @silp.user.bank
+            = @slip.user.bank
             = @slip.user.bank_branch
           %P
             普通

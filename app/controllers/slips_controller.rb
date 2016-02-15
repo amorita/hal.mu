@@ -34,8 +34,9 @@ class SlipsController < ApplicationController
 
   def create
     @slip = Slip.new(slip_params)
+    v_keys = slip_params[:vouchers_attributes].keys
     @slip.vouchers.each_with_index do |v, idx|
-      file = slip_params[:vouchers_attributes][idx.to_s.to_sym][:file_path]
+      file = slip_params[:vouchers_attributes][v_keys[idx]][:file_path]
       ext = File.extname(file.original_filename)
       filename = Date.today().day.to_s + '-' + SecureRandom.hex(16) + ext
       dir = Date.today().year.to_s + '/' + Date.today().month.to_s
@@ -45,11 +46,23 @@ class SlipsController < ApplicationController
       }
       v.file_path = "#{dir}/#{filename}"
     end
+    amount = 0
+    @slip.slip_dtls.each do |dtl|
+      amount += dtl.amount
+    end
+    @slip.amount = amount
     @slip.save
     respond_with(@slip)
   end
 
   def update
+    amount = 0
+    @slip.slip_dtls.each do |dtl|
+      amount += dtl.amount
+    end
+    @slip.amount = amount
+    @slip.save
+
     @slip.update(slip_params)
     respond_with(@slip)
   end
