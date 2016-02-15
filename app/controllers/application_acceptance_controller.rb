@@ -2,7 +2,9 @@
 class ApplicationAcceptanceController < ApplicationController
 
 include GoogleDirectoryApi
-before_filter :authenticate_user!
+
+protect_from_forgery except: :absence_new
+#before_filter :authenticate_user!
 layout 'priv'
 
 def index
@@ -76,10 +78,43 @@ def somu_accept
 	end
 end
 
+  def absence_init
+    concerts = Concert.where('date > now()').order(:date)
+    @options = []
+    concerts.each do |c|
+      pre = Concert.find c.id - 1
+      node = []
+      node << "第#{c.id.to_s}回定期演奏会期間 #{(pre.date + 1).strftime('%Y/%m/%d')} 〜 #{c.date.strftime('%Y/%m/%d')}"
+      node << c.id
+      @options << node
+    end
+    @dates = []
+    d = Concert.find(concerts[0].id - 1).date
+    8.times do
+      d = d >> 1
+      node = []
+      node << d.strftime('%Y年%m月')
+      node << d.year.to_s + ',' +  format("%02d", d.month)
+      @dates << node
+    end
+  end
+
   def absence_new
     @app = Application.new
     @app.application_type = 'absence'
-    @app.ends_at = Concert.where('date > now()').order(:date).first.date
+
+    c = Concert.find params[:absence_term_id]
+    pre = Concert.find params[:absence_term_id].to_i - 1
+    date_param = params[:starts_at].split ','
+    @start_date = Date.new date_param[0].to_i, date_param[1].to_i, 1
+    @end_date = c.date
+    if @start_date < pre.date then 
+      redirect_to( :back )
+      return
+    end
+
+    @app.starts_at = date
+    @app.ends_at = c.date
     @app.user_id = current_user.id
     render 'new'
   end
