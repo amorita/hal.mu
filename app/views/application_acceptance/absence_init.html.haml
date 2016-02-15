@@ -1,0 +1,17 @@
+%h1 休団届け
+= form_tag '/application_acceptance/absence_new', :class => "form-horizontal" do
+  .form-group
+    %label.col-sm-2.control-label 休団期間
+    .col-sm-10
+      = select_tag 'absence_term_id', options_for_select(@options), :class => 'form-control'
+  .form-group
+    %label.col-sm-2.control-label 休団開始月
+    .col-sm-10
+      %small.text-danger
+        休団開始月は演奏会終了の翌月以降を選択してください。
+      = select_tag 'starts_at', options_for_select(@dates), :class => 'form-control'
+  
+  .actions
+    %p.text-right
+      = submit_tag "次へ", :class => "btn btn-primary"
+%p

@@ -76,7 +76,8 @@ end
       patch 'somu_accept'
       get 'president_index'
       patch 'president_accept'
-      get 'absence_new'
+      post 'absence_new'
+      get 'absence_init'
       get 'retire_new'
       get 'return_new'
     end
