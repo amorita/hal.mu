@@ -114,11 +114,49 @@
           #heading_upper.visible-xs.heading_upper_xs
             %img{:height => "150", :src => "/img/top_members.png"}/
           .clear_box
-
       .row
-        #grid-content.col-md-12.col-sm-12.nopadding
+        #grid-content.col-md-12.nopadding
+          .grid.col-md-3.col-sm-4.col-xs-6
+            .borders
+              .col-xs-12.nopadding
+                %img.img-responsive{:src => "/img/newcomers.png"}/
+              .clear_box
+
+          - @new_users.each do |user|
+            .grid.col-md-3.col-sm-4.col-xs-6
+              .borders
+                .grid_content
+                  .pad
+                    .nopadding{:style => "position: absolute; z-index: 1;"}
+                      %img{:src => "/img/members_" + user.part.abbr + ".png", :style => "height:50%; width:50%;z-index: 10;"}
+                    %img.img-responsive.img-circle{:src => '/members/' + user.id.to_s + '.jpg', :onerror => 'this.src="/img/unavailable.png"'}
+                    %p &nbsp;
+                    - unless user.nickname.nil?
+                      %p.text-center
+                        = user.nickname
+
+                    %p.text-center
+                      %i.fa.fa-user
+                      %ruby
+                        = user.family_name
+                        %rt
+                          = user.family_name_pron
+                        = user.name
+                        %rt
+                          = user.name_pron
+                    .clearfix
+                  .clearfix
+                .clearfix
+              .clearfix
+
+          .grid.col-md-3.col-sm-4.col-xs-6
+            .borders
+              .col-xs-12.nopadding
+                %img.img-responsive{:src => "/img/members.png"}/
+              .clear_box
+
           - @users.each do |user|
-            #aboutus.grid.col-md-3.col-sm-4.col-xs-6
+            .grid.col-md-3.col-sm-4.col-xs-6
               .borders
                 .grid_content
                   .pad
