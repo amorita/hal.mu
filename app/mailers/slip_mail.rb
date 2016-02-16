@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 class SlipMail < ActionMailer::Base
+  default from: '"Orchestra HAL accounting system" <info@hal.mu>'
   def notif(slip)
     @slip = slip
     @accountant = Responsible.where(:name => 'accountant').first
