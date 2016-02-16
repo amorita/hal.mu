@@ -1,14 +1,14 @@
 %h1 伝票一覧
 
-%table.table
+%table.table.text-center
   %tr
-    %th #
-    %th 申請者
-    %th 起票日
-    %th 明細数
-    %th 金額
-    %th 振込
-    %th 消込
+    %th.text-center #
+    %th.text-center 申請者
+    %th.text-center 起票日
+    %th.text-center 明細数
+    %th.text-center 金額
+    %th.text-center 振込
+    %th.text-center 消込
     %th
 
   - @slips.each do |slip|
@@ -17,7 +17,7 @@
       %td= slip.user.formal_name
       %td= slip.created_at.strftime('%m月%d日')
       %td= slip.slip_dtls.count
-      %td= slip.amount
+      %td.text-right= number_to_currency(slip.amount, :format => "%n%u", :unit => "", :precision => 0)
       %td
         - if slip.transferred
           %span.glyphicon.glyphicon-ok.text-success
@@ -30,9 +30,28 @@
           %span.glyphicon.glyphicon-remove.text-warning
 
       %td
-        = button_to '編集', '/slips/' + slip.id.to_s + '/edit', :method => 'get', :class => 'btn btn-xs btn-primary'
-        = button_to '消込', '/slips/' + slip.id.to_s + '/edit', :method => 'get', :class => 'btn btn-xs btn-info'
-        = button_to '削除', '/slips/' + slip.id.to_s + '/edit', :method => 'get', :class => 'btn btn-xs btn-danger'
+        - if slip.transferred
+          = button_to '編集/振込', '/slips/' + slip.id.to_s + '/edit', :method => 'get', :class => 'btn btn-xs btn-primary', :disabled => 'true'
+        - else
+          = button_to '編集/振込', '/slips/' + slip.id.to_s + '/edit', :method => 'get', :class => 'btn btn-xs btn-primary'
+        = button_to '消込', '#', :method => 'get', :class => 'btn btn-xs btn-info', :disabled => 'true'
+        = button_to '削除', slip, :method => 'delete', :class => 'btn btn-xs btn-danger'
+    %tr
+      %td &nbsp;
+      %td{:colspan => 6}
+        %span.show-dtl{:style => 'cursor: pointer;'}
+          %span.glyphicon.glyphicon-chevron-down
+          明細の表示
+        %table.table{:style => "display: none;"}
+          - slip.slip_dtls.order(:trans_date).each_with_index do |dtl, idx|
+            %tr
+              %td.text-right= (idx + 1).to_s + '.'
+              %td= dtl.trans_date.strftime('%m月%d日')
+              %td= dtl.accounting_item.name
+              %td.text-right= number_to_currency(dtl.amount, :format => "%n%u", :unit => "", :precision => 0)
+              %td= dtl.memo
+      %td &nbsp;
+
 %br
 
-= link_to 'New Slip', new_slip_path
+= button_to '伝票の登録', new_slip_path, {:class => 'btn btn-primary', :method => :get}

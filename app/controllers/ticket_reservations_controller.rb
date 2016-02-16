@@ -22,6 +22,9 @@ def update
     rev.name_pron = rev_param[1][:name_pron]
     rev.fname_pron = rev_param[1][:fname_pron]
     rev.num_of_ticket = rev_param[1][:num_of_ticket]
+    unless rev_param[1][:esp_name].blank?
+      rev.esp_name = rev_param[1][:esp_name]
+    end
     rev.user_id = current_user.id
 
     if !rev.num_of_ticket.nil? && rev.num_of_ticket > 0

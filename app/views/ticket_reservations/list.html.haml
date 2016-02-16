@@ -24,7 +24,11 @@
       %tr
         %td.col-xs-3= item.fname_pron + ' ' + item.name_pron
         %td.col-xs-3= item.fname + ' ' + item.name
-        %td.col-xs-3= 'by ' + item.user.normal_name
+        %td.col-xs-3
+          - if item.esp_name.blank?
+            = 'by ' + item.user.long_name
+          - else
+            = item.esp_name
         %td.col-xs-1.bold= item.num_of_ticket.to_s
         %td.col-xs-1
           = link_to '受渡', '/ticket_reservations/receive/?id=' + item.id.to_s

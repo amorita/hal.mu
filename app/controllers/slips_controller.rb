@@ -52,6 +52,7 @@ class SlipsController < ApplicationController
     end
     @slip.amount = amount
     @slip.save
+    SlipMail.notif(@slip).deliver
     respond_with(@slip)
   end
 

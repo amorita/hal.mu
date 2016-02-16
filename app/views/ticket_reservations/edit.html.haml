@@ -30,8 +30,14 @@
           %label.col-sm-2.control-label 枚数
           .col-sm-10
             = f.number_field :num_of_ticket, :min => 0, :max => 20
+            枚
             - if !rev.num_of_ticket.nil? && rev.num_of_ticket > 0
               %span.glyphicon.glyphicon-ok.text-success{:"aria-hidden" => 'true'}
+        - if is_granted :PR
+          .form-group
+            %label.col-sm-2.control-label 招待者
+            .col-sm-10
+              = f.text_field :esp_name, :class => "form-control"
             
         %hr
     .actions

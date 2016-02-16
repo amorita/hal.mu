@@ -1,0 +1,13 @@
+= @accountant.user.normal_name + 'さん'
+==
+おつかれさまです！
+= @slip.user.normal_name + 'さんが出金伝票を提出しました。'
+==
+= '起票日: #{@slip.created_at.strftime("%m月%d日")}'
+= '明細数: #{@slip.slip_dtls.count.to_s}'
+= '合計金額: #{number_to_currency(@slip.amount, :format => "%n%u", :unit => "", :precision => 0)}'
+==
+==
+確認をお願いします。
+
+
