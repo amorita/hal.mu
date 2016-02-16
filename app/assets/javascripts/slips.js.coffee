@@ -12,3 +12,8 @@ $ ->
     regexp = new RegExp($(this).data('id'), 'g')
     $(this).before($(this).data('fields').replace(regexp, time))
     event.preventDefault()
+
+  $('.show-dtl').on 'click', (event) ->
+  	$(this).parent().children('table.table').show()
+  	$(this).hide()
+  	event.preventDefault()

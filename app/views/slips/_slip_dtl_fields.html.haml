@@ -5,11 +5,13 @@
     .form-group
       %label.col-sm-2.control-label 発生日
       .col-sm-10
+        %small 領収証・レシートの日付を入力
         = f.date_field :trans_date, :class => "form-control", :required => true
 
     .form-group
       %label.col-sm-2.control-label 勘定科目
       .col-sm-10
+        %small わからない場合は空欄でも可
         = f.collection_select :accounting_item_id, AccountingItem.where(:is_debit => true).order(:code), :id, :fullname, {:prompt => "勘定科目を選択"}, {:class => "form-control"}
 
     .form-group
@@ -20,6 +22,7 @@
     .form-group
       %label.col-sm-2.control-label 摘要
       .col-sm-10
+        %small 使途がわかるよう簡潔に記述してください
         = f.text_field :memo, :class => "form-control", :required => true
     = f.hidden_field :_destroy
     %p.text-right
