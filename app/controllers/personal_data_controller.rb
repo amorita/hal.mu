@@ -22,7 +22,8 @@ layout 'priv'
   end
 
   def members
-    @users = User.where.not(:id => current_user.id).order(:part_id, :family_name_pron)
+    @new_users = User.where('created_at > NOW() - INTERVAL 3 MONTH').order('created_at DESC')
+    @users = User.order(:part_id, :family_name_pron)
     render 'members', :layout => false
   end
 
