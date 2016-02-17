@@ -2,6 +2,11 @@ Hal::Application.routes.draw do
 
 
   resources :slips
+  resources :slip_dtls do
+    collection do
+      post 'index'
+    end
+  end
 
 devise_for :user, :controllers => { :omniauth_callbacks => "user/omniauth_callbacks" }
 

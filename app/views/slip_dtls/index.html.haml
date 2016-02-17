@@ -1,0 +1,33 @@
+%h1 月別明細一覧
+.bs-callout.bs-callout-info
+  %h4 照会対象月
+  = form_tag '/slip_dtls/index', :mothod => :post, :class => "form-horizontal" do
+    .form-group
+      %label.col-sm-2.col-xs-12.control-label  照会対象月
+      .col-xs-6.col-sm-5
+        = select_tag 'year', options_for_select(@years), :class => 'form-control', :selected => @year
+      .col-xs-6.col-sm-5
+        = select_tag 'month', options_for_select(@months), :class => 'form-control', :selected => @month
+    .actions
+      %p.text-right
+        = submit_tag "照会", :class => "btn btn-primary"
+
+%h2
+  = "#{@year}年#{@month}月"
+
+%table.table
+  %tr
+    %th #
+    %th 発生日
+    %th 科目
+    %th 金額
+    %th 摘要
+    %th 伝票
+  - @slip_dtls.each do |dtl|
+    %tr
+      %td.text-right= dtl.id.to_s + '.'
+      %td= dtl.trans_date.strftime('%m月%d日')
+      %td= dtl.accounting_item.code + ':' + dtl.accounting_item.name
+      %td.text-right= number_to_currency(dtl.amount, :format => "%n%u", :unit => "", :precision => 0)
+      %td= dtl.memo
+      %td= link_to "##{dtl.slip_id.to_s}", "/slips/#{dtl.slip_id.to_s}/edit", :target => '_blank'
