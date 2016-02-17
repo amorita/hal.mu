@@ -14,7 +14,11 @@
   - @slips.each do |slip|
     %tr
       %td= slip.id
-      %td= slip.user.formal_name
+      %td
+        - if slip.user.nil?
+          = 'システム自動作成'
+        -else
+          = slip.user.formal_name
       %td= slip.created_at.strftime('%m月%d日')
       %td= slip.slip_dtls.count
       %td.text-right= number_to_currency(slip.amount, :format => "%n%u", :unit => "", :precision => 0)

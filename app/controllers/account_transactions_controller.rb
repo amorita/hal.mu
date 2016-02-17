@@ -8,6 +8,8 @@ require 'ofx'
 require 'headless'
 require 'selenium-webdriver'
 
+include SlipClearing
+
 def new
 end
 
@@ -79,6 +81,7 @@ def proc_ofx(data)
         account_transaction.user_id = user.id
       end
       account_transaction.save!
+      executeClearing account_transaction
     end
   end
 end
