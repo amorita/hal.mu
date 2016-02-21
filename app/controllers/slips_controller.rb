@@ -79,7 +79,7 @@ class SlipsController < ApplicationController
     end
 
     def slip_params
-      params.require(:slip).permit(:user_id, :amount, :slip_dtl_id, :transferred,
+      params.require(:slip).permit(:user_id, :amount, :slip_dtl_id, :transferred, :payee_class, :payee_id, :bank_name, :bank_branch, :bank_account, :account_holder, :payer_name, 
         slip_dtls_attributes: [:id, :slip_id, :amount, :accounting_item_id, :memo, :trans_date, :_destroy],
         vouchers_attributes: [:id, :slip_id, :file_path, :file]
       )

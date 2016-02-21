@@ -1,0 +1,9 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  name: MyString
+  net_banking_label: MyString
+
+two:
+  name: MyString
+  net_banking_label: MyString

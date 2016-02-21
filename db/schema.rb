@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160131053310) do
+ActiveRecord::Schema.define(version: 20160221132855) do
 
   create_table "ab_list", force: true do |t|
     t.string "part", limit: 5
@@ -299,6 +299,13 @@ ActiveRecord::Schema.define(version: 20160131053310) do
     t.integer  "user_id"
   end
 
+  create_table "payees", force: true do |t|
+    t.string   "name"
+    t.string   "net_banking_label"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "poster_candidates", force: true do |t|
     t.integer  "selection"
     t.string   "mail"
@@ -387,9 +394,16 @@ ActiveRecord::Schema.define(version: 20160131053310) do
   create_table "slips", force: true do |t|
     t.integer  "user_id"
     t.integer  "amount"
-    t.integer  "transferred", limit: 1
+    t.boolean  "transferred"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "payee"
+    t.integer  "payee_id"
+    t.string   "bank_name"
+    t.string   "bank_branch"
+    t.string   "bank_account"
+    t.string   "account_holder"
+    t.string   "payer_name"
   end
 
   create_table "social_profiles", force: true do |t|
@@ -475,6 +489,7 @@ ActiveRecord::Schema.define(version: 20160131053310) do
     t.string   "bank_account"
     t.string   "bank_name"
     t.boolean  "retired",                           default: false
+    t.string   "net_banking_label"
   end
 
   create_table "v_fee_calcs", id: false, force: true do |t|
