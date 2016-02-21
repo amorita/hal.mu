@@ -37,6 +37,33 @@
             = link_to "削除", "#", :class => "remove_fields text-danger"
       = link_to_add_fields "証憑追加", f, :vouchers
 
+  .form-group
+    %label.col-sm-2.control-label 振込先
+    .col-sm-10
+      = f.select :payee_class, options_for_select(PAYEE_CLASS), {}, :class => 'form-control'
+
+  .form-group
+    %label.col-sm-2.control-label 振込先(登録済)
+    .col-sm-10
+      = f.collection_select :payee_id, Payee.all, :id, :name, {}, :class => 'form-control'
+
+  .form-group
+    %label.col-sm-2.control-label 振込先(直接入力)
+    .col-sm-2
+      = f.text_field :bank_name, :placeholder => '銀行名', :class => 'form-control'
+    .col-sm-3
+      = f.text_field :bank_branch, :placeholder => '視点名', :class => 'form-control'
+    .col-sm-2
+      = f.text_field :bank_account, :placeholder => '口座番号', :class => 'form-control'
+    .col-sm-3
+      = f.text_field :account_holder, :placeholder => '名義', :class => 'form-control'
+
+  .form-group
+    %label.col-sm-2.control-label 振込名義
+    .col-sm-10
+      %small 指定する必要がある場合に入力
+      = f.text_field :payer_name, :placeholder => '振込名義', :class => 'form-control'
+
   - if is_granted(:accountant) && !@is_new
     .form-group
       %label.col-sm-2.control-label 振込
