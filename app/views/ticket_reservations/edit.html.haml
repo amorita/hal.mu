@@ -15,16 +15,16 @@
         .form-group
           %label.col-sm-2.col-xs-12.control-label  名前
           .col-xs-6.col-sm-5
-            = f.text_field :fname, :placeholder => "姓",:class => "form-control"
+            = f.text_field :fname, :placeholder => "姓",:class => "form-control", :required => true
           .col-xs-6.col-sm-5
-            = f.text_field :name, :placeholder => "名",:class => "form-control"
+            = f.text_field :name, :placeholder => "名",:class => "form-control", :required => true
 
         .form-group
           %label.col-sm-2.col-xs-12.control-label  名前(よみ)
           .col-xs-6.col-sm-5
-            = f.text_field :fname_pron, :placeholder => "せい",:class => "form-control"
+            = f.text_field :fname_pron, :placeholder => "せい",:class => "form-control", :required => true
           .col-xs-6.col-sm-5
-            = f.text_field :name_pron, :placeholder => "めい",:class => "form-control"
+            = f.text_field :name_pron, :placeholder => "めい",:class => "form-control", :required => true
 
         .form-group
           %label.col-sm-2.control-label 枚数
@@ -37,7 +37,9 @@
           .form-group
             %label.col-sm-2.control-label 招待者
             .col-sm-10
-              = f.text_field :esp_name, :class => "form-control"
+              %small.text-danger
+                自分の場合は記入しない
+              = f.text_field :esp_name, :class => "form-control", :placeholder => current_user.long_name
             
         %hr
     .actions
