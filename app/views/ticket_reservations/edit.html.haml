@@ -4,7 +4,7 @@
   = form_for @revs, :url => '/ticket_reservations/update', :html => {:class => "form-horizontal"} do |fb|
     - if @revs.errors.any?
       #error_explanation
-        %h2= "#{pluralize(@revs.errors.count, "error")} prohibited this nontan from being saved:"
+        %h2= "入力に誤りがあります。"
         %ul
           - @revs.errors.full_messages.each do |msg|
             %li= msg
@@ -37,7 +37,9 @@
           .form-group
             %label.col-sm-2.control-label 招待者
             .col-sm-10
-              = f.text_field :esp_name, :class => "form-control"
+              %small.text-danger
+                自分の場合は記入しない。自分以外の招待として処理する場合にのみ入力。
+              = f.text_field :esp_name, :class => "form-control", :placeholder => current_user.long_name
             
         %hr
     .actions
