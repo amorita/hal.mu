@@ -4,9 +4,6 @@ before_filter :authenticate_user!
 layout false
 
 def index
-  if current_user.id == 149
-    raise 'm'
-  end
 	if current_user.phone.nil?
 		render 'welcome' and return
 	end
