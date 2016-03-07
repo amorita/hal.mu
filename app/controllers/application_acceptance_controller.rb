@@ -120,9 +120,6 @@ end
   end
 
   def retire_new
-    if current_user.id == 153
-      raise 'saran'
-    end
     @app = Application.new
     @app.application_type = 'retire'
     @app.user_id = current_user.id
