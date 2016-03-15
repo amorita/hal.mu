@@ -54,7 +54,7 @@
               %td
                 - if dtl.accounting_item.nil?
                   %span.text-danger
-                    = 未指定
+                    未指定
                 - else
                   = dtl.accounting_item.name
               %td.text-right= number_to_currency(dtl.amount, :format => "%n%u", :unit => "", :precision => 0)
