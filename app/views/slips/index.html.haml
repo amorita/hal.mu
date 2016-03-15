@@ -51,7 +51,12 @@
             %tr
               %td.text-right= (idx + 1).to_s + '.'
               %td= dtl.trans_date.strftime('%m月%d日')
-              %td= dtl.accounting_item.name
+              %td
+                - if dtl.accounting_item.nil?
+                  %span.text-danger
+                    = 未指定
+                - else
+                  = dtl.accounting_item.name
               %td.text-right= number_to_currency(dtl.amount, :format => "%n%u", :unit => "", :precision => 0)
               %td= dtl.memo
       %td &nbsp;
