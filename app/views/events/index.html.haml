@@ -53,6 +53,8 @@
     - if attend
       %ul
         - p.albums.each do |album|
+          - if album.user.nil?
+            - next
           %li
             %a{:href => album.url, :target => '_blank'}
               %i.fa.fa-picture-o

@@ -397,7 +397,7 @@ ActiveRecord::Schema.define(version: 20160221132855) do
     t.boolean  "transferred"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "payee"
+    t.integer  "payee_class"
     t.integer  "payee_id"
     t.string   "bank_name"
     t.string   "bank_branch"
