@@ -12,7 +12,10 @@
       %label.col-sm-2.control-label 勘定科目
       .col-sm-10
         %small わからない場合は空欄でも可
-        = f.collection_select :accounting_item_id, AccountingItem.where(:is_debit => true).order(:code), :id, :fullname, {:prompt => "勘定科目を選択"}, {:class => "form-control"}
+        - if is_granted(:accountant)
+          = f.collection_select :accounting_item_id, AccountingItem.order(:code), :id, :fullname_class, {:prompt => "勘定科目を選択"}, {:class => "form-control"}
+        - else
+          = f.collection_select :accounting_item_id, AccountingItem.where(:is_debit => true).order(:code), :id, :fullname, {:prompt => "勘定科目を選択"}, {:class => "form-control"}
 
     .form-group
       %label.col-sm-2.control-label 金額

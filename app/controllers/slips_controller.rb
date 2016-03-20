@@ -53,7 +53,7 @@ class SlipsController < ApplicationController
     @slip.amount = amount
     @slip.save
     SlipMail.notif(@slip).deliver
-    respond_with(@slip)
+    redirect_to action: 'index'
   end
 
   def update
