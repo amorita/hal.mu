@@ -45,7 +45,7 @@
   .form-group
     %label.col-sm-2.control-label 振込先(登録済)
     .col-sm-10
-      = f.collection_select :payee_id, Payee.all, :id, :name, {}, :class => 'form-control'
+      = f.collection_select :payee_id, Payee.where(:user_id => nil), :id, :name, {}, :class => 'form-control'
 
   .form-group
     %label.col-sm-2.control-label 振込先(直接入力)
