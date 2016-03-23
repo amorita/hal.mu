@@ -4,6 +4,8 @@ class SlipsController < ApplicationController
   respond_to :html
   before_filter :authenticate_user!
 
+  include AutoBankTransfer
+
   def index
     if view_context.is_granted :accountant
       @slips = Slip.all.order("id DESC")
