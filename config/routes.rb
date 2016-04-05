@@ -109,6 +109,8 @@ end
   post 'auth/validate' => 'auth#validate'
   get 'auth/logout' => 'auth#logout'
 
+  get 'parts/status' => 'part#status'
+
   resources :users
   
   root "user#login"

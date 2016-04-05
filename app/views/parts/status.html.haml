@@ -1,0 +1,25 @@
+%table.table
+  %tr
+    %th パート
+    %th 定員
+    %th 団員数
+    %th 休団
+    %th 募集状況
+
+  - @parts.each do |p|
+    %tr
+      %td= p.name
+      %td= p.members.to_s
+      %td= p.users.count
+      %td
+        - count = 0
+        - p.users.each do |u|
+          - if u.absent?
+            - count += 1
+        - if count > 0
+          = "(" + count.to_s + ")"
+      %td
+        - if p.members > p.users.count
+          %span.text-danger 募集中
+        - else
+          %span.text-muted 募集なし
