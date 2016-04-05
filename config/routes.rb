@@ -109,7 +109,7 @@ end
   post 'auth/validate' => 'auth#validate'
   get 'auth/logout' => 'auth#logout'
 
-  get 'parts/status' => 'part#status'
+  get 'parts/status' => 'parts#status'
 
   resources :users
   

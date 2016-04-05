@@ -1,3 +1,10 @@
+
+%p
+  団員数：
+  = User.all.count.to_s
+  名
+
+%h2 募集状況
 %table.table
   %tr
     %th パート
@@ -9,7 +16,7 @@
   - @parts.each do |p|
     %tr
       %td= p.name
-      %td= p.members.to_s
+      %td= p.member.to_s
       %td= p.users.count
       %td
         - count = 0
@@ -19,7 +26,7 @@
         - if count > 0
           = "(" + count.to_s + ")"
       %td
-        - if p.members > p.users.count
+        - if p.member > p.users.count
           %span.text-danger 募集中
         - else
           %span.text-muted 募集なし
