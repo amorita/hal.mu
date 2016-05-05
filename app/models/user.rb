@@ -21,7 +21,11 @@ class User < ActiveRecord::Base
 
   def absent?
     fee = MonthlyFee.where(:user_id => self.id, :year => Date.today.year, :month => Date.today.month).first
-    return fee.is_absent
+    result = false
+    if !fee.nil?
+      result = fee.is_absent
+    end
+    return result
   end
 
   def active?
