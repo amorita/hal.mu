@@ -160,7 +160,7 @@ layout 'priv'
   def personal_data_params
       params.require(:personal_data).permit(:family_name, :name, :family_name_pron,
        :name_pron, :nickname, :part_id, :email, :email2, :phone, :zip_code, :address, 
-       :building, :worker, :school, :bank, :bank_branch, :bank_account);
+       :building, :worker, :school, :bank, :bank_branch, :bank_account, :disclosed_phone, :mobile_mail, :pc_mail, :job, :grad_school, :major, :favorite, :facebook, :twitter, :mixi, :github, :googleplus, :tumblr, :linkedin, :flickr, :ameba, :hatena, :line, :yelp, :yahoo, :bing, :blogger, :behance, :origin, :birthday, :blood);
   end
 
 end

@@ -99,6 +99,168 @@
       .col-sm-10
         = f.text_field :bank_account, :placeholder => "12345678",:class => "form-control"
 
+    .form-group
+      .col-md-12
+        %h4.bg-info{:style => 'line-height: 2em'}
+          以下の項目はメンバーリストでの公開項目です。任意で入力してください。
+
+    .form-group
+      %label.col-sm-2.control-label 出身地
+      .col-sm-10
+        = f.text_field :origin, :placeholder => "東京都狛江市",:class => "form-control"
+
+    .form-group
+      %label.col-sm-2.control-label 誕生日
+      .col-sm-10
+        %small
+          公開されるのは年月までです
+        = f.date_field :birthday, :class => "form-control"
+
+    .form-group
+      %label.col-sm-2.control-label 血液型
+      .col-sm-10
+        = f.select :blood, [['A', 'A'], ['B', 'B'], ['O', 'O'], ['AB', 'AB']], {}, :class => "form-control"
+
+    .form-group
+      %label.col-sm-2.control-label 電話番号
+      .col-sm-10
+        = f.text_field :disclosed_phone, :placeholder => "080-1234-5678",:class => "form-control"
+
+    .form-group
+      %label.col-sm-2.control-label メール(モバイル)
+      .col-sm-10
+        = f.text_field :mobile_mail, :placeholder => "mail@mobile.com",:class => "form-control"
+
+    .form-group
+      %label.col-sm-2.control-label メール(PC)
+      .col-sm-10
+        = f.text_field :pc_mail, :placeholder => "noreply@hal.mu",:class => "form-control"
+
+    .form-group
+      %label.col-sm-2.control-label 
+        LINE
+        %img{:height => '24px', :src => '/social_icons/line.png'}
+      .col-sm-10
+        = f.text_field :line, :placeholder => "yourid",:class => "form-control"
+
+    .form-group
+      %label.col-sm-2.control-label お仕事
+      .col-sm-10
+        = f.text_field :job, :placeholder => "○○系",:class => "form-control"
+
+    .form-group
+      %label.col-sm-2.control-label 出身校
+      .col-sm-10
+        = f.text_field :grad_school, :placeholder => "バカ田大学",:class => "form-control"
+
+    .form-group
+      %label.col-sm-2.control-label 専攻
+      .col-sm-10
+        = f.text_field :major, :placeholder => "社会学部哲学科",:class => "form-control"
+
+    .form-group
+      %label.col-sm-2.control-label 趣味・好きな物事
+      .col-sm-10
+        = f.text_field :favorite, :placeholder => "写経",:class => "form-control"
+
+    .form-group
+      %label.col-sm-2.control-label 
+        facebook
+        %img{:height => '24px', :src => '/social_icons/facebook.png'}
+      .col-sm-10
+        = f.text_field :facebook, :placeholder => "https://www.facebook.com/yourid",:class => "form-control"
+
+    .form-group
+      %label.col-sm-2.control-label 
+        twitter
+        %img{:height => '24px', :src => '/social_icons/twitter.png'}
+      .col-sm-10
+        = f.text_field :twitter, :placeholder => "https://twitter.com/yourid",:class => "form-control"
+
+    .form-group
+      %label.col-sm-2.control-label 
+        mixi
+        %img{:height => '24px', :src => '/social_icons/mixi.png'}
+      .col-sm-10
+        = f.text_field :mixi, :placeholder => "http://mixi.jp/show_profile.pl?id=1234567",:class => "form-control"
+
+    .form-group
+      %label.col-sm-2.control-label 
+        github
+        %img{:height => '24px', :src => '/social_icons/github.png'}
+      .col-sm-10
+        = f.text_field :github, :placeholder => "https://github.io/yourid",:class => "form-control"
+
+    .form-group
+      %label.col-sm-2.control-label 
+        google+
+        %img{:height => '24px', :src => '/social_icons/googleplus.png'}
+      .col-sm-10
+        = f.text_field :googleplus, :placeholder => "https://plus.google.com/123456789012345678901",:class => "form-control"
+
+    .form-group
+      %label.col-sm-2.control-label 
+        tumblr
+        %img{:height => '24px', :src => '/social_icons/tumblr.png'}
+      .col-sm-10
+        = f.text_field :tumblr, :placeholder => "http://yourid.tumblr.com/",:class => "form-control"
+
+    .form-group
+      %label.col-sm-2.control-label 
+        linkedIn
+        %img{:height => '24px', :src => '/social_icons/linkedin.png'}
+      .col-sm-10
+        = f.text_field :linkedin, :placeholder => "http://www.linkedin.com/in/yourid",:class => "form-control"
+
+    .form-group
+      %label.col-sm-2.control-label 
+        flickr
+        %img{:height => '24px', :src => '/social_icons/flickr.png'}
+      .col-sm-10
+        = f.text_field :flickr, :placeholder => "https://www.flickr.com/photos/yourid/",:class => "form-control"
+
+    .form-group
+      %label.col-sm-2.control-label 
+        アメーバ
+        %img{:height => '24px', :src => '/social_icons/ameba.png'}
+      .col-sm-10
+        = f.text_field :ameba, :placeholder => "http://profile.ameba.jp/yourid",:class => "form-control"
+
+    .form-group
+      %label.col-sm-2.control-label 
+        はてな
+        %img{:height => '24px', :src => '/social_icons/hatena.png'}
+      .col-sm-10
+        = f.text_field :hatena, :placeholder => "http://b.hatena.ne.jp/yourid",:class => "form-control"
+
+    .form-group
+      %label.col-sm-2.control-label 
+        Instagram
+        %img{:height => '24px', :src => '/social_icons/instagram.png'}
+      .col-sm-10
+        = f.text_field :instagram, :placeholder => "https://www.instagram.com/yourid",:class => "form-control"
+
+    .form-group
+      %label.col-sm-2.control-label 
+        yelp
+        %img{:height => '24px', :src => '/social_icons/yelp.png'}
+      .col-sm-10
+        = f.text_field :yelp, :placeholder => "https://www.yelp.co.jp/user_details?userid=yourid",:class => "form-control"
+
+    .form-group
+      %label.col-sm-2.control-label 
+        yahoo!
+        %img{:height => '24px', :src => '/social_icons/yahoo.png'}
+      .col-sm-10
+        = f.text_field :yahoo, :placeholder => "http://blogs.yahoo.co.jp/yourid",:class => "form-control"
+
+    .form-group
+      %label.col-sm-2.control-label 
+        behance
+        %img{:height => '24px', :src => '/social_icons/behance.png'}
+      .col-sm-10
+        = f.text_field :behance, :placeholder => "https://www.behance.net/yourid",:class => "form-control"
+
     .actions
       %p.text-right
         = f.submit '登録', :class => "btn btn-primary"
