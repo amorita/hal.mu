@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160221132855) do
+ActiveRecord::Schema.define(version: 20160504144148) do
 
   create_table "ab_list", force: true do |t|
     t.string "part", limit: 5
@@ -297,10 +297,13 @@ ActiveRecord::Schema.define(version: 20160221132855) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "user_id"
+    t.integer  "member"
   end
 
   create_table "payees", force: true do |t|
+    t.string   "index"
     t.string   "name"
+    t.integer  "user_id"
     t.string   "net_banking_label"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -490,6 +493,29 @@ ActiveRecord::Schema.define(version: 20160221132855) do
     t.string   "bank_name"
     t.boolean  "retired",                           default: false
     t.string   "net_banking_label"
+    t.string   "disclosed_phone"
+    t.string   "mobile_mail"
+    t.string   "pc_mail"
+    t.string   "job"
+    t.string   "grad_school"
+    t.string   "major"
+    t.string   "favorite"
+    t.string   "facebook"
+    t.string   "twitter"
+    t.string   "mixi"
+    t.string   "github"
+    t.string   "googleplus"
+    t.string   "tumblr"
+    t.string   "linkedin"
+    t.string   "flickr"
+    t.string   "ameba"
+    t.string   "hatena"
+    t.string   "line"
+    t.string   "yelp"
+    t.string   "yahoo"
+    t.string   "bing"
+    t.string   "blogger"
+    t.string   "creativecloud"
   end
 
   create_table "v_fee_calcs", id: false, force: true do |t|
