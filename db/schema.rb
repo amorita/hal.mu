@@ -514,8 +514,11 @@ ActiveRecord::Schema.define(version: 20160504144148) do
     t.string   "yelp"
     t.string   "yahoo"
     t.string   "bing"
-    t.string   "blogger"
-    t.string   "creativecloud"
+    t.string   "instagram"
+    t.string   "behance"
+    t.string   "origin"
+    t.string   "blood"
+    t.date     "birthday"
   end
 
   create_table "v_fee_calcs", id: false, force: true do |t|
