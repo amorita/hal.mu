@@ -174,6 +174,7 @@
                         = user.family_name
                         %rt
                           = user.family_name_pron
+                        &nbsp;
                         = user.name
                         %rt
                           = user.name_pron
@@ -203,13 +204,13 @@
                     - unless user.mobile_mail.blank?
                       %p.text-center
                         %span.glyphicon.glyphicon-phone    
-                        %a{:href => 'mailto:' + user.mobile_mail, :style => 'text-overflow: ellipsis'}
+                        %a{:href => 'mailto:' + user.mobile_mail, :style => 'overflow: hidden; text-overflow: ellipsis'}
                           = user.mobile_mail
 
                     - unless user.pc_mail.blank?
                       %p.text-center
                         %span.glyphicon.glyphicon-envelope    
-                        %a{:href => 'mailto:' + user.pc_mail, :style => 'text-overflow: ellipsis'}
+                        %a{:href => 'mailto:' + user.pc_mail, :style => 'overflow: hidden; text-overflow: ellipsis'}
                           = user.pc_mail
 
                     - unless user.line.blank?
