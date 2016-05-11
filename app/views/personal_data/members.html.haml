@@ -191,23 +191,25 @@
                           = user.birthday.year.to_s + '年' + user.birthday.month.to_s + '月'
                         - unless user.blood.blank?
                           %span.glyphicon.glyphicon-tint
+                          &#8203;
                           = user.blood
 
                     - unless user.disclosed_phone.blank?
                       %p.text-center
                         %span.glyphicon.glyphicon-phone-alt   
-                        = user.disclosed_phone   
+                        %a{:href => 'tel:' + user.disclosed_phone}
+                          = user.disclosed_phone   
 
                     - unless user.mobile_mail.blank?
                       %p.text-center
                         %span.glyphicon.glyphicon-phone    
-                        %a{:href => 'mailto:' + user.mobile_mail}
+                        %a{:href => 'mailto:' + user.mobile_mail, :style => 'text-overflow: ellipsis'}
                           = user.mobile_mail
 
                     - unless user.pc_mail.blank?
                       %p.text-center
                         %span.glyphicon.glyphicon-envelope    
-                        %a{:href => 'mailto:' + user.pc_mail}
+                        %a{:href => 'mailto:' + user.pc_mail, :style => 'text-overflow: ellipsis'}
                           = user.pc_mail
 
                     - unless user.line.blank?
