@@ -174,10 +174,12 @@
                         = user.family_name
                         %rt
                           = user.family_name_pron
-                        &nbsp;
+                      = ' '
+                      %ruby
                         = user.name
-                        %rt
-                          = user.name_pron
+                        - unless user.name == user.name_pron
+                          %rt
+                            = user.name_pron
 
                     - unless user.origin.blank?
                       %p.text-center
@@ -202,15 +204,15 @@
                           = user.disclosed_phone   
 
                     - unless user.mobile_mail.blank?
-                      %p.text-center
+                      %p.text-center{:style => 'overflow: hidden; text-overflow: ellipsis'}
                         %span.glyphicon.glyphicon-phone    
-                        %a{:href => 'mailto:' + user.mobile_mail, :style => 'overflow: hidden; text-overflow: ellipsis'}
+                        %a{:href => 'mailto:' + user.mobile_mail}
                           = user.mobile_mail
 
                     - unless user.pc_mail.blank?
-                      %p.text-center
+                      %p.text-center{:style => 'overflow: hidden; text-overflow: ellipsis'}
                         %span.glyphicon.glyphicon-envelope    
-                        %a{:href => 'mailto:' + user.pc_mail, :style => 'overflow: hidden; text-overflow: ellipsis'}
+                        %a{:href => 'mailto:' + user.pc_mail}
                           = user.pc_mail
 
                     - unless user.line.blank?

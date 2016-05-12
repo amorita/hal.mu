@@ -122,6 +122,9 @@ end
   post 'ticket_reservations/update' => 'ticket_reservations#update'
   get 'ticket_reservations/list' => 'ticket_reservations#list'
   get 'ticket_reservations/receive' => 'ticket_reservations#receive'
+  get 'admins' => 'admins#index'
+  get 'guide' => 'guide#index'
+  get 'terms' => 'guide#terms'
 
   resources :mls
 

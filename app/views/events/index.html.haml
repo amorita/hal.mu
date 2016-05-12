@@ -2,13 +2,11 @@
 - if att.count > 0
   %h4 参加予定のイベント
   - att.each do |a|
-    %p &nbsp;
     %p
       = a.event.when.strftime("%m月%d日") + "(" + ["日", "月", "火", "水", "木", "金", "土"][a.event.when.wday] + ")"
       = a.event.title
       - if a.event.user_id != current_user.id
         = button_tag 'キャンセル', :type => 'button', :onclick => "javascript: $('#events').load('/events?mode=cancel&id=#{a.id}')", :class => 'btn btn-xs btn-danger'
-  %p &nbsp;
 %h4 この先のイベント
 - @future_events.each do |f|
   .bs-callout.bs-callout-default
@@ -20,7 +18,6 @@
         %a{:href => "#", :onclick => "javascript: $(this).toggle();$('#event-desc-#{f.id}').toggle();vg.vgrefresh(null, null, null); return false;"}
           %span.glyphicon.glyphicon-chevron-down
           詳細
-    %p &nbsp;
     - if !f.description.nil?
       .indent{:id => "event-desc-#{f.id}", :style => "display: none;"}
         = simple_format f.description
@@ -28,7 +25,6 @@
     %p
       お問い合わせ：
       = mail_to f.user.email, f.user.part.abbr.capitalize + '. ' + f.user.normal_name + 'さん'
-    %p &nbsp;
     %p
       参加予定：
       - names = []
@@ -62,6 +58,5 @@
               %i.fa.fa-camera
               by
               = album.user.normal_name + 'さん'
-    %p &nbsp;
 %p.text-right
   = link_to '>>イベントの新規作成', new_event_path, {:target => '_blank'}

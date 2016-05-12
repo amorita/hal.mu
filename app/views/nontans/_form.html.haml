@@ -5,9 +5,12 @@
       %ul
         - @nontan.errors.full_messages.each do |msg|
           %li= msg
+  %p
+    .bs-callout.bs-callout-danger
+      %h4
+        全ての項目に入力してください
+
   .form-group
-    %h4.bg-danger
-      全ての項目に入力してください
     %label.col-sm-2.control-label 対象日
     .col-sm-10
       = f.collection_select :practice_pln_id, PracticePlnSum.where('pln_date > curdate() - 1').order(:pln_date), :id, :text, {:prompt => "練習日を選択"}, {:class => "form-control", :required => 'true'}

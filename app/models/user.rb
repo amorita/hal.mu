@@ -50,4 +50,9 @@ class User < ActiveRecord::Base
     records = super
     records.where(:retired => false)
   end
+
+  def is_new
+    return self.created_at.present? && (self.created_at > 2.month.ago)
+  end
+
 end

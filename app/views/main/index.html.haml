@@ -5,7 +5,7 @@
     %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
     %meta{:content => "ja", "http-equiv" => "Content-Language"}/
     %meta{:content => "all", :name => "robots"}/
-    %title Orchestra HAL Official Website
+    %title OrchestraHAL団員専用
     %meta{:content => "", :name => "keywords"}/
     %meta{:content => "", :name => "description"}/
     %meta{:content => "text/css", "http-equiv" => "Content-Style-Type"}/
@@ -133,9 +133,11 @@
                       = current_user.nickname.nil? ? current_user.family_name + ' ' + current_user.name : current_user.nickname
                       さん！
                     %p このページは団員専用です。各種申請やファイルのダウンロード、練習の録音などを聴いたりできます。
-                    %p &nbsp;
                     = render 'fee'
                 .clear_box
+
+          - if current_user.is_new
+            = render 'tips'
 
           = render 'camp' 
           = render 'ticket'
@@ -212,6 +214,9 @@
                 %a{:href => "#", :onclick => "$('#fileupload').load('/sharedfiles/new'); $('#fileuploads').modal('show'); return false;"}
                   %img.img-responsive{:src => "/img/upload.png"}/
               .clear_box
+
+          - unless current_user.is_new
+            = render 'tips'
 
           -# 此処から先は権限で振り分け
           - if current_user.admin || current_user.part.user_id == current_user.id    

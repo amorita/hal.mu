@@ -1,88 +1,88 @@
 - parts = Part.all.order :id
 
-.container
-  %p
-    = button_to '欠席・遅刻・早退 登録', new_nontan_path, :class => "btn btn-danger", :method => "get"
-    %br
-    練習の内容は概要をクリック！
-    %br
-    = link_to 'スマホからの練習予定の参照について', '/aaa/intro'
-  - @plns.each do |pln|
-    %h2
-      - notifTime = DateTime.new (pln.pln_date - 1).year, (pln.pln_date - 1).month, (pln.pln_date - 1).day, 22, 0, 0, '+9'
-      = pln.pln_date.strftime "%m/%d"
-      - title = pln.practice_mode.name + ' ' + (pln.begining / 100).floor.to_s + ':' + pln.begining.to_s[-2, 2] + '〜' + (pln.ending / 100).floor.to_s + ':' + pln.ending.to_s[-2, 2]
-      - desc = pln.practice_place.place_name + ' ' + pln.room + "\n\n" + pln.description
-      = link_to pln.practice_mode.name + "@" + pln.practice_place.place_name,'javaScript:void(0)', :rel => 'popover', :class => 'btn btn-default', :'role' => 'button', :'data-toggle' => 'popover', :'data-placement' => 'bottom', :title => title, :'data-content' => simple_format(desc), :onclick => 'false'
-    .bs-callout.bs-callout-default
-      
-      - tmpPartId = 0
-      - if pln.nontans.length == 0
-        %tr
-          %td
-            .col-md-12
-              = "全員出席予定" 
-      - else
-        - parts.each do |part|
-          - nontans = Nontan.where(:practice_pln_id => pln.id).where(:part_id => part.id).where('user_id is not null')
-          - if nontans.length > 0
-            .inst-bg{:style => "background: url('/assets/" + part.abbr + ".png')"}
-              %h4= part.name
-              - nontans.each do |nontan|
-              
-                -# if
-                %table.table.col-md-12
-                  %tr
-                    %td
-                  
-                      - if nontan.created_at > notifTime
-                        .col-md-12.bg-danger
-                          %h4 お知らせ後新規登録
-                      - elsif nontan.updated_at > notifTime
-                        .col-md-12.bg-warning
-                          %h4 お知らせ後変更あり
-                      .col-md-3.col-xs-12.col-sm-4
-                        - longname = nontan.user.family_name + ' ' + nontan.user.name + "さん"
-                        = longname
-                        = nontan.subs_user_id.nil? ? "　" : "⇒ " + nontan.subs_user.family_name + ' ' + nontan.subs_user.name + "さん"
-                      - case nontan.nontan_class_id
-                        - when 2
-                          - time = nontan.time.strftime('%H:%M') + '～'
-                        - when 3
-                          - time = nontan.time.strftime('%H:%M')
-                        
-                      .col-md-2.hidden-xs.col-sm-3
-                        = nontan.nontan_class.name
-                        = time
-    
-                      .col-xs-3.visible-xs
-                        = nontan.nontan_class.name
-                        %div{:style => "font-size: 80%; color: #999999"}
-                          = time
-                      
-                      - if nontan.user_id == current_user.id  
-                        .col-sm-1.visible-sm
-                          = button_to '変更', edit_nontan_path(nontan), :class => "btn btn-info", :method => 'get', :class => 'btn btn-warning btn-xs'
-                          = button_to "削除", nontan, :method => :delete, :data => { :confirm => longname + '、やはりご出席ですね！承りました！' }, :class => 'btn btn-default btn-xs'
-    
-                      .col-md-6.col-xs-9.col-sm-12
-                        = nontan.reason
-
-                      - if nontan.user_id == current_user.id  
-                        .col-xs-12.visible-xs.text-right
-                          = button_to '変更', edit_nontan_path(nontan), :class => "btn btn-info", :method => 'get', :class => 'btn btn-warning btn-xs'
-                          = button_to "削除", nontan, :method => :delete, :data => { :confirm => longname + '、やはりご出席ですね！承りました！' }, :class => 'btn btn-info btn-xs'
-                        .col-sm-1.col-md-1.text-right.hidden-xs.hidden-sm
-                          = button_to '変更', edit_nontan_path(nontan), :class => "btn btn-info", :method => 'get', :class => 'btn btn-warning'
-                          = button_to "削除", nontan, :method => :delete, :data => { :confirm => longname + '、やはりご出席ですね！承りました！' }, :class => 'btn btn-default'
-                .clearfix
-    - if pln.mode == 20
-      .bs-callout.bs-callout-warning
-        %h4
-          ここより次期
-        %p
-          ここから下は次期以降の練習予定です。
-          %br
-          もちろん、登録することも可能です。
-            
+%h1 遅刻・欠席の登録・確認
+%p
   = button_to '欠席・遅刻・早退 登録', new_nontan_path, :class => "btn btn-danger", :method => "get"
+  %br
+  練習の内容は概要をクリック！
+  %br
+  = link_to 'スマホからの練習予定の参照について', '/aaa/intro'
+- @plns.each do |pln|
+  %h2
+    - notifTime = DateTime.new (pln.pln_date - 1).year, (pln.pln_date - 1).month, (pln.pln_date - 1).day, 22, 0, 0, '+9'
+    = pln.pln_date.strftime "%m/%d"
+    - title = pln.practice_mode.name + ' ' + (pln.begining / 100).floor.to_s + ':' + pln.begining.to_s[-2, 2] + '〜' + (pln.ending / 100).floor.to_s + ':' + pln.ending.to_s[-2, 2]
+    - desc = pln.practice_place.place_name + ' ' + pln.room + "\n\n" + pln.description
+    = link_to pln.practice_mode.name + "@" + pln.practice_place.place_name,'javaScript:void(0)', :rel => 'popover', :class => 'btn btn-default', :'role' => 'button', :'data-toggle' => 'popover', :'data-placement' => 'bottom', :title => title, :'data-content' => simple_format(desc), :onclick => 'false'
+  .bs-callout.bs-callout-default
+    
+    - tmpPartId = 0
+    - if pln.nontans.length == 0
+      %tr
+        %td
+          .col-md-12
+            = "全員出席予定" 
+    - else
+      - parts.each do |part|
+        - nontans = Nontan.where(:practice_pln_id => pln.id).where(:part_id => part.id).where('user_id is not null')
+        - if nontans.length > 0
+          .inst-bg{:style => "background: url('/assets/" + part.abbr + ".png')"}
+            %h4= part.name
+            - nontans.each do |nontan|
+            
+              -# if
+              %table.table.col-md-12
+                %tr
+                  %td
+                
+                    - if nontan.created_at > notifTime
+                      .col-md-12.bg-danger
+                        %h4 お知らせ後新規登録
+                    - elsif nontan.updated_at > notifTime
+                      .col-md-12.bg-warning
+                        %h4 お知らせ後変更あり
+                    .col-md-3.col-xs-12.col-sm-4
+                      - longname = nontan.user.family_name + ' ' + nontan.user.name + "さん"
+                      = longname
+                      = nontan.subs_user_id.nil? ? "　" : "⇒ " + nontan.subs_user.family_name + ' ' + nontan.subs_user.name + "さん"
+                    - case nontan.nontan_class_id
+                      - when 2
+                        - time = nontan.time.strftime('%H:%M') + '～'
+                      - when 3
+                        - time = nontan.time.strftime('%H:%M')
+                      
+                    .col-md-2.hidden-xs.col-sm-3
+                      = nontan.nontan_class.name
+                      = time
+  
+                    .col-xs-3.visible-xs
+                      = nontan.nontan_class.name
+                      %div{:style => "font-size: 80%; color: #999999"}
+                        = time
+                    
+                    - if nontan.user_id == current_user.id  
+                      .col-sm-1.visible-sm
+                        = button_to '変更', edit_nontan_path(nontan), :class => "btn btn-info", :method => 'get', :class => 'btn btn-warning btn-xs'
+                        = button_to "削除", nontan, :method => :delete, :data => { :confirm => longname + '、やはりご出席ですね！承りました！' }, :class => 'btn btn-default btn-xs'
+  
+                    .col-md-6.col-xs-9.col-sm-12
+                      = nontan.reason
+
+                    - if nontan.user_id == current_user.id  
+                      .col-xs-12.visible-xs.text-right
+                        = button_to '変更', edit_nontan_path(nontan), :class => "btn btn-info", :method => 'get', :class => 'btn btn-warning btn-xs'
+                        = button_to "削除", nontan, :method => :delete, :data => { :confirm => longname + '、やはりご出席ですね！承りました！' }, :class => 'btn btn-info btn-xs'
+                      .col-sm-1.col-md-1.text-right.hidden-xs.hidden-sm
+                        = button_to '変更', edit_nontan_path(nontan), :class => "btn btn-info", :method => 'get', :class => 'btn btn-warning'
+                        = button_to "削除", nontan, :method => :delete, :data => { :confirm => longname + '、やはりご出席ですね！承りました！' }, :class => 'btn btn-default'
+              .clearfix
+  - if pln.mode == 20
+    .bs-callout.bs-callout-warning
+      %h4
+        ここより次期
+      %p
+        ここから下は次期以降の練習予定です。
+        %br
+        もちろん、登録することも可能です。
+          
+= button_to '欠席・遅刻・早退 登録', new_nontan_path, :class => "btn btn-danger", :method => "get"

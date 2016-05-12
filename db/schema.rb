@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160504144148) do
+ActiveRecord::Schema.define(version: 20160512172706) do
 
   create_table "ab_list", force: true do |t|
     t.string "part", limit: 5
@@ -35,6 +35,14 @@ ActiveRecord::Schema.define(version: 20160504144148) do
     t.string   "code"
     t.string   "name"
     t.boolean  "is_debit"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "admin_responsibles", force: true do |t|
+    t.string   "name"
+    t.string   "description"
+    t.string   "admin_class", limit: 50
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -152,6 +160,13 @@ ActiveRecord::Schema.define(version: 20160504144148) do
     t.string   "conductor"
     t.string   "supporter"
     t.string   "ticket_url"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "constant_texts", force: true do |t|
+    t.string   "key"
+    t.text     "value"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -360,6 +375,7 @@ ActiveRecord::Schema.define(version: 20160504144148) do
     t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "helper"
   end
 
   create_table "result", id: false, force: true do |t|

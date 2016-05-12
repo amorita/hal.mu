@@ -1,0 +1,32 @@
+%h4 運営スタッフ
+- admins = AdminResponsible.where(:admin_class => 'admin').order(:id)
+- admins.each do |a|
+  %h5= a.description
+  - Responsible.where(:name => a.name).each do |r|
+    %li= r.user.formal_name
+
+%h4 補助スタッフ 
+- admins = AdminResponsible.where(:admin_class => 'helper').order(:id)
+- admins.each do |a|
+  %h5= a.description
+  - Responsible.where(:name => a.name).each do |r|
+    - if a.name == 'music_selection_helper'
+      %li= r.user.formal_name + ' (' + r.user.part.section + ')'
+    - else
+      %li= r.user.formal_name
+
+%h4 音楽スタッフ
+%h5 パートリーダー
+- Part.all.each do |p|
+  %li
+    = p.name + ':'
+    = p.user.formal_name
+- admins = AdminResponsible.where(:admin_class => 'music').order(:id)
+- admins.each do |a|
+  %h5= a.description
+  - Responsible.where(:name => a.name).each do |r|
+    - if a.name == 'section_leader'
+      %li= r.user.formal_name + ' (' + r.user.part.l_section + ')'
+    - else
+      %li= r.user.formal_name
+
