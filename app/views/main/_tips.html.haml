@@ -1,0 +1,30 @@
+.grid.col-md-4.col-sm-6
+  .borders
+    %row
+      .col-xs-12.nopadding
+        %img.img-responsive{:src => "/img/tips.png"}/
+      .clear_box
+
+      .grid_content.indent
+        .pad
+          - if current_user.is_new
+            %p
+              = current_user.normal_name
+              さん！OrchestraHALへようこそ。こちらでは便利機能などを紹介します。入団後2ヶ月はこちらに表示されます。
+
+          %p
+            %a{:href => '/aaa/intro', :target => '_blank'} 練習日程の参照
+            %br
+            %small.pad スマホからPCから、自動連携するカレンダーで便利に参照できます。
+
+          %p
+            %a{:href => '/guide', :target => '_blank'} OrchestraHAL 団員の手引
+            %br
+            %small.pad 団のルールや仕組みを記載しています。
+
+          %p
+            %a{:href => '/terms', :target => '_blank'} OrchestraHAL 団員規約
+            %br
+            %small.pad 団を運営、継続していくための拠り所です。
+
+      .clearfix

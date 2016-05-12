@@ -18,8 +18,10 @@
     .container
       .row
         .heading-container.col-md-12.col-sm-12
-          #heading_upper
+          #heading_upper.hidden-xs
             %img{:height => "220", :src => "/img/top_right.png", :width => "280"}/
+          #heading_upper.visible-xs.heading_upper_xs
+            %img{:height => "150", :src => "/img/top_right.png"}/
           .clear_box
       .ROW
         .col-md-12{:style => "background: #fff"}
