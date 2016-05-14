@@ -1,0 +1,87 @@
+.guide {
+  @c_border: #666; // border-color
+
+  hr {
+    margin: 50px 0;
+    background-color: transparent;
+    &:after{
+      content: "";
+      display: block;
+      border-top-style: ridge;
+    }
+  }
+  h1, h2, h3, h4, h5 {
+    font-weight: normal;
+    border-color: @c_border;
+  }
+  h1 {
+    font-size: 35px;
+    border: none;
+    margin: 30px auto;
+    text-align: center;
+    letter-spacing: 5px
+  }
+  h2 {
+    font-size: 25px;
+    letter-spacing: 3px;
+    margin: 50px auto 25px;
+  }
+  h3 {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    margin-left: 15px;
+
+  }
+
+  h4 {
+    font-size: 15px;
+    font-weight: bold;
+    margin-bottom: 10px
+    margin-left: 20px;
+  }
+
+  h5 {
+    font-size: 13px;
+    font-weight: bold;
+    margin-bottom: 10px
+    margin-left: 25px;
+  }
+
+  p, table, ul, ol, dl, pre, blockquote {
+    font-size: 13px;
+    margin-left: 25px;
+    ul, ol, dl {
+      margin-left: 0px;
+    }
+  }
+  table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    max-width: 800px;
+    th {
+      text-align: center;
+      background-color: #eee;
+      border-color: @c_border;
+    }
+    tr {
+      border-top: #666;
+    }
+    td {
+      border-color: @c_border;
+    }
+  }
+  .margin-clear {
+    margin-left: 0;
+  }
+  // テキストの中央揃え
+  .center {
+    text-align: center;
+    &:extend(.margin-clear);
+  }
+  // テキストの右寄せ
+  .right {
+    text-align: right;
+    &:extend(.margin-clear);
+  }
+}
