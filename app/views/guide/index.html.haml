@@ -1,6 +1,6 @@
 %h1 OrchestraHAL 団員の手引
-
-- markdown = Redcarpet::Markdown.new(Redcarpet::Render::HTML)
-= markdown.render(ConstantText.where(:key => 'guide_01').first.value).html_safe
-= render :template => 'admins/index'
-= markdown.render(ConstantText.where(:key => 'guide_02').first.value).html_safe
+.guide
+  - markdown = Redcarpet::Markdown.new(Redcarpet::Render::HTML)
+  = markdown.render(ConstantText.where(:key => 'guide_01').first.value).html_safe
+  = render :template => 'admins/index'
+  = markdown.render(ConstantText.where(:key => 'guide_02').first.value).html_safe

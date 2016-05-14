@@ -1,4 +1,4 @@
 %h1 OrchestraHAL 団員規約
-
-- markdown = Redcarpet::Markdown.new(Redcarpet::Render::HTML)
-= markdown.render(ConstantText.where(:key => 'terms').first.value).html_safe
+.guide
+  - markdown = Redcarpet::Markdown.new(Redcarpet::Render::HTML)
+  = markdown.render(ConstantText.where(:key => 'terms').first.value).html_safe
