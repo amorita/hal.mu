@@ -1,5 +1,5 @@
 .guide {
-  @c_border: #666; // border-color
+  $c_border: #666; // border-color
 
   hr {
     margin: 50px 0;
@@ -12,7 +12,7 @@
   }
   h1, h2, h3, h4, h5 {
     font-weight: normal;
-    border-color: @c_border;
+    border-color: $c_border;
   }
   h1 {
     font-size: 35px;
@@ -62,13 +62,13 @@
     th {
       text-align: center;
       background-color: #eee;
-      border-color: @c_border;
+      border-color: $c_border;
     }
     tr {
       border-top: #666;
     }
     td {
-      border-color: @c_border;
+      border-color: $c_border;
     }
   }
   .margin-clear {
