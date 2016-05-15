@@ -1,7 +1,6 @@
-.guide {
-  $c_border: #666; // border-color
 
-  hr {
+
+  .guide hr {
     margin: 50px 0;
     background-color: transparent;
     &:after{
@@ -10,23 +9,23 @@
       border-top-style: ridge;
     }
   }
-  h1, h2, h3, h4, h5 {
+  .guide h1, h2, h3, h4, h5 {
     font-weight: normal;
-    border-color: $c_border;
+    border-color: #666;
   }
-  h1 {
+  .guide h1 {
     font-size: 35px;
     border: none;
     margin: 30px auto;
     text-align: center;
     letter-spacing: 5px
   }
-  h2 {
+  .guide h2 {
     font-size: 25px;
     letter-spacing: 3px;
     margin: 50px auto 25px;
   }
-  h3 {
+  .guide h3 {
     font-size: 18px;
     font-weight: bold;
     margin-bottom: 10px;
@@ -34,54 +33,54 @@
 
   }
 
-  h4 {
+  .guide h4 {
     font-size: 15px;
     font-weight: bold;
-    margin-bottom: 10px
+    margin-bottom: 10px;
     margin-left: 20px;
   }
 
-  h5 {
+  .guide h5 {
     font-size: 13px;
     font-weight: bold;
-    margin-bottom: 10px
+    margin-bottom: 10px;
     margin-left: 25px;
   }
 
-  p, table, ul, ol, dl, pre, blockquote {
+  .guide p, table, ul, ol, dl, pre, blockquote {
     font-size: 13px;
     margin-left: 25px;
-    ul, ol, dl {
+    text-indent: 1em;
+}
+  .guide   ul, ol, dl {
       margin-left: 0px;
     }
-  }
-  table {
+  
+  .guide table {
     border-collapse: collapse;
     border-spacing: 0;
     max-width: 800px;
-    th {
+  .guide   th {
       text-align: center;
       background-color: #eee;
-      border-color: $c_border;
+      border-color: #666;
     }
-    tr {
+  .guide   tr {
       border-top: #666;
     }
-    td {
-      border-color: $c_border;
+  .guide   td {
+      border-color: #666;
     }
   }
-  .margin-clear {
+  .guide .margin-clear {
     margin-left: 0;
   }
-  // テキストの中央揃え
-  .center {
+  .guide .center {
     text-align: center;
     &:extend(.margin-clear);
   }
   // テキストの右寄せ
-  .right {
+  .guide .right {
     text-align: right;
     &:extend(.margin-clear);
   }
-}
