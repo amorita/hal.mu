@@ -163,7 +163,6 @@
                     .nopadding{:style => "position: absolute; z-index: 1;"}
                       %img{:src => "/img/members_" + user.part.abbr + ".png", :style => "height:50%; width:50%;z-index: 10;"}
                     %img.img-responsive.img-circle{:src => '/members/' + user.id.to_s + '.jpg', :onerror => 'this.src="/img/unavailable.png"'}
-                    %p &nbsp;
                     - unless user.nickname.blank?
                       %p.text-center
                         = user.nickname
@@ -190,122 +189,123 @@
                           - res << r.admin_responsible.description
                         = res.join "、"
 
-                    - unless user.origin.blank?
-                      %p.text-center
-                        %span.glyphicon.glyphicon-home  
-                        %a{:href => 'https://www.google.co.jp/maps/place/' + user.origin, :target => '_blank'}
-                          = user.origin
+                    .additional.small
+                      - unless user.origin.blank?
+                        %p.text-center
+                          %span.glyphicon.glyphicon-home  
+                          %a{:href => 'https://www.google.co.jp/maps/place/' + user.origin, :target => '_blank'}
+                            = user.origin
 
-                    - unless user.birthday.blank? && user.blood.blank?
-                      %p.text-center
-                        - unless user.birthday.blank?
-                          %i.fa.fa-birthday-cake
-                          = user.birthday.year.to_s + '年' + user.birthday.month.to_s + '月'
-                        - unless user.blood.blank?
-                          &#8203;
-                          %span.glyphicon.glyphicon-tint
-                          = user.blood
+                      - unless user.birthday.blank? && user.blood.blank?
+                        %p.text-center
+                          - unless user.birthday.blank?
+                            %i.fa.fa-birthday-cake
+                            = user.birthday.year.to_s + '年' + user.birthday.month.to_s + '月'
+                          - unless user.blood.blank?
+                            &#8203;
+                            %span.glyphicon.glyphicon-tint
+                            = user.blood
 
-                    - unless user.disclosed_phone.blank?
-                      %p.text-center
-                        %span.glyphicon.glyphicon-phone-alt   
-                        %a{:href => 'tel:' + user.disclosed_phone}
-                          = user.disclosed_phone   
+                      - unless user.disclosed_phone.blank?
+                        %p.text-center
+                          %span.glyphicon.glyphicon-phone-alt   
+                          %a{:href => 'tel:' + user.disclosed_phone}
+                            = user.disclosed_phone   
 
-                    - unless user.mobile_mail.blank?
-                      %p.text-center{:style => 'overflow: hidden; text-overflow: ellipsis'}
-                        %span.glyphicon.glyphicon-phone    
-                        %a{:href => 'mailto:' + user.mobile_mail}
-                          = user.mobile_mail
+                      - unless user.mobile_mail.blank?
+                        %p.text-center{:style => 'overflow: hidden; text-overflow: ellipsis'}
+                          %span.glyphicon.glyphicon-phone    
+                          %a{:href => 'mailto:' + user.mobile_mail}
+                            = user.mobile_mail
 
-                    - unless user.pc_mail.blank?
-                      %p.text-center{:style => 'overflow: hidden; text-overflow: ellipsis'}
-                        %span.glyphicon.glyphicon-envelope    
-                        %a{:href => 'mailto:' + user.pc_mail}
-                          = user.pc_mail
+                      - unless user.pc_mail.blank?
+                        %p.text-center{:style => 'overflow: hidden; text-overflow: ellipsis'}
+                          %span.glyphicon.glyphicon-envelope    
+                          %a{:href => 'mailto:' + user.pc_mail}
+                            = user.pc_mail
 
-                    - unless user.line.blank?
-                      %p.text-center{:style => 'word-wrap: break-word'}
-                        %img{:src => "/social_icons/line.png", :height => '16px'}
-                        = user.line
+                      - unless user.line.blank?
+                        %p.text-center{:style => 'word-wrap: break-word'}
+                          %img{:src => "/social_icons/line.png", :height => '16px'}
+                          = user.line
 
-                    - unless user.job.blank?
-                      %p.text-center
-                        %span.glyphicon.glyphicon-briefcase
-                        = user.job
+                      - unless user.job.blank?
+                        %p.text-center
+                          %span.glyphicon.glyphicon-briefcase
+                          = user.job
 
-                    - unless user.grad_school.blank?
-                      %p.text-center
-                        %span.glyphicon.glyphicon-education   
-                        = user.grad_school
+                      - unless user.grad_school.blank?
+                        %p.text-center
+                          %span.glyphicon.glyphicon-education   
+                          = user.grad_school
 
-                    - unless user.major.blank?
-                      %p.text-center
-                        %span.glyphicon.glyphicon-book
-                        = user.major
+                      - unless user.major.blank?
+                        %p.text-center
+                          %span.glyphicon.glyphicon-book
+                          = user.major
 
-                    - unless user.favorite.blank?
-                      %p.text-center
-                        %span.glyphicon.glyphicon-heart
-                        = user.favorite
+                      - unless user.favorite.blank?
+                        %p.text-center
+                          %span.glyphicon.glyphicon-heart
+                          = user.favorite
 
-                    %p.socials.text-center
-                      - unless user.facebook.blank?
-                        %a{:href => user.facebook, :target => '_blank'}
-                          %img{:src => '/social_icons/facebook.png', :height => '24px'}
+                      %p.socials.text-center
+                        - unless user.facebook.blank?
+                          %a{:href => user.facebook, :target => '_blank'}
+                            %img{:src => '/social_icons/facebook.png', :height => '24px'}
 
-                      - unless user.twitter.blank?
-                        %a{:href => user.twitter, :target => '_blank'}
-                          %img{:src => '/social_icons/twitter.png', :height => '24px'}
+                        - unless user.twitter.blank?
+                          %a{:href => user.twitter, :target => '_blank'}
+                            %img{:src => '/social_icons/twitter.png', :height => '24px'}
 
-                      - unless user.mixi.blank?
-                        %a{:href => user.mixi, :target => '_blank'}
-                          %img{:src => '/social_icons/mixi.png', :height => '24px'}
+                        - unless user.mixi.blank?
+                          %a{:href => user.mixi, :target => '_blank'}
+                            %img{:src => '/social_icons/mixi.png', :height => '24px'}
 
-                      - unless user.github.blank?
-                        %a{:href => user.github, :target => '_blank'}
-                          %img{:src => '/social_icons/github.png', :height => '24px'}
+                        - unless user.github.blank?
+                          %a{:href => user.github, :target => '_blank'}
+                            %img{:src => '/social_icons/github.png', :height => '24px'}
 
-                      - unless user.googleplus.blank?
-                        %a{:href => user.googleplus, :target => '_blank'}
-                          %img{:src => '/social_icons/googleplus.png', :height => '24px'}
+                        - unless user.googleplus.blank?
+                          %a{:href => user.googleplus, :target => '_blank'}
+                            %img{:src => '/social_icons/googleplus.png', :height => '24px'}
 
-                      - unless user.tumblr.blank?
-                        %a{:href => user.tumblr, :target => '_blank'}
-                          %img{:src => '/social_icons/tumblr.png', :height => '24px'}
+                        - unless user.tumblr.blank?
+                          %a{:href => user.tumblr, :target => '_blank'}
+                            %img{:src => '/social_icons/tumblr.png', :height => '24px'}
 
-                      - unless user.linkedin.blank?
-                        %a{:href => user.linkedin, :target => '_blank'}
-                          %img{:src => '/social_icons/linkedin.png', :height => '24px'}
+                        - unless user.linkedin.blank?
+                          %a{:href => user.linkedin, :target => '_blank'}
+                            %img{:src => '/social_icons/linkedin.png', :height => '24px'}
 
-                      - unless user.flickr.blank?
-                        %a{:href => user.flickr, :target => '_blank'}
-                          %img{:src => '/social_icons/flickr.png', :height => '24px'}
+                        - unless user.flickr.blank?
+                          %a{:href => user.flickr, :target => '_blank'}
+                            %img{:src => '/social_icons/flickr.png', :height => '24px'}
 
-                      - unless user.ameba.blank?
-                        %a{:href => user.ameba, :target => '_blank'}
-                          %img{:src => '/social_icons/ameba.png', :height => '24px'}
+                        - unless user.ameba.blank?
+                          %a{:href => user.ameba, :target => '_blank'}
+                            %img{:src => '/social_icons/ameba.png', :height => '24px'}
 
-                      - unless user.hatena.blank?
-                        %a{:href => user.hatena, :target => '_blank'}
-                          %img{:src => '/social_icons/hatena.png', :height => '24px'}
+                        - unless user.hatena.blank?
+                          %a{:href => user.hatena, :target => '_blank'}
+                            %img{:src => '/social_icons/hatena.png', :height => '24px'}
 
-                      - unless user.yelp.blank?
-                        %a{:href => user.yelp, :target => '_blank'}
-                          %img{:src => '/social_icons/yelp.png', :height => '24px'}
+                        - unless user.yelp.blank?
+                          %a{:href => user.yelp, :target => '_blank'}
+                            %img{:src => '/social_icons/yelp.png', :height => '24px'}
 
-                      - unless user.yahoo.blank?
-                        %a{:href => user.yahoo, :target => '_blank'}
-                          %img{:src => '/social_icons/yahoo.png', :height => '24px'}
+                        - unless user.yahoo.blank?
+                          %a{:href => user.yahoo, :target => '_blank'}
+                            %img{:src => '/social_icons/yahoo.png', :height => '24px'}
 
-                      - unless user.instagram.blank?
-                        %a{:href => user.instagram, :target => '_blank'}
-                          %img{:src => '/social_icons/instagram.png', :height => '24px'}
+                        - unless user.instagram.blank?
+                          %a{:href => user.instagram, :target => '_blank'}
+                            %img{:src => '/social_icons/instagram.png', :height => '24px'}
 
-                      - unless user.behance.blank?
-                        %a{:href => user.behance, :target => '_blank'}
-                          %img{:src => '/social_icons/behance.png', :height => '24px'}
-                    
+                        - unless user.behance.blank?
+                          %a{:href => user.behance, :target => '_blank'}
+                            %img{:src => '/social_icons/behance.png', :height => '24px'}
+                      .clearfix
                     .clearfix
                   .clearfix
                 .clearfix
