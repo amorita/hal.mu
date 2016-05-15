@@ -181,6 +181,15 @@
                           %rt
                             = user.name_pron
 
+                    -# 役職
+                    - if user.responsibles.count > 0
+                      %p.text-center
+                        %span.glyphicon.glyphicon-flag
+                        - res = []
+                        - user.responsibles.each do |r|
+                          - res << r.admin_responsible.description
+                        = res.join "、"
+
                     - unless user.origin.blank?
                       %p.text-center
                         %span.glyphicon.glyphicon-home  

@@ -3,6 +3,8 @@ class User < ActiveRecord::Base
   belongs_to :part
 
   has_many :social_profiles, dependent: :destroy
+  has_many :responsibles
+  
   def social_profile(provider)
     social_profiles.select{ |sp| sp.provider == provider.to_s }.first
   end
