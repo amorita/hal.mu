@@ -14,31 +14,41 @@
           全ての項目に入力してください
 
     .form-group
-      %label.col-sm-2.col-xs-12.control-label  名前
+      %label.col-sm-2.col-xs-12.control-label  
+        名前
+        %span.small.text-danger *
       .col-xs-6.col-sm-5
         = f.text_field :family_name, :placeholder => "姓",:class => "form-control", :required => 'true'
       .col-xs-6.col-sm-5
         = f.text_field :name, :placeholder => "名",:class => "form-control", :required => 'true'
 
     .form-group
-      %label.col-sm-2.col-xs-12.control-label  名前(よみ)
+      %label.col-sm-2.col-xs-12.control-label
+        名前(よみ)
+        %span.small.text-danger *
       .col-xs-6.col-sm-5
         = f.text_field :family_name_pron, :placeholder => "せい",:class => "form-control", :required => 'true'
       .col-xs-6.col-sm-5
         = f.text_field :name_pron, :placeholder => "めい",:class => "form-control", :required => 'true'
 
     .form-group
-      %label.col-sm-2.control-label 生年月日
+      %label.col-sm-2.control-label
+        生年月日
+        %span.small.text-danger *
       .col-sm-10
         = f.date_field :birth_date, :class => "form-control", :required => 'true'
 
     .form-group
-      %label.col-sm-2.control-label パート
+      %label.col-sm-2.control-label
+        パート
+        %span.small.text-danger *
       .col-sm-10
         = f.collection_select :part_id, Part.all, :id, :name, {:prompt => "パート"}, {:class => "form-control part_select", :required => 'true'}
 
     .form-group
-      %label.col-sm-2.control-label 区分
+      %label.col-sm-2.control-label
+        区分
+        %span.small.text-danger *
       .col-sm-10
         = f.select :worker, [['社会人','true'],['学生','false']], {}, :class => "form-control part_select"
 
@@ -48,7 +58,9 @@
         = f.text_field :school, :placeholder => "学校名(学生のみ)",:class => "form-control"
 
     .form-group
-      %label.col-sm-2.control-label  メールアドレス
+      %label.col-sm-2.control-label
+        メールアドレス
+        %span.small.text-danger *
       .col-sm-10
         = f.text_field :email, :placeholder => "メールアドレス",:class => "form-control", :required => 'true'
 
@@ -58,12 +70,16 @@
         = f.text_field :email2, :placeholder => "メールアドレス2",:class => "form-control"
 
     .form-group
-      %label.col-sm-2.control-label  電話番号
+      %label.col-sm-2.control-label
+        電話番号
+        %span.small.text-danger *
       .col-sm-10
         = f.text_field :phone, :placeholder => "電話番号",:class => "form-control", :required => 'true'
 
     .form-group
-      %label.col-sm-2.control-label  郵便番号
+      %label.col-sm-2.control-label
+        郵便番号
+        %span.small.text-danger *
       .col-sm-10
         = f.text_field :zip_code, :placeholder => "123-4567",:class => "form-control", :required => 'true'
 
@@ -77,7 +93,9 @@
         
 
     .form-group
-      %label.col-sm-2.control-label  番地
+      %label.col-sm-2.control-label
+        番地
+        %span.small.text-danger *
       .col-sm-10
         = f.text_field :address, :placeholder => "1-3",:class => "form-control", :required => 'true'
 
