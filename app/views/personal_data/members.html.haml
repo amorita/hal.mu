@@ -122,7 +122,8 @@
                 %img.img-responsive{:src => "/img/newcomers.png"}/
               .clear_box
 
-          - @new_users.each do |@user|
+          - @new_users.each do |user|
+            - @user = user
             .grid.col-md-3.col-sm-4.col-xs-6
               .borders
                 .grid_content
@@ -136,7 +137,8 @@
                 %img.img-responsive{:src => "/img/members.png"}/
               .clear_box
 
-          - @users.each do |@user|
+          - @users.each do |user|
+            - @user = user
             .grid.col-md-3.col-sm-4.col-xs-6
               .borders
                 .grid_content
