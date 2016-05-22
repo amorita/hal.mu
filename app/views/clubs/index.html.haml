@@ -5,7 +5,7 @@
     %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
     %meta{:content => "ja", "http-equiv" => "Content-Language"}/
     %meta{:content => "all", :name => "robots"}/
-    %title メンバー一覧
+    %title 部活動
     %meta{:content => "", :name => "keywords"}/
     %meta{:content => "", :name => "description"}/
     %meta{:content => "text/css", "http-equiv" => "Content-Style-Type"}/
@@ -110,37 +110,29 @@
       .row
         .heading-container.col-md-12.col-sm-12
           #heading_upper.hidden-xs
-            %img{:height => "220", :src => "/img/top_members.png", :width => "280"}/
+            %img{:height => "220", :src => "/img/top_clubs.png", :width => "280"}/
           #heading_upper.visible-xs.heading_upper_xs
-            %img{:height => "150", :src => "/img/top_members.png"}/
+            %img{:height => "150", :src => "/img/top_clubs.png"}/
           .clear_box
       .row
         #grid-content.col-md-12.nopadding
-          .grid.col-md-3.col-sm-8.col-xs-12
+          .grid.col-md-4.col-sm-6
             .borders
               .col-xs-12.nopadding
-                %img.img-responsive{:src => "/img/newcomers.png"}/
+                %img.img-responsive{:src => "/img/club.png"}/
               .clear_box
 
-          - @new_users.each do |@user|
-            .grid.col-md-3.col-sm-4.col-xs-6
+          - @clubs.each do |club|
+            .grid.col-md-4.col-sm-6
               .borders
-                .grid_content
-                  = render 'info'
-                .clearfix
-              .clearfix
+                %row
+                  .col-xs-12.nopadding
+                    %img.img-responsive{:src => "/img/clubs/" + club.code + ".jpg"}/
+                  .grid_content.indent
+                    .pad
+                      %h4= club.name 
+                      %p= club.description
+                      %p= "部長: #{club.user.normal_name}さん"
+                  .clear_box
 
-          .grid.col-md-3.col-sm-8.col-xs-12
-            .borders
-              .col-xs-12.nopadding
-                %img.img-responsive{:src => "/img/members.png"}/
-              .clear_box
-
-          - @users.each do |@user|
-            .grid.col-md-3.col-sm-4.col-xs-6
-              .borders
-                .grid_content
-                  = render 'info'
-                .clearfix
-              .clearfix
 
