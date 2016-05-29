@@ -174,13 +174,19 @@ end
     end
 
     if app.application_type == 'join'
-      # 繰越情報の作成
+      # 繰越情報の作成、エラーの回避
       trans = AccountTransaction.new
       trans.user_id = app.user_id
       trans.amount = 0
       trans.transaction_type = 'carryover'
       trans.posted_at = FeeCutoff.all.order('cutoff_date desc').first.cutoff_date + 1
       trans.save!
+
+      monthly_fee = MonthlyFee.new 
+      monthly_fee.year = Date.today.year
+      monthly_fee.month = Date.today.month
+      monthly_fee.user_id = app.user.id
+      monthly_fee.save!
     end
 
     for month in range do
