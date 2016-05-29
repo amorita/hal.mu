@@ -44,4 +44,7 @@
   %span.text-danger= number_to_currency(diff * -1, :format => "%n%u", :unit => "円", :precision => 0)
   お支払いください！
 .text-right
-  = link_to '>>全体の団費納入状況', '/fees', {:target => '_blank'}
+  %p= link_to '>>全体の団費納入状況', '/fees', {:target => '_blank'}
+  %p{:onclick => 'loadPayee()'} >>団費振込先
+  #payee
+
