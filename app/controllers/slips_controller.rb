@@ -36,21 +36,23 @@ class SlipsController < ApplicationController
 
   def create
     @slip = Slip.new(slip_params)
-    v_keys = slip_params[:vouchers_attributes].keys
-    @slip.vouchers.each_with_index do |v, idx|
-      if !slip_params[:vouchers_attributes][v_keys[idx]][:file_path]
-        v = nil
-        next
+    if slip_params[:vouchers_attributes].keys
+      v_keys = slip_params[:vouchers_attributes].keys
+      @slip.vouchers.each_with_index do |v, idx|
+        if !slip_params[:vouchers_attributes][v_keys[idx]][:file_path]
+          v = nil
+          next
+        end
+        file = slip_params[:vouchers_attributes][v_keys[idx]][:file_path]
+        ext = File.extname(file.original_filename)
+        filename = Date.today().day.to_s + '-' + SecureRandom.hex(16) + ext
+        dir = Date.today().year.to_s + '/' + Date.today().month.to_s
+        `mkdir /home/yu/rails/hal.mu/public/vouchers/#{dir} -p`
+        File.open("/home/yu/rails/hal.mu/public/vouchers/#{dir}/#{filename}", 'wb') { |f|
+          f.write(file.read)
+        }
+        v.file_path = "#{dir}/#{filename}"
       end
-      file = slip_params[:vouchers_attributes][v_keys[idx]][:file_path]
-      ext = File.extname(file.original_filename)
-      filename = Date.today().day.to_s + '-' + SecureRandom.hex(16) + ext
-      dir = Date.today().year.to_s + '/' + Date.today().month.to_s
-      `mkdir /home/yu/rails/hal.mu/public/vouchers/#{dir} -p`
-      File.open("/home/yu/rails/hal.mu/public/vouchers/#{dir}/#{filename}", 'wb') { |f|
-        f.write(file.read)
-      }
-      v.file_path = "#{dir}/#{filename}"
     end
     amount = 0
     @slip.slip_dtls.each do |dtl|
