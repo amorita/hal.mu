@@ -36,7 +36,7 @@ class SlipsController < ApplicationController
 
   def create
     @slip = Slip.new(slip_params)
-    if slip_params[:vouchers_attributes].keys
+    if slip_params[:vouchers_attributes]
       v_keys = slip_params[:vouchers_attributes].keys
       @slip.vouchers.each_with_index do |v, idx|
         if !slip_params[:vouchers_attributes][v_keys[idx]][:file_path]
