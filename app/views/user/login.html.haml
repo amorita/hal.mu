@@ -120,10 +120,8 @@
                 .grid_content.indent
                   .pad
                     %p ログインに使用するサービスを選択してください。すでにログインしたことのある方は同じサービスを選択してください。
-                    %p &nbsp;
-
+                   
                     .social-buttons.hidden-xs{:style => 'text-indent: initial'}
-                      %p &nbsp;
                       %a.btn.btn-lg.btn-block.btn-social.btn-facebook{:href => '/user/auth/facebook'}
                         %i.fa.fa-facebook
                         facebookでログイン
@@ -156,7 +154,6 @@
                         mixiでログイン
 
                     .social-buttons.visible-xs{:style => 'text-indent: initial'}
-                      %p &nbsp;
                       %a.btn.btn-lg.btn-social-icon.btn-facebook{:href => '/user/auth/facebook'}
                         %i.fa.fa-facebook
                       %a.btn.btn-lg.btn-social-icon.btn-twitter{:href => '/user/auth/twitter'}
