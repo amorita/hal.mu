@@ -26,6 +26,7 @@
         - if count > 0
           = "(" + count.to_s + ")"
       %td
+        - member = p.concern_absence ? (p.member - count) : p.member
         - if p.member > p.users.count
           %span.text-danger 募集中
         - else
