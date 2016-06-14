@@ -1,6 +1,6 @@
 %link{:rel=> "stylesheet", :href => "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css"}
 %h1 合宿参加登録状況
-- camp = Camp.where('first_poll_start_at <= current_date() and current_date() < end_date').first
+- camp = Camp.order('start_date desc').first
 - total = []
 %table.table
   %tr
