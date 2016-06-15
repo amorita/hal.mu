@@ -1,14 +1,20 @@
+- camp = Camp.order('start_date desc').first
 %h1 合宿出欠
 %h4 保存しました
 %p
   .bs-callout.bs-callout-info
     %h4 参加費用(△は含まない)
     - amount = 0
+    - day_trip = true
     - sections = CampSection.all.each do |sec|
       - if @camp_att.send(('section_' + sec.id.to_s).to_sym) == 1
         - amount += sec.amount
+        - if sec.stay
+          - day_trip = false
     = current_user.normal_name + 'さんは'
     %big
+      - if day_trip && @camp_att.attends?
+        - amount += camp.day_trip_fee
       = number_to_currency(amount, :format => "%n%u", :unit => "円", :precision => 0)
     です。
 

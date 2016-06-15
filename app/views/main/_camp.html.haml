@@ -39,7 +39,7 @@
                     - if sec.stay
                       - day_trip = false
                 %big
-                  - if day_trip
+                  - if day_trip && camp_att.attends?
                     - amount += camp.day_trip_fee
                   = number_to_currency(amount, :format => "%n%u", :unit => "円", :precision => 0)
                 です。
