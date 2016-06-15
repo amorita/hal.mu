@@ -30,6 +30,7 @@
         - else
           %td{:colspan => 3 + sections.count}
     - att = CampAttendance.where(:user_id => user.id).first
+    - day_trip = true
     - if att.nil?
       - bg = 'bg-danger'
     - elsif att.updated_at < camp.final_poll_start_at
@@ -61,8 +62,12 @@
               = button_tag '◯', :class => 'btn btn-xs btn-primary campradio active', :title => sec.title
               - amount += sec.amount
               - total[sec.id] += 1
+              - if sec.stay
+                - day_trip = false
       - if is_granted :camping_coordinator
         %td.text-right
+          - if day_trip
+            - amount += camp.day_trip_fee
           = number_to_currency(amount, :format => "%n%u", :unit => "", :precision => 0)
           - total[(sections.count) + 1] += amount
   %tr.bg-info

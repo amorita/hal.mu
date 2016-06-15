@@ -1,7 +1,7 @@
 %h1 合宿出欠登録・編集
-- camp = Camp.where('first_poll_start_at <= current_date() and current_date() < end_date').first
+- camp = Camp.order('start_date desc').first
+-# camp = Camp.where('first_poll_start_at <= current_date() and current_date() < end_date').first
 %p
-  - p @camp_att
   = form_for @camp_att, :html => {:class => "form-horizontal"} do |f|
     - if @camp_att.errors.any?
       #error_explanation
