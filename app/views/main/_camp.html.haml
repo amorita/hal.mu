@@ -57,14 +57,14 @@
                       - sections.each do |sec|
                         - case camp_att.send(('section_' + sec.id.to_s).to_sym)
                         - when 0
-                          %button.btn.btn-xs.btn-danger.campradio.active
-                            %i.fa.hidden-ms.hidden-xs.hidden-sm{:class => sec.fa_class}
+                          %button.btn.btn-xs.btn-danger.campradio.active.nopadding{:style => "height: 1.4em; width: 1.4em"}
+                            %i.fa{:class => sec.fa_class, :style => "font-size: 0.8em"}
                         - when 2
-                          %button.btn.btn-xs.btn-warning.campradio.active
-                            %i.fa.hidden-ms.hidden-xs.hidden-sm{:class => sec.fa_class}
+                          %button.btn.btn-xs.btn-warning.campradio.active.nopadding{:style => "height: 1.4em; width: 1.4em"}
+                            %i.fa{:class => sec.fa_class, :style => "font-size: 0.8em"}
                         - else
-                          %button.btn.btn-xs.btn-primary.campradio.active
-                            %i.fa.hidden-ms.hidden-xs.hidden-sm{:class => sec.fa_class}
+                          %button.btn.btn-xs.btn-primary.campradio.active.nopadding{:style => "height: 1.4em; width: 1.4em"}
+                            %i.fa{:class => sec.fa_class, :style => "font-size: 0.8em"}
             - elsif
               - changeable = true
               %p.big.test-danger
