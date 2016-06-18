@@ -125,6 +125,7 @@ end
   get 'admins' => 'admins#index'
   get 'guide' => 'guide#index'
   get 'terms' => 'guide#terms'
+  get 'clubs' => 'clubs#index'
 
   resources :mls
 
