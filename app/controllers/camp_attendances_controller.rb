@@ -2,6 +2,14 @@ class CampAttendancesController < ApplicationController
 layout 'priv'
 before_filter :authenticate_user!
 def edit
+  if is_granted :camping_coordinator
+    @camp_att = Slip.find(params[:id])
+  else
+    redirect_to :action => 'show'
+  end
+end
+
+def edit_self
   @camp_att = CampAttendance.where(:user_id => current_user).first
   if @camp_att.nil?
     @camp_att = CampAttendance.new

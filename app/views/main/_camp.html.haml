@@ -68,7 +68,7 @@
                 登録されていません！登録してください。
             - if changeable
               %p.text-right
-                %a{:href => '/camp_attendances/0/edit', :method => 'get', :class => 'btn btn-sm btn-primary', :target => '_blank'}登録・変更
+                %a{:href => '/camp_attendances/edit_self', :method => 'get', :class => 'btn btn-sm btn-primary', :target => '_blank'}登録・変更
             %p.text-right
               = link_to '>>みんなの合宿参加予定', '/camp_attendances', {:target => '_blank'}
         .clear_box

@@ -92,7 +92,11 @@ end
     end
   end
 
-  resources :camp_attendances
+  resources :camp_attendances do
+    collection do
+      get 'edit_self'
+    end
+  end
 
   resources :personal_data do
     collection do
