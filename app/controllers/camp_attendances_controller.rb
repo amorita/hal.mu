@@ -2,8 +2,8 @@ class CampAttendancesController < ApplicationController
 layout 'priv'
 before_filter :authenticate_user!
 def edit
-  if is_granted :camping_coordinator
-    @camp_att = Slip.find(params[:id])
+  if view_context.is_granted :camping_coordinator
+    @camp_att = CampAttendance.find(params[:id])
   else
     redirect_to :action => 'show'
   end

@@ -57,11 +57,14 @@
                       - sections.each do |sec|
                         - case camp_att.send(('section_' + sec.id.to_s).to_sym)
                         - when 0
-                          = button_tag '×', :class => 'btn btn-xs btn-danger campradio active', :title => sec.title
+                          %button.btn.btn-xs.btn-danger.campradio.active
+                            %i.fa.hidden-ms.hidden-xs.hidden-sm{:class => sec.fa_class}
                         - when 2
-                          = button_tag '△', :class => 'btn btn-xs btn-warning campradio active', :title => sec.title
+                          %button.btn.btn-xs.btn-warning.campradio.active
+                            %i.fa.hidden-ms.hidden-xs.hidden-sm{:class => sec.fa_class}
                         - else
-                          = button_tag '◯', :class => 'btn btn-xs btn-primary campradio active', :title => sec.title
+                          %button.btn.btn-xs.btn-primary.campradio.active
+                            %i.fa.hidden-ms.hidden-xs.hidden-sm{:class => sec.fa_class}
             - elsif
               - changeable = true
               %p.big.test-danger
