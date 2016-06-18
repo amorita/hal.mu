@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160517161242) do
+ActiveRecord::Schema.define(version: 20160615134051) do
 
   create_table "ab_list", force: true do |t|
     t.string "part", limit: 5
@@ -126,6 +126,7 @@ ActiveRecord::Schema.define(version: 20160517161242) do
     t.time     "end_at"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "stay"
   end
 
   create_table "camps", force: true do |t|
@@ -135,6 +136,16 @@ ActiveRecord::Schema.define(version: 20160517161242) do
     t.date     "fiest_poll_end_at"
     t.date     "final_poll_start_at"
     t.date     "final_poll_end_at"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "day_trip_fee"
+  end
+
+  create_table "clubs", force: true do |t|
+    t.string   "name"
+    t.text     "description"
+    t.string   "code"
+    t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -238,6 +249,7 @@ ActiveRecord::Schema.define(version: 20160517161242) do
     t.date     "invite_until"
     t.integer  "alert_days_before"
     t.date     "ends_at"
+    t.integer  "club_id"
   end
 
   create_table "fee_amounts", force: true do |t|
@@ -313,6 +325,7 @@ ActiveRecord::Schema.define(version: 20160517161242) do
     t.datetime "updated_at"
     t.integer  "user_id"
     t.integer  "member"
+    t.boolean  "concern_absence", default: true
   end
 
   create_table "payees", force: true do |t|
