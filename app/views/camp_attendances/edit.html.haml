@@ -7,6 +7,11 @@
       合宿日帰りの場合は別途
       = number_to_currency(camp.day_trip_fee, :format => "%n%u", :unit => "円", :precision => 0)
       が施設使用料としてかかります。
+    - if @camp_att.user_id != current_user.id
+      .bs-callout.bs-callout-danger
+        %h4= @camp_att.user.long_name + "さん"
+        合宿参加予定代理編集
+      
   = form_for @camp_att, :html => {:class => "form-horizontal"} do |f|
     - if @camp_att.errors.any?
       #error_explanation

@@ -84,10 +84,6 @@
               - if sec.stay
                 - day_trip = false
 
-    
-
-
-
       - if is_granted :camping_coordinator
         .col-xs-2.text-right.nopadding
           - if att.present? && day_trip && att.attends?
@@ -95,10 +91,19 @@
           = number_to_currency(amount, :format => "%n%u", :unit => "", :precision => 0)
           - total[(sections.count) + 1] += amount
         .col-xs-1.nopadding.text-center
-          = button_tag '訂', :class => 'btn btn-xs btn-info active', :title => "参加予定の変更", :style => "width: 18px; height: 18px; font-size: 12px; padding: 0;"
+          - if att.present?
+            = button_to '訂', edit_camp_attendance_path(att), :class => "btn btn-xs btn-info active", :method => 'get', :style => "width: 18px; height: 18px; font-size: 12px; padding: 0;"
+
+    - if is_granted(:camping_coordinator) && att.present? && att.memo.present?
+      .row{:style => "display: flex; flex-direction: row; flex-wrap: nowrap;", :class => bg}
+        .col-xs-2
+        .small.col-xs-10
+          = att.memo
+
+
   .row.bg-info.hidden-ms.hidden-xs.hidden-sm.hidden-md{:style => "display: flex; flex-direction: row; flex-wrap: nowrap;"}
     .col-xs-5 合計
-    %div{:class => section_class, :style => "display: flex; flex-direction: row; flex-wrap: nowrap;"}
+    %div.nopadding{:class => section_class, :style => "display: flex; flex-direction: row; flex-wrap: nowrap;"}
       - sections.each do |sec|
         .text-center{:style => "width: 100%"}= total[sec.id].to_s
     - if is_granted :camping_coordinator
@@ -118,22 +123,26 @@
       .col-xs-2 参加費
       .col-xs-1 変更
 
-.bs-callout
-  %h4 集計情報
-  %p
-    %table.table{:style => "margin: 0;"}
-      %tr
-        %th セクション
-        %th 人数
-      - sections.each do |sec|
+- if is_granted :camping_coordinator
+  .bs-callout
+    %h4 集計情報
+    %p
+      %table.table{:style => "margin: 0;"}
         %tr
-          %td
-            = sec.pln_date.day.to_s + "日"
-            = sec.title
-          %td.text-right= total[sec.id].to_s
+          %th セクション
+          %th 人数
+        - sections.each do |sec|
+          %tr
+            %td
+              = sec.pln_date.day.to_s + "日"
+              = sec.title
+            %td.text-right= total[sec.id].to_s
 
-  %h4 合計金額
-  .large.text-right= number_to_currency(total[(sections.count) + 1].to_s, :format => "%n%u", :unit => "", :precision => 0)  
+    %h4 合計金額
+    .large.text-right= number_to_currency(total[(sections.count) + 1].to_s, :format => "%n%u", :unit => "", :precision => 0)  
+
+%p &nbsp;
+
 
 
 
