@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160615134051) do
+ActiveRecord::Schema.define(version: 20160619040348) do
 
   create_table "ab_list", force: true do |t|
     t.string "part", limit: 5
@@ -115,6 +115,7 @@ ActiveRecord::Schema.define(version: 20160615134051) do
     t.integer  "section_30"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "payed"
   end
 
   create_table "camp_sections", force: true do |t|
@@ -138,15 +139,6 @@ ActiveRecord::Schema.define(version: 20160615134051) do
     t.date     "final_poll_start_at"
     t.date     "final_poll_end_at"
     t.integer  "day_trip_fee"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "clubs", force: true do |t|
-    t.string   "name"
-    t.text     "description"
-    t.string   "code"
-    t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

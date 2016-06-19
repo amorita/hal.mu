@@ -44,8 +44,22 @@ def create
   end
 end
 
+def payment_status
+  @camp_attendances = CampAttendance.joins(:user).order("users.part_id, users.family_name_pron, users.name_pron")
+end
+
+def update_payment_status
+  list = params[:payed_list].keys
+  list.each do |payed|
+    att = CampAttendance.find payed
+    att.payed = true
+    att.save!
+  end
+  redirect_to :action => 'index'  
+end
+
 def index
-  @users = User.all.order :part_id
+  @users = User.all.order :part_id, :family_name_pron, :name_pron
 end
 
 end

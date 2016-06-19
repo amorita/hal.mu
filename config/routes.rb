@@ -95,6 +95,8 @@ end
   resources :camp_attendances do
     collection do
       get 'edit_self'
+      get 'payment_status'
+      post 'update_payment_status'
     end
   end
 
