@@ -31,17 +31,8 @@
             - if !camp_att.nil?
               %p
                 = current_user.normal_name + 'さんの合宿参加費は'
-                - amount = 0
-                - day_trip = true
-                - sections = CampSection.all.each do |sec|
-                  - if camp_att.send(('section_' + sec.id.to_s).to_sym) == 1
-                    - amount += sec.amount
-                    - if sec.stay
-                      - day_trip = false
                 %big
-                  - if day_trip && camp_att.attends?
-                    - amount += camp.day_trip_fee
-                  = number_to_currency(amount, :format => "%n%u", :unit => "円", :precision => 0)
+                  = number_to_currency(camp_att.amount, :format => "%n%u", :unit => "円", :precision => 0)
                 です。
               %p &nbsp;
               %p 

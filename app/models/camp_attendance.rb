@@ -11,4 +11,24 @@ def attends?
   result
 end
 
+def amount
+  sections = CampSection.all
+  amount = 0
+  attend = false
+  day_trip = true
+  sections.each do |sec|
+    if self.send(('section_' + sec.id.to_s).to_sym) == 1
+      amount += sec.amount
+      attend = true
+      if sec.stay
+        day_trip = false
+      end
+    end
+  end
+  if day_trip && attend
+    amount += Camp.order('start_date desc').first.day_trip_fee
+  end
+  return amount
+end
+
 end

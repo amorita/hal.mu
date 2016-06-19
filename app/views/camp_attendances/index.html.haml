@@ -53,7 +53,6 @@
           %span.glyphicon.glyphicon-remove.text-warning
         - else
           %span.glyphicon.glyphicon-ok.text-success
-      - amount = 0
 
       -# 通常表示
       .nopadding{:class => section_class, :style => "display: flex; flex-direction: row; flex-wrap: nowrap;"}
@@ -79,17 +78,21 @@
               .nopadding.text-center{:style => "color: white; background-color: #286090; width: 100%;" + border}
                 %i.fa.hidden-ms.hidden-xs.hidden-sm{:class => sec.fa_class}
                 %i.fa.hidden-lg.hidden-md.hidden-xs{:class => sec.fa_class, :style => "font-size: 0.3em"}
-              - amount += sec.amount
               - total[sec.id] += 1
               - if sec.stay
                 - day_trip = false
 
       - if is_granted :camping_coordinator
         .col-xs-2.text-right.nopadding
-          - if att.present? && day_trip && att.attends?
-            - amount += camp.day_trip_fee
+          - amount = att.nil? ? 0 : att.amount
           = number_to_currency(amount, :format => "%n%u", :unit => "", :precision => 0)
           - total[(sections.count) + 1] += amount
+          - if att.nil? || amount == 0
+            %i.fa.fa-jpy.text-muted
+          - elsif att.payed
+            %i.fa.fa-jpy.text-success
+          - else 
+            %i.fa.fa-jpy.text-danger
         .col-xs-1.nopadding.text-center
           - if att.present?
             = button_to '訂', edit_camp_attendance_path(att), :class => "btn btn-xs btn-info active", :method => 'get', :style => "width: 18px; height: 18px; font-size: 12px; padding: 0;"
@@ -131,16 +134,37 @@
         %tr
           %th セクション
           %th 人数
+          -# %th 金額
         - sections.each do |sec|
           %tr
             %td
               = sec.pln_date.day.to_s + "日"
               = sec.title
             %td.text-right= total[sec.id].to_s
+            -# %td.text-right= (total[sec.id] * sec.amount).to_s
 
     %h4 合計金額
     .large.text-right= number_to_currency(total[(sections.count) + 1].to_s, :format => "%n%u", :unit => "", :precision => 0)  
 
+  .bs-callout.bs-callout-danger
+    %h4 未収情報
+    - total = 0
+    %p
+      %table.table{:style => "margin: 0;"}
+        %tr
+          %th パート
+          %th 名前
+          %th 金額
+        - CampAttendance.joins(:user).where(:payed => [nil, false]).order("users.part_id, users.family_name_pron, users.name_pron").each do |att|
+          - if att.amount == 0
+            - next
+          %tr
+            %td= att.user.part.abbr
+            %td= att.user.formal_name
+            %td.text-right= number_to_currency(att.amount, :format => "%n%u", :unit => "円", :precision => 0)
+            - total += att.amount
+    %h4 未収合計
+    .large.text-right= number_to_currency(total, :format => "%n%u", :unit => "", :precision => 0)  
 %p &nbsp;
 
 
