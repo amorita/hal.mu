@@ -7,7 +7,7 @@
 - if is_granted :camping_coordinator
   - section_class = "col-xs-4"
 %div
-  .row{:style => "display: flex; flex-direction: row; flex-wrap: nowrap;"}
+  .row.bg-info{:style => "display: flex; flex-direction: row; flex-wrap: nowrap;"}
     .col-xs-1 パート
     .col-xs-3 名前
     .col-xs-1 最終確認
@@ -26,7 +26,6 @@
 
   - pre_part = 1
   - @users.each do |user|
-    - p user.long_name
     - unless user.valid_on? camp.start_date 
       - next
     - if user.absent_on? camp.start_date
@@ -45,7 +44,10 @@
       - bg = 'bg-success'
     .row{:style => "display: flex; flex-direction: row; flex-wrap: nowrap;", :class => bg}
       .col-xs-1= user.part.abbr
-      .col-xs-3.nopadding{:nowrap => true}= user.formal_name
+      .col-xs-3.nopadding{:nowrap => true}
+        = user.formal_name
+        - if att.by_car
+          %i.fa.fa-car.text-muted
       .col-xs-1.text-center.nopadding
         - if att.nil?
           %i.fa.fa-exclamation.text-danger
