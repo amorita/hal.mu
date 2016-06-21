@@ -46,7 +46,7 @@
       .col-xs-1= user.part.abbr
       .col-xs-3.nopadding{:nowrap => true}
         = user.formal_name
-        - if att.by_car
+        - if att.present? && att.by_car
           %i.fa.fa-car.text-muted
       .col-xs-1.text-center.nopadding
         - if att.nil?
