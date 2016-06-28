@@ -15,6 +15,7 @@ def edit_self
     @camp_att = CampAttendance.new
     @camp_att.user_id = current_user.id
   end
+  render "edit"
 end
 
 def show

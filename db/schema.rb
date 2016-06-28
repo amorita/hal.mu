@@ -143,6 +143,15 @@ ActiveRecord::Schema.define(version: 20160619040348) do
     t.datetime "updated_at"
   end
 
+  create_table "clubs", force: true do |t|
+    t.string   "name"
+    t.text     "description"
+    t.string   "code"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "concert_programs", force: true do |t|
     t.integer  "concert_id"
     t.integer  "order"

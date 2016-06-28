@@ -1,9 +1,9 @@
 - cnt = 0
 - @posts['data'].each do |post|
   - cnt += 1
-  - case cnt
-  - when 1
-    - div_class = 'xs-hidden ms-hidden'
+  - case
+  - when cnt > 1
+    - div_class = 'hidden-xs hidden-ms'
   - else
     - div_class = ''
   .grid.col-xs-12.nopadding{:class => div_class}
