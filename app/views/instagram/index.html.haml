@@ -1,5 +1,12 @@
+- cnt = 0
 - @posts['data'].each do |post|
-  .grid.col-xs-12.nopadding
+  - cnt += 1
+  - case cnt
+  - when 1
+    - div_class = 'xs-hidden ms-hidden'
+  - elase
+    - div_class = ''
+  .grid.col-xs-12.nopadding{:class => div_class}
     .borders
       %blockquote.instagram-media{"data-instgrm-captioned" => "", "data-instgrm-version" => "7", :style => " background:#FFF; border:0; border-radius:3px; box-shadow:0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15); margin: 1px; max-width:658px; padding:0; width:99.375%; width:-webkit-calc(100% - 2px); width:calc(100% - 2px);"}
         %div{:style => "padding:8px;"}
@@ -12,3 +19,5 @@
             %time{:datetime => "2016-06-28T02:43:34+00:00", :style => " font-family:Arial,sans-serif; font-size:14px; line-height:17px;"}= Time.at(post['created_time'].to_i).strftime("%m月%D日")
       %script{:async => "", :defer => "defer", :src => "//platform.instagram.com/en_US/embeds.js"}
       .clearbox
+  }
+  - if cnt >= 5 break
