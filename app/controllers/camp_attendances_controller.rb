@@ -19,7 +19,9 @@ def edit_self
 end
 
 def show
-  @camp_att = CampAttendance.where(:user_id => current_user).first
+  if @camp_att.nil?
+    @camp_att = CampAttendance.where(:user_id => current_user).first
+  end
 end
 
 def update
@@ -32,7 +34,7 @@ def create
   else
     user_id = current_user.id
   end
-  
+
   @camp_att = CampAttendance.where(:user_id => user_id).first
   if @camp_att.nil?
     @camp_att = CampAttendance.new
