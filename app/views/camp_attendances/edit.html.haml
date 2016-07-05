@@ -35,7 +35,10 @@
             - when 0
               - btn_d = 'active'
             - when 2
-              - btn_w = 'active'
+              - if camp.final_poll_start_at > Date.today 
+                - btn_w = 'active'
+              - else
+                - btn_p = 'active'
             - else
               - btn_p = 'active'
             .col-sm-3.col-xs-6
