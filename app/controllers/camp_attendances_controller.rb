@@ -19,9 +19,7 @@ def edit_self
 end
 
 def show
-  if @camp_att.nil?
-    @camp_att = CampAttendance.where(:user_id => current_user).first
-  end
+  @camp_att = CampAttendance.find params[:id]
 end
 
 def update
