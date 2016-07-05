@@ -11,7 +11,7 @@
         - amount += sec.amount
         - if sec.stay
           - day_trip = false
-    = current_user.normal_name + 'さんは'
+    = camp_att.user.normal_name + 'さんは'
     %big
       - if day_trip && @camp_att.attends?
         - amount += camp.day_trip_fee
