@@ -27,7 +27,13 @@ def update
 end
 
 def create
-  @camp_att = CampAttendance.where(:user_id => current_user).first
+  if params[:camp_attendance][:user_id].present?
+    user_id = params[:camp_attendance][:user_id]
+  else
+    user_id = current_user.id
+  end
+  
+  @camp_att = CampAttendance.where(:user_id => user_id).first
   if @camp_att.nil?
     @camp_att = CampAttendance.new
     @camp_att.user_id = current_user.id
