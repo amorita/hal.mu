@@ -133,6 +133,7 @@ end
   get 'terms' => 'guide#terms'
   get 'clubs' => 'clubs#index'
   get 'instagram' => 'instagram#index'
+  get 'recreation/gesture' => 'recreation#gesture'
 
   resources :mls
 

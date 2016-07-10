@@ -1,0 +1,2 @@
+module RecreationHelper
+end

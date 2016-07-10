@@ -1,0 +1,91 @@
+html,body {
+	height: 100%;
+}
+
+.container {
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+	justify-content: center;
+	height: 100%;
+}
+
+.title {
+	width: 100%;
+}
+
+.teams {
+	display: flex;
+	flex-direction: row;
+	height: 400px;
+	width: 100%;
+}
+
+.team {
+	vertical-align: middle;
+	width: 25%;
+	height: auto;
+	font-size: 50px;
+	transition: -webkit-filter ease 0.5s, font-size ease 0.5s, box-shadow 0.5s, color 0.5s;
+	align-items: center;
+	display: flex;
+	justify-content: center;
+	background-position: center;
+	background-size: cover;
+	-webkit-filter: grayscale(100%);
+}
+
+.team:hover {
+	-webkit-filter: grayscale(0%);
+	font-size: 80px;
+	box-shadow: 0 0 5px 0 #777;
+}
+
+.team > p {
+	font-size: inherit;
+	text-align: center;
+	transition: -webkit-filter ease 0.5s, font-size ease 0.5s, text-shadow 0.5s, color 0.5s;
+}
+
+.team:hover > p {
+text-shadow: 0 -1px 1px #FFF,
+    	-1px 0 3px #FFF,
+    	1px 0 3px #FFF,
+    	0 1px 3px #FFF,
+    	1px 1px 1px #000,
+    	2px 2px 2px #000,
+    	3px 3px 3px #000;
+	font-weight: bold;
+}
+
+.a {
+	background-image: url("/img/gesture/a.jpg");
+}
+
+.b {
+	background-image: url("/img/gesture/b.jpg");
+}
+
+.c {
+	background-image: url("/img/gesture/c.jpg");
+}
+
+.d {
+	background-image: url("/img/gesture/d.jpg");
+}
+
+.e {
+	background-image: url("/img/gesture/e.jpg");
+}
+
+.f {
+	background-image: url("/img/gesture/f.jpg");
+}
+
+.g {
+	background-image: url("/img/gesture/g.jpg");
+}
+
+.h {
+	background-image: url("/img/gesture/h.jpg");
+}
