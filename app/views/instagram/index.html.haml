@@ -1,5 +1,5 @@
 - cnt = 0
-- @posts['data'].each do |post|
+- @posts['data'].last(5).each do |post|
   - cnt += 1
   - case
   - when cnt > 1
