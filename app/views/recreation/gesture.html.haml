@@ -17,3 +17,22 @@
       %p G
     .team.h
       %p H
+
+.stage.container.hidden-height
+  .image.ease
+  .main-stage
+    .count.height-hidden.ease 0
+    .timer.height-hidden.ease 
+    .subject.height-hidden.ease 
+      %p#question お題
+  .start-button.bg-info START
+  .return-button.height-hidden BACK
+
+
+%audio#correct{:preload => 'auto'}
+  %source{:src => '/img/gesture/correct.mp3'}
+%audio#gong{:preload => 'auto'}
+  %source{:src => '/img/gesture/gong.mp3'}
+
+
+= javascript_include_tag 'recreation'

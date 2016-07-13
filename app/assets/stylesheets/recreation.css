@@ -8,6 +8,11 @@ html,body {
 	flex-direction: column;
 	justify-content: center;
 	height: 100%;
+	transition: height ease 2s, opacity ease 2s;
+}
+
+.ease {
+	transition: height ease 2s, opacity ease 2s;
 }
 
 .title {
@@ -44,7 +49,8 @@ html,body {
 .team > p {
 	font-size: inherit;
 	text-align: center;
-	transition: -webkit-filter ease 0.5s, font-size ease 0.5s, text-shadow 0.5s, color 0.5s;
+	transition: -webkit-filter ease 0.5s, font-size ease 0.5s, text-shadow 0.5s, color 0.5s;cursor: pointer;
+	cursor: pointer;
 }
 
 .team:hover > p {
@@ -88,4 +94,86 @@ text-shadow: 0 -1px 1px #FFF,
 
 .h {
 	background-image: url("/img/gesture/h.jpg");
+}
+
+.height-hidden {
+	height: 0 !important;
+	opacity: 0 !important;
+}
+
+.invisible {
+	opacity: 0 !important;
+}
+
+.timer {
+	position: absolute;
+	top: 0;
+	right: 0;
+	text-align: right;
+	font-family: monospace; 
+	font-size: 150px;
+	opacity: inherit;
+	line-height: 150px
+}
+
+.count {
+	position: absolute;
+	top: 0;
+	left: 0;
+	font-family: monospace;
+	font-size: 150px;
+	opacity: inherit;
+	line-height: 150px;
+}
+
+.image {
+	position: absolute;
+	height: 100%;
+	width: 100%;
+	opacity: 0.6;
+	top: 0;
+	left: 0;
+	z-index: -100;
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-position: center;
+}
+.subject {
+	position: absolute;
+	height: 100%;
+	width: 100%;
+	top: 0;
+	left: 0;
+	z-index: -50;
+	align-items: center;
+	display: flex;
+}
+
+.subject p {
+	font-size: 120px;
+	width: 100%;
+	text-align: center;
+	text-shadow: 0 0 1px white,
+	0 0 5px white,
+	0 0 10px white,
+	0 0 15px white,
+	0 0 20px white,
+	0 0 25px white,
+	0 0 30px white,
+	0 0 40px white,
+	0 0 50px white;
+}
+
+.start-button {
+	font-size: 50px;
+	line-height: 50px;
+	cursor: pointer;
+}
+
+.start {
+	z-index: 100;
+}
+
+.stage {
+	z-index: 50;
 }
