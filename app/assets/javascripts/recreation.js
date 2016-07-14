@@ -12,6 +12,8 @@ var imgReq;
 
 var result = {};
 
+var sortedResult = [];
+ 
 $(".team").click(function(){
 	teamOnGoing = $(this).text().trim();
 	resetStage();
@@ -33,13 +35,20 @@ var reutnToStart = function(){
 	$("#question").text("");
 	result[teamOnGoing] = Number($(".count").text().trim());
 
+	sortedResult = [];
+	for (var r in result)
+      	sortedResult.push([r, result[r]])
+	sortedResult.sort(
+    	function(a, b) {
+        	return a[1] - b[1]
+    	}
+	);
 }
 
 $(".start-button").click(function(){
 	$(this).addClass("height-hidden");
 	$(".subject").removeClass("height-hidden");
 	loadNext();
-	setKeyEvent();
 	timer();
 })
 
@@ -76,13 +85,23 @@ var setKeyEvent = function(){
 			case 27:
 				reutnToStart();
 				return false;
+			case 82: // Rで結果表示
+				var res = sortedResult[0];
+				$("." + res[0].toLowerCase()).addClass("team-hovered");
+				$(".display-point").text(res[1]);
+				sortedResult.remove(0);
+				return false;
+			case 68: // Dでクリア
+				$(".team").removeClass("team-hovered");
+				$(".display-point").text(""); 
+				return false;
 		}
 	})
 }
 
 var timeUp = function(){
 	$("#question").text("終了");
-	document.getElementById( 'gong' ).play() ;
+	document.getElementById( 'gong' ).play();
 }
 
 var azureKey = "eyxcvN59BnDV3PwcgsJf4tPs21fJTFI8sVHC5S5M2E8";
@@ -133,3 +152,11 @@ var loadNext = function(){
 	$("#question").text(odai[odaiIndex]);
 	getImage(odai[odaiIndex]);
 }
+
+Array.prototype.remove = function(from, to) {
+  var rest = this.slice((to || from) + 1 || this.length);
+  this.length = from < 0 ? this.length + from : from;
+  return this.push.apply(this, rest);
+};
+
+setKeyEvent();

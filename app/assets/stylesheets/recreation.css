@@ -40,10 +40,19 @@ html,body {
 	-webkit-filter: grayscale(100%);
 }
 
-.team:hover {
+.team:hover, .team-hovered {
 	-webkit-filter: grayscale(0%);
 	font-size: 80px;
 	box-shadow: 0 0 5px 0 #777;
+}
+
+.display-point {
+	font-size: 150px;
+	height: 200px;
+	line-height: 150px;
+	color: red;
+	font-weight: bold;
+	transition: height ease 1s;
 }
 
 .team > p {
