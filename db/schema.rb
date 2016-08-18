@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160619040348) do
+ActiveRecord::Schema.define(version: 20160818163137) do
 
   create_table "ab_list", force: true do |t|
     t.string "part", limit: 5
@@ -131,6 +131,15 @@ ActiveRecord::Schema.define(version: 20160619040348) do
     t.integer  "pln_class"
   end
 
+  create_table "campaigns", force: true do |t|
+    t.string   "name"
+    t.text     "desc"
+    t.datetime "start_at"
+    t.datetime "end_at"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "camps", force: true do |t|
     t.date     "start_date"
     t.date     "end_date"
@@ -143,11 +152,11 @@ ActiveRecord::Schema.define(version: 20160619040348) do
     t.datetime "updated_at"
   end
 
-  create_table "clubs", force: true do |t|
+  create_table "candidates", force: true do |t|
+    t.integer  "vode_id"
     t.string   "name"
-    t.text     "description"
-    t.string   "code"
-    t.integer  "user_id"
+    t.text     "desc"
+    t.string   "image_path"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -576,6 +585,14 @@ ActiveRecord::Schema.define(version: 20160619040348) do
 
   add_index "views", ["email"], name: "index_views_on_email", unique: true, using: :btree
   add_index "views", ["reset_password_token"], name: "index_views_on_reset_password_token", unique: true, using: :btree
+
+  create_table "votes", force: true do |t|
+    t.integer  "campaign_id"
+    t.integer  "candidate_id"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "vouchers", force: true do |t|
     t.integer  "slip_id"

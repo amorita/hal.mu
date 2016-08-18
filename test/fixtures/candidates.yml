@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  vode_id: 
+  name: MyString
+  desc: MyText
+  image_path: MyString
+
+two:
+  vode_id: 
+  name: MyString
+  desc: MyText
+  image_path: MyString

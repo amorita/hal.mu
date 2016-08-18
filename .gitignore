@@ -50,6 +50,7 @@ config/secrets.yml
 
 public/assets
 public/members
+public/candidates
 
 **.lock
 **~
