@@ -54,7 +54,7 @@ class PodcastController < ApplicationController
     render :layout => false
   end
 
-  def concert
+  def concert_recordings
     urlbase = 'http://hal.mu/concert_recs/'
     files = `ls /home/yu/www/priv.hal.mu/recs/*.mp3 -t`.split "\n"
     @list = []

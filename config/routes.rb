@@ -56,7 +56,7 @@ end
     collection do
       get 'rehearsal'
       get 'rehearsal_prev'
-      get 'concert'
+      get 'concert_recordings'
     end
   end
   
