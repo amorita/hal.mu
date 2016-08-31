@@ -1,0 +1,9 @@
+- campaigns = Campaign.where('now() between start_at and end_at')
+- if campaigns.count > 0
+  .grid.col-md-4.col-sm-6
+    .borders
+      %row
+        .col-xs-12.nopadding
+          %a{:href => "/campaigns", :target => '_blank'}
+            %img.img-responsive{:src => "/img/vote.png"}/
+        .clear_box

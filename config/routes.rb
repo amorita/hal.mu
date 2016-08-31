@@ -35,6 +35,7 @@ end
   end
 
   resources :enq_answers
+  resources :campaigns
 
   resources :practice_plns do
     member do

@@ -1,0 +1,23 @@
+%h1= '投票：' + @campaign.name
+
+.bs-callout.bs-callout-info
+  %h4 概要
+  %div 
+    = simple_format @campaign.desc
+
+= form_tag "/campaigns/" + @campaign.id.to_s, :method => :patch do
+  - @campaign.candidates.each do |candidate|
+    .bs-callout
+      %h4= candidate.name
+      %div
+        .col-xs-12.col-sm-2
+          = radio_button_tag 'vote', candidate.id, candidate.id == @vote.candidate_id, {:class => 'form-control'}
+          
+        .col-xs-12.col-sm-10
+          .col-xs-12
+            = simple_format candidate.desc
+          - if candidate.image_path.present?
+            .col-xs-12
+              %img.img-responsive{:src =>candidate.image_path}
+      .clearfix
+  = submit_tag "投票", {:class => 'btn btn-primary'}

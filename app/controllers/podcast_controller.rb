@@ -4,7 +4,7 @@ class PodcastController < ApplicationController
   
   def rehearsal
     urlbase = 'http://hal.mu/rehearsal_recs/'
-    files = `ls /home/yu/www/priv.hal.mu/rehearsal_recs/*.mp3 -t`.split "\n"
+    files = `ls /var/www/hal.mu/rehearsal_recs/*.mp3 -t`.split "\n"
     @list = []
     files.each do |filepath|
       fileinfo = {}
@@ -30,7 +30,7 @@ class PodcastController < ApplicationController
   
   def rehearsal_prev
     urlbase = 'http://hal.mu/rehearsal_recs/'
-    files = `ls /home/yu/www/priv.hal.mu/rehearsal_recs/*.mp3 -t`.split "\n"
+    files = `ls /var/www/hal.mu/rehearsal_recs/*.mp3 -t`.split "\n"
     @list = []
     files.each do |filepath|
       fileinfo = {}
@@ -56,7 +56,7 @@ class PodcastController < ApplicationController
 
   def concert_recordings
     urlbase = 'http://hal.mu/concert_recs/'
-    files = `ls /home/yu/www/priv.hal.mu/recs/*.mp3 -t`.split "\n"
+    files = `ls /var/www/hal.mu/recs/*.mp3 -t`.split "\n"
     @list = []
     files.each do |filepath|
       fileinfo = {}

@@ -28,6 +28,13 @@
         = f.text_field :name_pron, :placeholder => "めい",:class => "form-control", :required => 'true'
 
     .form-group
+      %label.col-sm-2.control-label
+        生年月日
+        %span.small.text-danger *
+      .col-sm-10
+        = f.date_field :birth_date, :class => "form-control", :required => 'true'
+
+    .form-group
       %label.col-sm-2.control-label パート
       .col-sm-10
         = f.collection_select :part_id, Part.all, :id, :name, {:prompt => "パート"}, {:class => "form-control part_select", :required => 'true'}
