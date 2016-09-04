@@ -153,10 +153,19 @@ ActiveRecord::Schema.define(version: 20160818163137) do
   end
 
   create_table "candidates", force: true do |t|
-    t.integer  "vode_id"
+    t.integer  "campaign_id"
     t.string   "name"
     t.text     "desc"
     t.string   "image_path"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "clubs", force: true do |t|
+    t.string   "name"
+    t.text     "description"
+    t.string   "code"
+    t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -300,7 +309,7 @@ ActiveRecord::Schema.define(version: 20160818163137) do
     t.integer  "user_id"
     t.integer  "year"
     t.integer  "month"
-    t.integer  "amount"
+    t.integer  "amount",     default: 0,     null: false
     t.date     "fee_date"
     t.datetime "created_at"
     t.datetime "updated_at"

@@ -4,7 +4,7 @@
   .col-sm-12
     .col-xs-12.col-sm-4
       - if Vote.where(:user_id => current_user.id, :campaign_id => c.id).count > 0
-        %span.text-success.glyphicon.glyphicon-ok
+        %i.text-success.fa.fa-check
       = c.name
     .col-xs-12.col-sm-6
       = simple_format c.desc

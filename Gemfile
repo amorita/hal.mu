@@ -72,7 +72,7 @@ gem 'active_attr'
 gem 'ofx'
 gem 'kaminari'
 
-gem 'google-api-client', require: 'google/api_client'
+gem 'google-api-client', '0.8.6', require: 'google/api_client'
 
 gem 'selenium-webdriver'
 gem 'headless'
