@@ -4,13 +4,13 @@
     %itunes:image{:href => "http://hal.mu/concert_recordings.png"}
     %link http://hal.mu/
     %language ja
-    %description Orchestra HAL 定期演奏会での録音です。
-    %title Orchestra HAL 定期演奏会
-    %subtitle Orchestra HAL 定期演奏会
+    %description OrchestraHAL 定期演奏会での録音です。
+    %title OrchestraHAL 定期演奏会
+    %itunes:subtitle OrchestraHAL 定期演奏会
     %docs http://blogs.law.harvard.edu/tech/rss
     %lastBuildDate= @lastbuilddate.strftime '%a, %d %b %Y %H:%M:%S +0900'
-    %category Classical
-    %explicit no
+    %itunes:category{:text => 'Classical'}
+    %itunes:explicit no
     %itunes:author Orchestra HAL
     - @list.each do |item|
       %item
