@@ -1,35 +1,52 @@
+
 %link{:rel=> "stylesheet", :href => "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css"}
 %h1 団費納入状況
 = AccountTransaction.maximum(:posted_at).strftime('%Y年%m月%d日現在')
-%table.table
-  %tr
-    %th パート
-    %th 名前
-    %th 納入金額
-    %th 過不足額
-    - @terms.each do |term|
-      %th{:style => 'width: 2em'}
-        = term[:year].to_s
-        %br
-        = "/" + term[:month].to_s
+
+%div
+  .row.bg-info{:style => "display: flex; flex-direction: row; flex-wrap: nowrap;"}
+    .col-xs-1 パート
+    .col-xs-3 名前
+    .col-xs-2 納入金額
+    .col-xs-2 過不足
+
+    .col-xs-4.nopadding{:style => "display: flex; flex-direction: row; flex-wrap: nowrap;"}
+      - @terms.each do |term|
+        - if Date.today.month == term[:month] && Date.today.year == term[:year]
+          - border = "border-left: black; border-left-style: solid; border-right: black; border-right-style: solid; border-width: 1px; background-color: #f2dede;"  
+        - else
+          - border = ""
+        .nopadding.text-center.hidden-ms.hidden-xs.hidden-lg{:style => "width: 100%; writing-mode: vertical-rl; font-size: 0.5em;" + border}= term[:month].to_s
+        .nopadding.text-center.hidden-md.hidden-sm.hidden-lg{:style => "width: 100%; writing-mode: vertical-rl; font-size: 0.2em; overflow: hidden;" + border}= term[:month].to_s
+        .nopadding.text-center.hidden-ms.hidden-xs.hidden-md.hidden-sm{:style => "width: 100%; writing-mode: vertical-rl;" + border}
+          = term[:year].to_s + "/" + term[:month].to_s
+
+
   - pre_part = 1
   - @fee_calcs.each do |calc|
     - if calc.user.nil?
       - next
+
+    -# パートごとの区切り
     - if pre_part != calc.user.part.id
       - pre_part = calc.user.part.id
-      %tr.bg-info
-        %td{:colspan => 4}
-        - @terms.each do |term|
-          - if Date.today.month <= term[:month] && Date.today.year <= term[:year]
-            %td.text-center.text-muted{:style => 'height: 10px'}= term[:month].to_s
-          - else
-            %td.text-center.text-danger{:style => 'height: 10px'}= term[:month].to_s
+      .row.bg-info{:style => "display: flex; flex-direction: row; flex-wrap: nowrap;"}
+        .col-xs-8 &nbsp;
+        .col-xs-4.nopadding{:style => "display: flex; flex-direction: row; flex-wrap: nowrap;"}
+          - @terms.each do |term|
+            - if Date.today.month == term[:month] && Date.today.year == term[:year]
+              - border = "border-left: black; border-left-style: solid; border-right: black; border-right-style: solid; border-width: 1px; background-color: #f2dede;"  
+            - else
+              - border = ""
+            .nopadding.text-center.hidden-md.hidden-sm.hidden-lg{:style => "width: 100%; writing-mode: vertical-rl; font-size: 0.2em; overflow: hidden;" + border}= term[:month].to_s
+            .nopadding.text-center.hidden-ms.hidden-xs{:style => "width: 100%; writing-mode: vertical-rl; font-size: 0.5em;" + border}= term[:month].to_s
 
-    %tr
-      %td= calc.user.part.abbr
-      %td= calc.user.formal_name
-      %td.text-right= number_to_currency(calc.amount, :format => "%n%u", :unit => "", :precision => 0)
+    .row{:style => "display: flex; flex-direction: row; flex-wrap: nowrap;"}
+      .col-xs-1= calc.user.part.abbr
+      .col-xs-3.nopadding
+        = calc.user.formal_name
+      .col-xs-2.nopadding.text-right
+        = number_to_currency(calc.amount, :format => "%n%u", :unit => "", :precision => 0)
 
       - debt = 0
       - @terms.each do |term|
@@ -43,30 +60,44 @@
       - diff = calc.amount - debt
 
       - if diff < 0
-        %td.text-right.text-danger= number_to_currency(diff, :format => "%n%u", :unit => "", :precision => 0)
+        .col-xs-2.text-right.text-danger= number_to_currency(diff, :format => "%n%u", :unit => "", :precision => 0)
       - else
-        %td.text-right.text-success= number_to_currency(diff, :format => "%n%u", :unit => "", :precision => 0)
+        .col-xs-2.text-right.text-success= number_to_currency(diff, :format => "%n%u", :unit => "", :precision => 0)
 
-      - @terms.each do |term|
-        - fee = MonthlyFee.where(:user_id => calc.user.id, :year => term[:year], :month => term[:month]).first
-        - if fee.nil?
-          %td −
-        - else
-          - stat = ''
-          - if fee.is_absent
-            - stat = '休'
-          - if fee.is_student
-            - stat = '学' + stat
-
-          - if calc.amount > 0
-            - if calc.amount >= fee.amount
-              %td.text-center= button_tag (stat == '' ? '◯' : stat), :class => 'btn btn-xs btn-primary campradio active', :title => fee.amount.to_s
-            - else
-              %td.text-center= button_tag (stat == '' ? '△' : stat), :class => 'btn btn-xs btn-warning campradio active', :title => fee.amount.to_s
-            - calc.amount = calc.amount - fee.amount
+      .col-xs-4.nopadding{:style => "display: flex; flex-direction: row; flex-wrap: nowrap; font-size: 0.5em; color: white"}
+        - @terms.each do |term|
+          - fee = MonthlyFee.where(:user_id => calc.user.id, :year => term[:year], :month => term[:month]).first
+          - if fee.nil?
+            .nopadding.text-center{:style => "width: 100%"} −
           - else
-            - if Date.today.month <= term[:month] && Date.today.year <= term[:year]
-              %td
+            - if Date.today.month == term[:month] && Date.today.year == term[:year]
+              - border = "border-left: black; border-left-style: solid; border-right: black; border-right-style: solid; border-width: 1px; background-color: #f2dede;"  
             - else
-              %td.text-center= button_tag (stat == '' ? '×' : stat), :class => 'btn btn-xs btn-danger campradio active', :title => fee.amount.to_s
-            
+              - border = ""
+
+            - stat = ''
+            - if fee.is_absent
+              - stat = '休'
+            - if fee.is_student
+              - stat = '学' + stat
+
+            - if calc.amount > 0
+              - if calc.amount >= fee.amount
+                .nopadding.text-center{:style => border + "width: 100%; background-color: #286090;"}
+                  %span.hidden-ms.hidden-xs.hidden-sm= (stat == '' ? '◯' : stat)
+                  %span.hidden-lg.hidden-md.hidden-xs{:style => "font-size: 0.3em"}= (stat == '' ? '◯' : stat)
+              - else
+                .nopadding.text-center{:style => border + "width: 100%; background-color: #ec971f;"}
+                  %span.hidden-ms.hidden-xs.hidden-sm= (stat == '' ? '△' : stat)
+                  %span.hidden-lg.hidden-md.hidden-xs{:style => "font-size: 0.3em"}= (stat == '' ? '△' : stat)
+
+              - calc.amount = calc.amount - fee.amount
+            - else
+              - if Date.today.month <= term[:month] && Date.today.year <= term[:year]
+                .nopadding{:style => "width: 100%;" + border}
+              - else
+                .nopadding.text-center{:style => border + "width: 100%; background-color: #c9302c;"}
+                  %span.hidden-ms.hidden-xs.hidden-sm= (stat == '' ? '△' : stat)
+                  %span.hidden-lg.hidden-md.hidden-xs{:style => "font-size: 0.3em"}= (stat == '' ? '×' : stat)
+
+              

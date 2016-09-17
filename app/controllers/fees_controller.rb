@@ -8,7 +8,7 @@ before_filter :authenticate_user!
     year = last_cutoff.cutoff_date.year
     month = last_cutoff.cutoff_date.month
     @terms = []
-    10.times do |i|
+    15.times do |i|
       term = {}
       m = month + i
       unless m > 12
