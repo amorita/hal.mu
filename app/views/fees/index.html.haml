@@ -14,7 +14,7 @@
     .col-xs-4.nopadding{:style => "display: flex; flex-direction: row; flex-wrap: nowrap;"}
       - @terms.each do |term|
         - if Date.today.month == term[:month] && Date.today.year == term[:year]
-          - border = "border-left: black; border-left-style: solid; border-right: black; border-right-style: solid; border-width: 1px; background-color: #BD92D6;"  
+          - border = "border-left: black; border-left-style: solid; border-right: black; border-right-style: solid; border-width: 1px; background-color: #C5AED3;"  
         - else
           - border = ""
         .nopadding.text-center.hidden-ms.hidden-xs.hidden-lg{:style => "width: 100%; writing-mode: vertical-rl; font-size: 0.5em; overflow: hidden;" + border}= term[:month].to_s
@@ -36,7 +36,7 @@
         .col-xs-4.nopadding{:style => "display: flex; flex-direction: row; flex-wrap: nowrap;"}
           - @terms.each do |term|
             - if Date.today.month == term[:month] && Date.today.year == term[:year]
-              - border = "border-left: black; border-left-style: solid; border-right: black; border-right-style: solid; border-width: 1px; background-color: #f2dede;"  
+              - border = "border-left: black; border-left-style: solid; border-right: black; border-right-style: solid; border-width: 1px; background-color: #C5AED3;"  
             - else
               - border = ""
             .nopadding.text-center.hidden-md.hidden-sm.hidden-lg{:style => "width: 100%; writing-mode: vertical-rl; font-size: 0.7em; overflow: hidden;" + border}= term[:month].to_s
