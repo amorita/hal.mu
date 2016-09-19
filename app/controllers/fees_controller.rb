@@ -22,4 +22,9 @@ before_filter :authenticate_user!
     end
   end
 
+  def payee
+    @value = ConstantValue.where(:key => "payee").first.value
+    render layout: false
+  end
+
 end

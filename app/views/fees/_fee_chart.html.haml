@@ -1,0 +1,49 @@
+- if !defined? grid_content
+  - grid_content = false
+
+- calc = VFeeCalc.where(:user_id => user.id).first
+- get_terms.each do |term|
+  - fee = MonthlyFee.where(:user_id => calc.user.id, :year => term[:year], :month => term[:month]).first
+  - if fee.nil?
+    .nopadding.text-center{:style => "width: 100%"} −
+  - else
+    - if Date.today.month == term[:month] && Date.today.year == term[:year]
+      - border = "border-left: black; border-left-style: solid; border-right: black; border-right-style: solid; border-width: 1px; background-color: #f2dede;"  
+    - else
+      - border = ""
+
+    - stat = ''
+    - if fee.is_absent
+      - stat = '休'
+    - if fee.is_student
+      - stat = '学' + stat
+
+    - if calc.amount > 0
+      - if calc.amount >= fee.amount
+        .nopadding.text-center{:style => border + "width: 100%; background-color: #286090;"}
+          - unless grid_content
+            %span.hidden-ms.hidden-xs.hidden-sm= (stat == '' ? '◯' : stat)
+            %span.hidden-lg.hidden-md.hidden-xs{:style => "font-size: 0.3em"}= (stat == '' ? '◯' : stat)
+          - else
+            %span= (stat == '' ? '◯' : stat)
+      - else
+        .nopadding.text-center{:style => border + "width: 100%; background-color: #ec971f;"}
+          - unless grid_content
+            %span.hidden-ms.hidden-xs.hidden-sm= (stat == '' ? '△' : stat)
+            %span.hidden-lg.hidden-md.hidden-xs{:style => "font-size: 0.3em"}= (stat == '' ? '△' : stat)
+          - else
+            %span= (stat == '' ? '△' : stat)
+
+      - calc.amount = calc.amount - fee.amount
+    - elsif fee.amount == 0
+      .nopadding{:style => "width: 100%;" + border}
+    - else
+      - if Date.today.month <= term[:month] && Date.today.year <= term[:year]
+        .nopadding{:style => "width: 100%;" + border}
+      - else
+        .nopadding.text-center{:style => border + "width: 100%; background-color: #c9302c;"}
+          - unless grid_content
+            %span.hidden-ms.hidden-xs.hidden-sm= (stat == '' ? '×' : stat)
+            %span.hidden-lg.hidden-md.hidden-xs{:style => "font-size: 0.3em"}= (stat == '' ? '×' : stat)
+          - else
+            %span= (stat == '' ? '×' : stat)

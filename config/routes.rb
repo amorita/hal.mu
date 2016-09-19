@@ -70,7 +70,8 @@ end
     end
   end
   
-  resources :fees, :only => [:index]
+  get 'fees' => 'fees#index'
+  get 'fees/payee' => 'fees#payee'
 
   resources :topics, :only => [:index]
   resources :events
