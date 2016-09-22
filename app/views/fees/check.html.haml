@@ -80,7 +80,7 @@
           %th 金額
           %th 区分
         %tr
-          %td= Date.today.strftime('%Y年 %m月')
+          %td= fees.first.fee_date.strftime('%Y年 %m月')
           %td= number_to_currency amount, :precision => 0, :unit => ""
           - if amount == 0
             %td.text-center -
