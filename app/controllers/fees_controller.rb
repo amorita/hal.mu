@@ -27,4 +27,10 @@ before_filter :authenticate_user!
     render layout: false
   end
 
+  def check
+    if defined?(params[:user]) && defined?(params[:user][:id])
+      @user = PersonalData.find params[:user][:id]
+    end
+  end
+
 end

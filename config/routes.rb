@@ -72,6 +72,8 @@ end
   
   get 'fees' => 'fees#index'
   get 'fees/payee' => 'fees#payee'
+  post 'fees/check' => 'fees#check'
+  get 'fees/check' => 'fees#check'
 
   resources :topics, :only => [:index]
   resources :events

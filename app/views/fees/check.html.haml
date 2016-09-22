@@ -1,0 +1,104 @@
+%h1 団費清算情報
+%p
+  = form_tag '/fees/check', :mothod => :post, :class => "form-horizontal" do
+
+    .form-group
+      %label.col-sm-2.control-label 対象
+      .col-sm-10
+        = grouped_collection_select :user, :id, Part.all, :persons, :name, :id, :long_name, {:prompt => "人を選択"}, {:class => "form-control"}
+    
+    .actions
+      %p.text-right
+        = submit_tag '読み込み', :class => "btn btn-primary"
+
+- if defined? @user
+  - cutoff_date = FeeCutoff.all.order("cutoff_date desc").first.cutoff_date
+  - carry_over = AccountTransaction.where(:user_id => @user.id, :transaction_type => "carryover").order("id desc").first.amount
+  .col-md-6
+    .bs-callout.bs-callout-info
+      %h4 請求情報
+      - sum = 0
+      %table.table{:style => "width: auto"}
+        %tr
+          %th 項目
+          %th 金額
+          %th 学生
+          %th 休団
+        %tr
+          %td 繰越(前期未収金)
+          %td.text-right= number_to_currency (carry_over < 0 ? carry_over * -1 : 0), :precision => 0, :unit => ""
+          %td
+          %td
+          - sum += (carry_over < 0 ? carry_over * -1 : 0)
+
+        - fees = MonthlyFee.where(:user_id => @user.id).where("fee_date >= " + cutoff_date.strftime("'%F'")).where("fee_date <= now()").order(:fee_date)
+        - fees.each do |fee|
+          %tr
+            %td= "#{fee.year.to_s}年 #{fee.month.to_s}月"
+            %td.text-right= number_to_currency fee.amount, :precision => 0, :unit => ""
+            - sum += fee.amount
+            %td.text-center= fee.is_student ? "✔" : ""
+            %td.text-center= fee.is_absent ? "✔" : ""
+
+        %tr
+          %td 合計
+          %td.text-right= number_to_currency sum, :precision => 0, :unit => ""
+          %td
+          %td
+      - debit = sum
+  .col-md-6
+    .bs-callout.bs-callout-danger
+      %h4 支払情報
+      - sum = 0
+      %table.table{:style => "width: auto"}
+        %tr
+          %th 扱い日
+          %th 金額
+        %tr
+          %td 繰越(前期前受金)
+          %td.text-right= number_to_currency (carry_over > 0 ? carry_over : 0), :precision => 0, :unit => ""
+        - sum += (carry_over > 0 ? carry_over : 0)
+        - transactions = AccountTransaction.where(:user_id => @user.id).where(:transaction_type => ["dep", "debit"]).where("posted_at >= " + cutoff_date.strftime("'%F'")).order(:posted_at)
+        - transactions.each do |t|
+          %tr
+            %td= t.posted_at.strftime('%Y年 %m月 %d日')
+            %td.text-right= number_to_currency t.amount, :precision => 0, :unit => ""
+            - sum += t.amount
+      %tr
+        %td 合計
+        %td= number_to_currency sum, :precision => 0, :unit => ""
+      - deposit = sum
+
+  .col-md-6
+    .bs-callout.bs-callout-warning
+      %h4 清算情報
+      - fees = MonthlyFee.where(:user_id => @user.id).where("fee_date >= " + cutoff_date.strftime("'%F'")).where("fee_date <= now()").order('fee_date desc').first(5)
+      - amount = deposit - debit
+      %table.table{:style => "width: auto"}
+        %tr
+          %th 清算月
+          %th 金額
+          %th 区分
+        %tr
+          %td= Date.today.strftime('%Y年 %m月')
+          %td= number_to_currency amount, :precision => 0, :unit => ""
+          - if amount == 0
+            %td.text-center -
+          - elsif amount > 0
+            %td.text-center.text-warning 返金
+          - else
+            %td.text-center.text-danger 追徴
+        - fees.each do |fee|
+          %tr
+            - amount += fee.amount
+            %td= (fee.fee_date << 1).strftime('%Y年 %m月')
+            %td= number_to_currency amount, :precision => 0, :unit => ""
+            - if amount == 0
+              %td.text-center -
+            - elsif amount > 0
+              %td.text-center.text-warning 返金
+            - else
+              %td.text-center.text-danger 追徴
+
+
+

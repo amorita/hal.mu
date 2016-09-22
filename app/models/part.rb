@@ -1,6 +1,7 @@
 class Part < ActiveRecord::Base
 	belongs_to :user
   has_many :users
+  has_many :persons, class_name: "PersonalData"
 
   def section
     case self.id

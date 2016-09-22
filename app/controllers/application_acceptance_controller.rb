@@ -245,7 +245,7 @@ end
     user.retired = true
     user.save!
     #団費予定
-    MonthlyFee.destroy_all('user_id = ' + app.user_id.to_s + ' and year >= ' + Date.today.year.to_s + ' and month > ' + Date.today.month.to_s)
+    MonthlyFee.destroy_all('user_id = ' + app.user_id.to_s + ' and year >= ' + app.ends_at.year.to_s + ' and month > ' + app.ends_at.month.to_s)
     return 0
   end
 
