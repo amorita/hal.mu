@@ -121,6 +121,13 @@ end
 
   get 'parts/status' => 'parts#status'
 
+
+  resource :camp, :controller => :camp do
+    collection do 
+      get 'edit'
+    end
+  end
+
   resources :users
   
   root "user#login"

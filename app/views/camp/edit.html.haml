@@ -1,0 +1,102 @@
+%h1 合宿予定の編集
+
+= form_for @camp, :html => {:class => "form-horizontal"} do |f|
+  %p= notice
+  - if @camp.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@camp.errors.count, "error")} prohibited this nontan from being saved:"
+      %ul
+        - @camp.errors.full_messages.each do |msg|
+          %li= msg
+
+  .form-group
+    %label.col-sm-2.control-label 合宿開始日
+    .col-sm-10
+      = f.date_field :start_date, :class => "form-control", :required => 'true'
+
+  .form-group
+    %label.col-sm-2.control-label 合宿終了日
+    .col-sm-10
+      = f.date_field :end_date, :class => "form-control", :required => 'true'
+
+  .form-group
+    %label.col-sm-2.control-label 一次出欠調査開始日
+    .col-sm-10
+      = f.date_field :first_poll_start_at, :class => "form-control", :required => 'true'
+
+  .form-group
+    %label.col-sm-2.control-label 一次出欠調査終了日
+    .col-sm-10
+      = f.date_field :fiest_poll_end_at, :class => "form-control", :required => 'true'
+
+  .form-group
+    %label.col-sm-2.control-label 一次出欠調査開始日
+    .col-sm-10
+      = f.date_field :final_poll_start_at, :class => "form-control", :required => 'true'
+
+  .form-group
+    %label.col-sm-2.control-label 一次出欠調査終了日
+    .col-sm-10
+      = f.date_field :final_poll_end_at, :class => "form-control", :required => 'true'
+
+  .form-group
+    %label.col-sm-2.control-label 日帰り負担金
+    .col-sm-10
+      = f.number_field :day_trip_fee, :class => "form-control"
+
+  %h3 各セクション情報
+
+  - 30.times do |idx|
+    - sec = CampSection.where(:id => idx + 1)
+    - if sec.count == 0 
+      - sec = CampSection.new
+      - sec.id = idx + 1
+    - else
+      - sec = sec.first
+
+    = fields_for("sections" + (idx + 1).to_s, sec, :name => (idx + 1).to_s) do |field|
+
+      .bs-callout.bs-callout-info
+
+        %h4= sec.id.to_s
+
+        .form-group
+          %label.col-sm-2.control-label 予定日
+          .col-sm-10
+            = field.date_field :pln_date, :class => "form-control"
+
+        .form-group
+          %label.col-sm-2.control-label セクション名
+          .col-sm-10
+            %small 未入力の場合にはセクションが削除されます
+            = field.text_field :title, :class => "form-control"
+
+        .form-group
+          %label.col-sm-2.control-label セクション区分
+          .col-sm-10
+            = field.select :pln_class, [["練習", "1"], ["食事", "2"], ["コンパ", "3"], ["宿泊", "4"]], {:prompt => "区分を選択"}, :class => 'form-control' 
+
+        .form-group
+          %label.col-sm-2.control-label 金額
+          .col-sm-10
+            = field.number_field :amount, :class => "form-control"
+
+        .form-group
+          %label.col-sm-2.control-label 内容詳細
+          .col-sm-10
+            = field.text_area :memo, :class => "form-control"
+
+        .form-group
+          %label.col-sm-2.control-label 開始時間
+          .col-sm-10
+            = field.time_field :start_at, :class => "form-control"
+
+        .form-group
+          %label.col-sm-2.control-label 終了時間
+          .col-sm-10
+            = field.time_field :end_at, :class => "form-control"
+
+
+  .actions
+    %p.text-right
+      = f.submit '登録', :class => "btn btn-primary"
