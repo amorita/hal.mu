@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160818163137) do
+ActiveRecord::Schema.define(version: 20161006061833) do
 
   create_table "ab_list", force: true do |t|
     t.string "part", limit: 5
@@ -381,8 +381,8 @@ ActiveRecord::Schema.define(version: 20160818163137) do
   create_table "practice_pln", force: true do |t|
     t.date    "pln_date"
     t.string  "room",        limit: 100
-    t.integer "begining",                 default: 1800
-    t.integer "ending",                   default: 2100
+    t.integer "begining",                 default: 1800, null: false
+    t.integer "ending",                   default: 2100, null: false
     t.string  "description", limit: 1000
     t.integer "mode",                     default: 0
     t.integer "place",                    default: 0
@@ -570,6 +570,8 @@ ActiveRecord::Schema.define(version: 20160818163137) do
     t.date     "birth_date"
   end
 
+  add_index "users", ["email"], name: "users_email_unique", unique: true, using: :btree
+
   create_table "v_fee_calcs", id: false, force: true do |t|
     t.integer "user_id",                                         default: 0, null: false
     t.string  "family_name", limit: 50
@@ -606,6 +608,26 @@ ActiveRecord::Schema.define(version: 20160818163137) do
   create_table "vouchers", force: true do |t|
     t.integer  "slip_id"
     t.string   "file_path"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "zip_codes", force: true do |t|
+    t.string   "jiscode"
+    t.string   "zipcode_old"
+    t.string   "zipcode"
+    t.string   "pref_kana"
+    t.string   "city_kana"
+    t.string   "street_kana"
+    t.string   "pref"
+    t.string   "city"
+    t.string   "street"
+    t.boolean  "flag1"
+    t.boolean  "flag2"
+    t.boolean  "flag3"
+    t.boolean  "flag4"
+    t.boolean  "flag5"
+    t.boolean  "flag6"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

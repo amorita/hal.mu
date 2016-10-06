@@ -21,4 +21,8 @@ module ApplicationHelper
     link_to(name, '#', class: "add_fields btn btn-info", data: {id: id, fields: fields.gsub("\n", "")})
   end
 
+def protect_against_forgery?
+      false
+ end
+
 end

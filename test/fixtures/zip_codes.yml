@@ -1,0 +1,35 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  jiscode: MyString
+  zipcode_old: MyString
+  zipcode: MyString
+  pref_kana: MyString
+  city_kana: MyString
+  street_kana: MyString
+  pref: MyString
+  city: MyString
+  street: MyString
+  flag1: false
+  flag2: false
+  flag3: false
+  flag4: false
+  flag5: false
+  flag6: false
+
+two:
+  jiscode: MyString
+  zipcode_old: MyString
+  zipcode: MyString
+  pref_kana: MyString
+  city_kana: MyString
+  street_kana: MyString
+  pref: MyString
+  city: MyString
+  street: MyString
+  flag1: false
+  flag2: false
+  flag3: false
+  flag4: false
+  flag5: false
+  flag6: false

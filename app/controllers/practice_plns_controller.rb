@@ -1,4 +1,6 @@
+# -*- coding: utf-8 -*-
 class PracticePlnsController < ApplicationController
+  skip_before_filter :verify_authenticity_token
   before_action :set_practice_pln, only: [:show, :edit, :update, :destroy]
   layout 'priv'
   # GET /practice_plns

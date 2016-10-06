@@ -3,24 +3,43 @@
 = link_to '>>練習会場のメンテナンス', practice_places_path
 %p
   .hidden-xs.row.bg-info
-    .col-ms-3 日時
-    .col-ms-2 練習区分
-    .col-ms-2 練習会場
-    .col-ms-4 練習内容
-    .col-ms-1
+    .col-sm-3 日時
+    .col-sm-2 練習区分
+    .col-sm-2 練習会場
+    .col-sm-4 練習内容
+    .col-sm-1
   - @practice_plns.each_with_index do |pln, idx|
-    .row
-      .col-xs-12.col-ms-3
+    .row.visible-xs
+      .bs-callout.bs-callout-info
+        %h4= (idx + 1).to_s
+        .col-xs-12.col-sm-3
+          = pln.pln_date
+          = (pln.begining / 100).floor.to_s + ':' + pln.begining.to_s[-2, 2]
+          〜
+          = (pln.ending / 100).floor.to_s + ':' + pln.ending.to_s[-2, 2]
+        .col-xs-4.col-sm-2= pln.practice_mode.name
+        .col-xs-8.col-sm-2
+          = pln.practice_place.place_name
+          = pln.room
+        .col-xs-12.col-sm-4= simple_format pln.description
+        .col-xs-12.col-sm-1.text-right
+          = button_to '編集', edit_practice_pln_path(pln), :class => "btn btn-info", :method => 'get'
+          = button_to 'お知らせ', mail_notif_practice_pln_path(pln), :class => "btn btn-warning", :method => 'get'
+          = button_to '抹消', pln, method: :delete, data: { confirm: '無慈悲なまでに抹消されます。よろしいか？' }, :class => "btn btn-danger"
+        .clearfix
+      
+    .row.hidden-xs
+      .col-xs-12.col-sm-3
         = pln.pln_date
         = (pln.begining / 100).floor.to_s + ':' + pln.begining.to_s[-2, 2]
         〜
         = (pln.ending / 100).floor.to_s + ':' + pln.ending.to_s[-2, 2]
-      .col-xs-4.col-ms-2= pln.practice_mode.name
-      .col-xs-8.col-ms-2
+      .col-xs-4.col-sm-2= pln.practice_mode.name
+      .col-xs-8.col-sm-2
         = pln.practice_place.place_name
         = pln.room
-      .col-xs-12.col-ms-4= simple_format pln.description
-      .col-xs-12.col-ms-1.text-right
+      .col-xs-12.col-sm-4= simple_format pln.description
+      .col-xs-12.col-sm-1.text-right
         = button_to '編集', edit_practice_pln_path(pln), :class => "btn btn-info", :method => 'get'
         = button_to 'お知らせ', mail_notif_practice_pln_path(pln), :class => "btn btn-warning", :method => 'get'
         = button_to '抹消', pln, method: :delete, data: { confirm: '無慈悲なまでに抹消されます。よろしいか？' }, :class => "btn btn-danger"
