@@ -53,4 +53,4 @@
   .row
     %label.col-sm-2.control-label  住所
     .col-sm-10
-      = getAddress(@personal_data.zip_code) + @personal_data.address + @personal_data.building
+      = ZipCode.get_address(@personal_data.zip_code) + @personal_data.address + @personal_data.building

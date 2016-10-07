@@ -1,5 +1,5 @@
 %h1 団員一覧
-.bs-callout.bs-callout-info
+.bs-callout.bs-callout-warning
   %h4 表示対象選択
   .text-nowrap
     = form_tag '/personal_data/index', :mothod => :post, :class => "form-inline" do
@@ -9,36 +9,46 @@
       %input{:id => 'part_id', :name => 'part[id]', :value => '1000', :type => 'hidden'}
       = submit_tag '全パート照会'
 
--# if is_granted :somu
-- if true
-  %table.table
-    %tr
-      %th パート  
-      %th 団員番号
-      %th 氏名
-      %th よみ
-      %th 所属
-      %th メールアドレス
-      %th 電話番号
-      %th 郵便番号
-      %th 住所
-    - @personal_data.each do |data|
-      %tr
-        %td.text-nowrap= data.part.abbr
-        %td.text-nowrap= data.id.to_s
-        %td.text-nowrap= data.family_name + " " + data.name
-        %td.text-nowrap= data.family_name_pron + " " + data.name_pron
-        %td.text-nowrap
-          - fee = MonthlyFee.where(:year => Date.today.year, :month => Date.today.month, :user_id => data.id).first
-          - if fee.nil?
-            入団手続中
-          - else
-            = fee.is_student ? "学生" : "社会人"
-            = fee.is_absent ? "(休団)" : ""
-        %td.text-nowrap= data.email
-        %td.text-nowrap= data.phone
-        %td.text-nowrap= data.zip_code
-        %td.text-nowrap
-          = getAddress(data.zip_code)
-          = data.address
-          = data.building
+- if is_granted :somu
+  - @personal_data.each do |data|
+    .col-md4.col-sm-6.bs-callout.bs-callout-info
+      %h4
+        = data.part.abbr
+        %span
+          %ruby
+            = data.family_name
+            %rt= data.family_name_pron
+        %span{:style => "padding-left: 0.5em;"}
+          %ruby
+            = data.name
+            - if data.name != data.name_pron
+              %rt= data.name_pron
+        = "(" + data.id.to_s + ")"
+        
+      
+      %span.glyphicon.glyphicon-briefcase
+      - fee = MonthlyFee.where(:year => Date.today.year, :month => Date.today.month, :user_id => data.id).first
+      - if fee.nil?
+        入団手続中
+      - else
+        = fee.is_student ? "学生:" + data.school : "社会人"
+        = fee.is_absent ? "(休団)" : ""
+      %br
+
+      %span.glyphicon.glyphicon-envelope  
+      %a{:href => "mailto:" + data.email}
+        = data.email
+
+      %br
+      %span.glyphicon.glyphicon-phone-alt  
+      %a{:href => "tel:" + data.phone}
+        = data.phone
+      
+      %br
+      〒
+      = data.zip_code
+      
+      %br
+      %a{:href => 'https://www.google.co.jp/maps/place/' + @user.origin, :target => '_blank'}
+      - address = ZipCode.get_address(data.zip_code) + data.address
+      = data.building

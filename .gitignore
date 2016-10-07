@@ -54,3 +54,6 @@ public/candidates
 
 **.lock
 **~
+
+.DS_Store
+

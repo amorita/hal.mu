@@ -48,6 +48,16 @@ jQuery(document).ready(function(){
 			$(brosInput).val(value);
 		}
 	)
+
+	$(".zip-code").bind("keyup", function(){
+		$.ajax({
+			url: '/zip_codes/' + $(this).val(),
+			success: function(res){
+				$(".address").val(res);
+			},
+		});
+	})
+
 });
 
 function clkbtn(obj){
@@ -81,3 +91,4 @@ $(function() {
 		html:true
 	});
 });
+

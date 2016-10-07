@@ -81,7 +81,7 @@
         郵便番号
         %span.small.text-danger *
       .col-sm-10
-        = f.text_field :zip_code, :placeholder => "123-4567",:class => "form-control", :required => 'true'
+        = f.text_field :zip_code, :placeholder => "123-4567",:class => "form-control zip-code", :required => 'true'
 
     .form-group
       %label.col-sm-2.control-label  住所
@@ -89,7 +89,7 @@
         - address = getAddress(@personal_data.zip_code)
         %small
           住所は自動入力されます。郵便番号を入力していれば問題ありません。
-        = text_field_tag '', address, :class => 'form-control disable', :disabled => 'disabled'
+        = text_field_tag '', address, :class => 'form-control disable address', :disabled => 'disabled'
         
 
     .form-group

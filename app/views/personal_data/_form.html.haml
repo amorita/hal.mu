@@ -55,13 +55,13 @@
 .form-group
   %label.col-sm-2.control-label  郵便番号
   .col-sm-10
-    = f.text_field :zip_code, :placeholder => "123-4567",:class => "form-control", :required => 'true'
+    = f.text_field :zip_code, :placeholder => "123-4567",:class => "form-control zip-code", :required => 'true'
 
 .form-group
   %label.col-sm-2.control-label  住所
   .col-sm-10
     - address = getAddress(@personal_data.zip_code)
-    = text_field_tag '', address, :class => 'form-control disable', :disabled => 'disabled'
+    = text_field_tag '', address, :class => 'form-control disable address', :disabled => 'disabled'
     
 
 .form-group
