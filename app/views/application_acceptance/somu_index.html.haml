@@ -7,12 +7,10 @@
     %th 提出日
     %th
   - @apps.each do |app|
-    - if app.user.nil? 
-      - next
     %tr 
       %td= app.id.to_s
-      %td= app.user.part.name
-      %td= app.user.long_name
+      %td= app.personal_data.part.name
+      %td= app.personal_data.long_name
       %td= app.application_name
       %td= app.created_at.strftime("%m月%d日")
       %td

@@ -1,5 +1,6 @@
 class Application < ActiveRecord::Base
 	belongs_to :user
+	belongs_to :personal_data, :foreign_key => :user_id
 	belongs_to :part_user, :class_name => "User"
 
 	def application_name

@@ -5,6 +5,7 @@ include GoogleDirectoryApi
 
 #protect_from_forgery except: :absence_new
 before_filter :authenticate_user!
+skip_before_filter :verify_authenticity_token
 layout 'priv'
 
 def index
