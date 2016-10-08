@@ -49,6 +49,6 @@
       = data.zip_code
       
       %br
-      %a{:href => 'https://www.google.co.jp/maps/place/' + @user.origin, :target => '_blank'}
-      - address = ZipCode.get_address(data.zip_code) + data.address
-      = data.building
+      - address = ZipCode.get_address(data.zip_code) + data.address + data.building
+      %a{:href => 'https://www.google.co.jp/maps/place/' + address, :target => '_blank'}
+        = address
