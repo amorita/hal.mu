@@ -37,29 +37,52 @@ end
 
 
 def president_index
-	@apps = Application.where('president_accepted_at is null and part_accepted_at is not null')
+  @apps = Application.where('president_accepted_at is null and part_accepted_at is not null')
 end
 
 def president_edit
-	@app = Application.find params[:id]
+  @app = Application.find params[:id]
 end
 
 def president_accept
-	p params
-	@app = Application.find params[:id]
-	@app.assign_attributes(app_params)
-	@app.president_accepted_at = Date.today
+  p params
+  @app = Application.find params[:id]
+  @app.assign_attributes(app_params)
+  @app.president_accepted_at = Date.today
 
-	if @app.save
-		ApplicationMail.somu(@app.id).deliver
-	    redirect_to :action => 'president_index', notice: 'successfully updated.'
-  	else
-    	render action: 'edit'
-  	end
+  if @app.save
+    ApplicationMail.accountant(@app.id).deliver
+      redirect_to :action => 'president_index', notice: 'successfully updated.'
+    else
+      render action: 'edit'
+    end
+end
+
+def accountant_index
+  @apps = Application.all.order('id DESC')
+end
+
+def accountant_edit
+  @app = Application.find params[:id]
+  @user = PersonalData.find @app.user_id
+end
+
+def accountant_accept
+  p params
+  @app = Application.find params[:id]
+  @app.assign_attributes(app_params)
+  @app.accountant_accepted_at = Date.today
+
+  if @app.save
+    ApplicationMail.somu(@app.id).deliver
+      redirect_to :action => 'accountant_index', notice: 'successfully updated.'
+    else
+      render action: 'edit'
+    end
 end
 
 def somu_index
-	@apps = Application.where('president_accepted_at is not null').order('id DESC')
+	@apps = Application.all.order('id DESC')
 end
 
 def somu_edit

@@ -83,6 +83,8 @@ end
       patch 'part_accept'
       get 'somu_index'
       patch 'somu_accept'
+      get 'accountant_index'
+      patch 'accountant_accept'
       get 'president_index'
       patch 'president_accept'
       post 'absence_new'
@@ -93,6 +95,7 @@ end
     member do
       get 'somu_edit'
       get 'president_edit'
+      get 'accountant_edit'
     end
   end
 
