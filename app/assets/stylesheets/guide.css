@@ -9,7 +9,7 @@
       border-top-style: ridge;
     }
   }
-  .guide h1, h2, h3, h4, h5 {
+  .guide h1, .guide h2, .guide h3, .guide h4, .guide h5 {
     font-weight: normal;
     border-color: #666;
   }
@@ -47,7 +47,7 @@
     margin-left: 25px;
   }
 
-  .guide p, table, ul, ol, dl, pre, blockquote {
+  .guide p, .guide table, .guide ul, .guide ol, .guide dl, .guide pre, .guide blockquote {
     font-size: 13px;
     margin-left: 25px;
     text-indent: 1em;
@@ -60,6 +60,7 @@
     border-collapse: collapse;
     border-spacing: 0;
     max-width: 800px;
+  }
   .guide   th {
       text-align: center;
       background-color: #eee;

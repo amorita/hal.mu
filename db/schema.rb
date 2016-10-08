@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161006061833) do
+ActiveRecord::Schema.define(version: 20161008112828) do
 
   create_table "ab_list", force: true do |t|
     t.string "part", limit: 5
@@ -67,7 +67,7 @@ ActiveRecord::Schema.define(version: 20161006061833) do
     t.text     "user_memo"
     t.date     "starts_at"
     t.date     "ends_at"
-    t.string   "application_type",      limit: 50
+    t.string   "application_type",       limit: 50
     t.integer  "part_user_id"
     t.text     "part_memo"
     t.date     "part_accepted_at"
@@ -77,6 +77,8 @@ ActiveRecord::Schema.define(version: 20161006061833) do
     t.date     "somu_accepted_at"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.date     "accountant_accepted_at"
+    t.text     "accountant_memo"
   end
 
   create_table "camp_attendances", force: true do |t|
@@ -520,6 +522,8 @@ ActiveRecord::Schema.define(version: 20161006061833) do
     t.string   "zip_code",               limit: 50
     t.string   "address",                limit: 50
     t.string   "building"
+    t.string   "lat"
+    t.string   "lng"
     t.string   "initial_access_token",              default: "SELECT LPAD(FLOOR(RAND() * 1000000), 6, '0') FROM DUAL"
     t.string   "encrypted_password"
     t.string   "reset_password_token"
@@ -631,5 +635,7 @@ ActiveRecord::Schema.define(version: 20161006061833) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "zip_codes", ["zipcode"], name: "zip_codes_idx01", unique: true, using: :btree
 
 end

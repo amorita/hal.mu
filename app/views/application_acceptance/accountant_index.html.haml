@@ -1,4 +1,4 @@
-%h1 各種届出の承認(総務)
+%h1 各種届出の承認(会計)
 
 %table.table
   %tr
@@ -28,8 +28,7 @@
       %td= app.created_at.strftime("%m月%d日")
       %td= status
       %td
-        - if app.somu_accepted_at.nil?
-          = button_to '承認', '/application_acceptance/' + app.id.to_s + '/somu_edit', :method => 'get', :class => 'btn btn-sm btn-primary'
+        - if app.accountant_accepted_at.nil?
+          = button_to '承認', '/application_acceptance/' + app.id.to_s + '/accountant_edit', :method => 'get', :class => 'btn btn-sm btn-primary'
         - else
-          = button_to '確認', '/application_acceptance/' + app.id.to_s + '/somu_edit', :method => 'get', :class => 'btn btn-sm btn-warning'
-        
+          = button_to '確認', '/application_acceptance/' + app.id.to_s + '/accountant_edit', :method => 'get', :class => 'btn btn-sm btn-warning'
