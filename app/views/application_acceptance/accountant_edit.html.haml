@@ -4,7 +4,7 @@
   - else
     届出内容の確認
 %p
-= form_for @app, :url => '/application_acceptance/somu_accept', :html => {:class => "form-horizontal"} do |f|
+= form_for @app, :url => '/application_acceptance/accountant_accept', :html => {:class => "form-horizontal"} do |f|
   - if @app.errors.any?
     #error_explanation
       %h2= "#{pluralize(@app.errors.count, "error")} prohibited this nontan from being saved:"

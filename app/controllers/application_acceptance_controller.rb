@@ -54,7 +54,7 @@ def president_accept
     ApplicationMail.accountant(@app.id).deliver
       redirect_to :action => 'president_index', notice: 'successfully updated.'
     else
-      render action: 'edit'
+      render action: 'president_edit'
     end
 end
 
@@ -77,7 +77,7 @@ def accountant_accept
     ApplicationMail.somu(@app.id).deliver
       redirect_to :action => 'accountant_index', notice: 'successfully updated.'
     else
-      render action: 'edit'
+      render action: 'accountant_edit'
     end
 end
 
@@ -98,7 +98,7 @@ def somu_accept
     proc_apps(@app)
     redirect_to :action => 'somu_index', notice: 'successfully updated.'
 	else
-  	render action: 'edit'
+  	render action: 'somu_edit'
 	end
 end
 
