@@ -1,6 +1,7 @@
 class CampAttendancesController < ApplicationController
 layout 'priv'
 before_filter :authenticate_user!
+skip_before_filter :verify_authenticity_token
 def edit
   if view_context.is_granted :camping_coordinator
     @camp_att = CampAttendance.find(params[:id])
