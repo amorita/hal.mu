@@ -58,6 +58,7 @@ end
       get 'rehearsal'
       get 'rehearsal_prev'
       get 'concert_recordings'
+      get 'concert', :action => 'concert_recordings'
     end
   end
   
