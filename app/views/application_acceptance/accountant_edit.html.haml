@@ -4,7 +4,7 @@
   - else
     届出内容の確認
 %p
-= form_for @app, :url => '/application_acceptance/somu_accept', :html => {:class => "form-horizontal"} do |f|
+= form_for @app, :url => '/application_acceptance/accountant_accept', :html => {:class => "form-horizontal"} do |f|
   - if @app.errors.any?
     #error_explanation
       %h2= "#{pluralize(@app.errors.count, "error")} prohibited this nontan from being saved:"
@@ -72,19 +72,9 @@
     .col-sm-10
       = text_field_tag '',  @app.president_accepted_at.strftime("%Y年%m月%d日"), :class => 'form-control disable', :disabled => 'disabled'
 
-  .form-group
-    %label.col-sm-2.control-label 会計特記事項
-    .col-sm-10
-      = text_area_tag '',  @app.accountant_memo, :class => 'form-control disable', :disabled => 'disabled'
-
-  .form-group
-    %label.col-sm-2.control-label 会計承認日
-    .col-sm-10
-      = text_field_tag '',  @app.accountant_accepted_at.strftime("%Y年%m月%d日"), :class => 'form-control disable', :disabled => 'disabled'
-
-  - if @app.somu_accepted_at.present?
+  - if @app.accountant_accepted_at.present?
     .form-group
-      %label.col-sm-2.control-label 総務承認日
+      %label.col-sm-2.control-label 会計承認日
       .col-sm-10
         = text_field_tag '',  @app.somu_accepted_at.strftime("%Y年%m月%d日"), :class => 'form-control disable', :disabled => 'disabled'
 
@@ -118,15 +108,23 @@
         .col-sm-10
           = f.date_field :ends_at, :class => "form-control", :required => 'true'
 
+  - unless @app.application_type == 'join'
+    .form-group
+      %label.col-sm-2.control-label 金額情報
+      .col-sm-10
+        = render :partial => "fees/check_dtl"
+
   .form-group
     %label.col-sm-2.control-label 特記事項
     .col-sm-10
-      = f.text_area :somu_memo, :class => "form-control"
+      = f.text_area :accountant_memo, :class => "form-control"
 
 
   = hidden_field_tag 'id', @app.id
   
   .actions
     %p.text-right
-      - if @app.somu_accepted_at.nil?
+      - if @app.accountant_accepted_at.nil?
         = f.submit '承認', :class => "btn btn-primary"
+
+

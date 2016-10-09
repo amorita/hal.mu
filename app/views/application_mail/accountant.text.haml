@@ -3,14 +3,14 @@
 
 おつかれさまです。
 ==
-= @app.personal_data.part.name + 'パートへの届け出が団長、一般会計によって承認されました。'
-団員専用サイトにログインし、内容を確認、総務承認してください。
+= @app.user.part.name + 'パートへの届け出が団長によって承認されました。'
+団員専用サイトにログインし、金額内容などを確認、承認してください。
 ==
 https://priv.hal.mu/
 ==
 ●申請内容
 = '区分：' + @app.application_name
-= '申請者：' + @app.personal_data.long_name
+= '申請者：' + @app.user.long_name
 = '承認者：' + @app.part_user.long_name
 == 
 以上です。
