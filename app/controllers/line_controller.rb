@@ -16,7 +16,7 @@ class LineController < ApplicationController
 
     json = `curl -X POST -d grant_type=authorization_code \
       -d code=#{line.code} \
-      --data-urlencode redirect_uri=http://localhost:3000/line/auth \
+      --data-urlencode redirect_uri=https://priv.hal.mu/line/auth \
       -d client_id=#{ConstantValue.where(:key => 'line_client_id').first.value} \
       -d client_secret=#{ConstantValue.where(:key => 'line_client_secret').first.value} \
       https://notify-­bot.line.me/oauth/token`
