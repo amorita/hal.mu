@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161008112828) do
+ActiveRecord::Schema.define(version: 20161016052419) do
 
   create_table "ab_list", force: true do |t|
     t.string "part", limit: 5
@@ -305,6 +305,14 @@ ActiveRecord::Schema.define(version: 20161008112828) do
     t.string "Location",        limit: 203, default: "", null: false
     t.string "Subject",         limit: 150
     t.string "Reminder On/Off", limit: 3,   default: "", null: false
+  end
+
+  create_table "line_connects", force: true do |t|
+    t.integer  "user_id"
+    t.string   "code"
+    t.string   "access_token"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "monthly_fees", force: true do |t|

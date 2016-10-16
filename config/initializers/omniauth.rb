@@ -1,1 +1,1 @@
-OmniAuth.config.full_host = "https://priv.hal.mu"
+OmniAuth.config.full_host = "https://localhost:3000"

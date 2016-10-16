@@ -149,6 +149,8 @@ end
   get 'clubs' => 'clubs#index'
   get 'instagram' => 'instagram#index'
 
+  get 'line/auth' => 'line#auth'
+
   resources :mls
 
   resources :zip_codes, only: [:show]

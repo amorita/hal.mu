@@ -32,4 +32,11 @@
             %br
             %small.pad 団を運営、継続していくための拠り所です。
 
+          %p
+            %a{:href => "https://notify-bot.line.me/oauth/authorize?response_type=code&client_id=#{ConstantValue.where(:key => 'line_client_id').first.value}&redirect_uri=https://priv.hal.mu/line/auth&scope=notify&state=hoge", :target => '_blank'} ML LINE連携
+            %br
+            %small.pad 団員向けMLをLINEに連携します。
+
+
+
       .clearfix
