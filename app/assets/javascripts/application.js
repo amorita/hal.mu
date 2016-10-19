@@ -92,9 +92,10 @@ $(function() {
 	});
 });
 
-createMutter = function(){
+function createMutter(){
 	$('.mutter-button').prop('disabled', true);
 	var url = '/mutters/create?message=' + encodeURIComponent($('.message-input').val());
 	$('#mutters').load(url);
-}
+};
+
 
