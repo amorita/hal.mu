@@ -1,5 +1,8 @@
 class MuttersController < ApplicationController
 
+  layout false
+  before_filter :authenticate_user!
+
 	def index
 		@mutters = Mutter.all.last 10
 	end
