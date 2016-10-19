@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161016052419) do
+ActiveRecord::Schema.define(version: 20161019154327) do
 
   create_table "ab_list", force: true do |t|
     t.string "part", limit: 5
@@ -325,6 +325,13 @@ ActiveRecord::Schema.define(version: 20161016052419) do
     t.datetime "updated_at"
     t.boolean  "is_absent",  default: false
     t.boolean  "is_student", default: false
+  end
+
+  create_table "mutters", force: true do |t|
+    t.integer  "user_id"
+    t.string   "message"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "nontan_classes", force: true do |t|

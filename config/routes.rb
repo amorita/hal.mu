@@ -151,6 +151,9 @@ end
 
   get 'line/auth' => 'line#auth'
 
+  get 'mutters' => 'mutters#index'
+  get 'mutters/create' => 'mutters#create'
+
   resources :mls
 
   resources :zip_codes, only: [:show]

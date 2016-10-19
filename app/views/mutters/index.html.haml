@@ -1,0 +1,12 @@
+.mutter-input{:style => "display: table;"}
+  %div{:style => "display: table-cell; width: 100%;"}
+    %input.form-control.message-input{:placeholder => "つぶやく？"}
+  %input.btn.btn-info.mutter-button{:type => 'button', :style => 'box-sixing: border-box; margin-left: 10px;', :onclick => "createMutter();", :value => '呟く'}
+
+%div
+  - @mutters.reverse.each do |m|
+    .row{:style => "margin: 10px 0;"}
+      .col-xs-2
+        %img.img-responsive.img-circle{:src => '/members/' + m.user_id.to_s + '.jpg', :onerror => 'this.src="/img/unavailable.png"'}
+      .col-xs-10
+        = m.message
