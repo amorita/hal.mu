@@ -10,4 +10,7 @@
       .col-xs-2
         %img.img-responsive.img-circle{:src => '/members/' + m.user_id.to_s + '.jpg', :onerror => 'this.src="/img/unavailable.png"'}
       .col-xs-10
-        = m.message
+        %p
+          = m.message
+        %small.text-right
+          = m.created_at.strftime('%Y年%m月%d日 %T')
