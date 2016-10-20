@@ -106,6 +106,13 @@
         
       });
       
+      function createMutter(){
+        if ($('.message-input').val().length == 0) { return false;}
+        $('.mutter-button').prop('disabled', true);
+        var url = '/mutters/create?message=' + encodeURIComponent($('.message-input').val());
+        $('#mutters').load(url);
+        return false;
+      };
       
       
       //]]>
