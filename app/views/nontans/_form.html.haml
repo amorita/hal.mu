@@ -34,11 +34,6 @@
       - if current_user.part_id > 99
         = f.collection_select :subs_user_id, User.where(:part_id => current_user.part_id).where.not(:id => current_user.id), :id, :name, {:prompt => "代奏者を選択"}, {:class => "form-control"}  
       
-  .form-group
-    %label.col-sm-2.control-label 理由など
-    .col-sm-10
-      = f.text_field :reason, :placeholder => "理由を入力",:class => "form-control", :required => 'true'
-
   .actions
     = f.submit '登録', :class => "btn btn-default", :data => { :confirm => 'まことに残念です…。登録してよろしいですか？' }
 = button_to 'キャンセル', nontans_path, :method => 'get', :class => "btn btn-warning" 
